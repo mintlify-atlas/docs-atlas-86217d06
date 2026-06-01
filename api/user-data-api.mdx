@@ -1,7 +1,7 @@
 ---
 title: "User Data API: Personalise Answers with Live User Context"
 sidebarTitle: "User Data API"
-description: "Register a webhook so My AskAI can fetch live user context before each conversation, enabling your AI agent to give personalised, account-aware support answers."
+description: "Register a webhook so My AskAI fetches live user context before each conversation, enabling your AI agent to give personalised, account-aware answers."
 ---
 
 The User Data API lets your AI agent give personalised answers by fetching live data about the person it is talking to — their subscription tier, recent orders, account status, or any other information your backend holds. Rather than calling your systems directly, My AskAI calls a webhook URL you register. Your endpoint receives the user's identifier, looks up the relevant data, and returns it as a JSON response. The agent then injects that context into its reasoning before composing a reply.
