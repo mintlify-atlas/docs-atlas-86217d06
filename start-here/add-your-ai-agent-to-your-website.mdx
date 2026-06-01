@@ -1,0 +1,178 @@
+---
+title: "Add My AskAI to Your Website or Live Chat Channel"
+sidebarTitle: "Add to Website"
+description: "Embed the My AskAI chat widget on any website with a script tag, or connect to WordPress, Shopify, or Zendesk in minutes."
+---
+
+Once your AI agent is configured and you're happy with its knowledge base, the next step is getting it in front of your customers. My AskAI provides a lightweight JavaScript snippet that drops a chat widget onto any web page, plus purpose-built integrations for the most popular platforms. Whichever route you take, the widget is the same agent — your content, your branding, and your escalation rules — just surfaced wherever your customers already are.
+
+## Embedding your agent
+
+<Steps>
+  <Step title="Open the Channels settings">
+    In the My AskAI dashboard, navigate to **Channels** in the left-hand sidebar. Select **Website widget** to find your unique embed snippet and configuration options.
+  </Step>
+
+  <Step title="Copy your embed snippet">
+    Your personalised script tag is shown in the **Embed** tab. It looks like this:
+
+    ```html
+    <!-- My AskAI chat widget -->
+    <script>
+      window.myAskAISettings = {
+        agentId: "YOUR_AGENT_ID",
+        position: "bottom-right",
+        primaryColor: "#6366f1",
+      };
+    </script>
+    <script
+      src="https://myaskai.com/widget/v1/embed.js"
+      async
+      defer
+    ></script>
+    ```
+
+    Replace `YOUR_AGENT_ID` with the ID shown in your dashboard. The `window.myAskAISettings` object lets you customise the widget's position and brand colour before it loads.
+  </Step>
+
+  <Step title="Add the snippet to your site">
+    Paste the script tag just before the closing `</body>` tag on every page where you want the widget to appear. Use the platform-specific instructions below if you're on WordPress, Shopify, or a custom HTML site.
+  </Step>
+
+  <Step title="Verify the widget is live">
+    Open your website in a browser. The chat bubble should appear in the corner you configured. Click it to confirm the widget loads and your agent responds correctly.
+  </Step>
+
+  <Step title="Go live with real visitors">
+    Once testing is complete (see the [Testing guide](/start-here/testing)), toggle your agent to **Active** in the dashboard so it starts responding to real customer conversations.
+  </Step>
+</Steps>
+
+---
+
+## Platform-specific setup
+
+<Tabs>
+  <Tab title="Custom HTML">
+    For any hand-coded site or CMS that lets you edit raw HTML, paste the snippet directly into your page template:
+
+    ```html
+    <!-- Paste before </body> in your HTML template -->
+    <script>
+      window.myAskAISettings = {
+        agentId: "YOUR_AGENT_ID",
+        position: "bottom-right",
+      };
+    </script>
+    <script
+      src="https://myaskai.com/widget/v1/embed.js"
+      async
+      defer
+    ></script>
+    ```
+
+    **Tips:**
+    - Place it in a shared layout file or footer partial so it loads on every page automatically.
+    - If your CMS has a *Custom HTML* or *Footer scripts* field in its settings, paste it there — no theme editing required.
+  </Tab>
+
+  <Tab title="WordPress">
+    You have two options on WordPress: a dedicated plugin (recommended for non-developers) or manually adding the snippet to your theme.
+
+    <Steps>
+      <Step title="Option A — Use a scripts plugin (recommended)">
+        1. In your WordPress admin, go to **Plugins → Add New** and search for **"Insert Headers and Footers"** (or any equivalent script-injection plugin).
+        2. Install and activate the plugin.
+        3. Go to **Settings → Insert Headers and Footers** and paste your My AskAI embed snippet into the **Scripts in Footer** box.
+        4. Save changes. The widget will now appear on every page of your site.
+      </Step>
+
+      <Step title="Option B — Edit your theme's footer.php">
+        1. In your WordPress admin, go to **Appearance → Theme File Editor**.
+        2. Open **footer.php** for your active theme.
+        3. Paste the embed snippet immediately before the `</body>` tag.
+        4. Click **Update File** to save.
+
+        <Warning>
+          Editing theme files directly will be overwritten when the theme updates. Consider using a child theme or the plugin approach instead.
+        </Warning>
+      </Step>
+    </Steps>
+  </Tab>
+
+  <Tab title="Shopify">
+    Shopify lets you add scripts through the Theme Editor without touching code, or via the code editor for more control.
+
+    <Steps>
+      <Step title="Open your theme code">
+        In your Shopify admin, go to **Online Store → Themes**. Click the **⋯** menu next to your active theme and choose **Edit code**.
+      </Step>
+
+      <Step title="Add the snippet to theme.liquid">
+        In the file tree on the left, open **Layout → theme.liquid**. Locate the closing `</body>` tag (use `Cmd/Ctrl + F` to search) and paste your My AskAI embed snippet directly above it.
+
+        ```html
+        <!-- My AskAI -->
+        <script>
+          window.myAskAISettings = {
+            agentId: "YOUR_AGENT_ID",
+            position: "bottom-right",
+          };
+        </script>
+        <script
+          src="https://myaskai.com/widget/v1/embed.js"
+          async
+          defer
+        ></script>
+        </body>
+        ```
+      </Step>
+
+      <Step title="Save and preview">
+        Click **Save** in the top-right corner. Open your storefront in a new tab to confirm the chat bubble appears.
+      </Step>
+    </Steps>
+
+    <Tip>
+      My AskAI also has a dedicated Shopify integration with native product and order awareness. See the [Shopify feature docs](/features/shopify) for details.
+    </Tip>
+  </Tab>
+</Tabs>
+
+---
+
+## Zendesk integration
+
+Connecting My AskAI to Zendesk is handled through the **Channels** section rather than a script embed. My AskAI integrates directly with both Zendesk Messaging and Zendesk Tickets, allowing your agent to respond to support tickets and live-chat conversations without any code changes.
+
+<Steps>
+  <Step title="Go to Channels → Zendesk">
+    In your My AskAI dashboard, navigate to **Channels** and select **Zendesk**. Choose between **Messaging** (for live chat) or **Tickets** (for email-based support).
+  </Step>
+
+  <Step title="Authenticate with Zendesk">
+    Click **Connect** and follow the OAuth flow to authorise My AskAI to access your Zendesk account. You'll need admin permissions in Zendesk.
+  </Step>
+
+  <Step title="Configure routing and escalation">
+    Set up which ticket types or conversations your AI agent should handle, and define escalation rules so complex queries are routed to human agents automatically.
+  </Step>
+
+  <Step title="Test in a staging environment">
+    Send a few test messages through your Zendesk widget to confirm the AI is responding correctly before enabling it for all incoming conversations.
+  </Step>
+</Steps>
+
+<Note>
+  My AskAI also supports Zendesk tagging and Zendesk Playbooks for more advanced routing workflows. See the [Zendesk channel docs](/features/channels/zendesk) for the full feature set.
+</Note>
+
+---
+
+## More channels
+
+My AskAI connects to a wide range of live-chat and helpdesk platforms beyond the ones covered here, including Intercom, Freshchat, Freshdesk, Gorgias, HubSpot, Slack, Microsoft Teams, and more.
+
+<Card title="Browse all channel integrations" icon="plug" href="/features/channels/overview">
+  View the full list of supported channels, feature comparisons, and setup guides in the **Features → Channels** section.
+</Card>

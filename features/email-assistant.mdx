@@ -1,0 +1,137 @@
+---
+title: "Email Assistant: AI-Powered Automatic Email Responses"
+sidebarTitle: "Email Assistant"
+description: "Automatically draft and send responses to incoming support emails using your AI agent's knowledge, with manual or fully automatic reply modes."
+---
+
+The My AskAI Email Assistant brings your AI agent directly into your email support workflow. Rather than customers waiting hours for a reply, they receive an instant, knowledge-based response the moment their email arrives — not a generic "thanks for getting in touch" auto-reply, but a genuinely useful answer that addresses their question. For queries that can't be answered, the assistant still responds to acknowledge receipt and invite the customer to reply with more detail, keeping them informed while your team picks up the thread.
+
+<Note>
+  The Email Assistant is designed for teams **not currently using a helpdesk** such as Zendesk, Intercom, Gorgias, HubSpot, or Freshdesk. If you already use one of these platforms, connect My AskAI directly to your helpdesk instead for richer functionality.
+</Note>
+
+## What the Email Assistant Does
+
+- Reads incoming support emails and generates accurate, knowledge-based responses
+- Sends replies directly on your behalf from your verified support email address
+- Copies (cc) you on all AI replies so you can monitor responses and add clarification if needed
+- Resolves an estimated **50–75% of customer queries** that could be answered from your existing documentation
+- Gracefully handles unanswerable emails by acknowledging the customer and inviting them to reply
+
+<Info>
+  The email assistant responds only to the **first email** in a thread. It does not have a back-and-forth conversation — if the customer replies again, you handle that response as a human agent.
+</Info>
+
+---
+
+## Two Operating Modes
+
+### Manual Assist
+
+You decide which emails the assistant answers. You receive a unique assistant email address — forward any email to it, and the assistant replies directly to the original sender and cc's you.
+
+**Best for:** Inboxes used for multiple purposes (support, inbound leads, business development) where you don't want the AI responding to everything.
+
+### Autopilot
+
+Emails forwarded to your support inbox are automatically handled by the assistant. You set up a forwarding rule in your email provider and the assistant replies to every inbound email — you're cc'd on all replies.
+
+**Best for:** Dedicated support inboxes where the vast majority of incoming email is customer queries.
+
+---
+
+## How to Set Up the Email Assistant
+
+<Steps>
+  <Step title="Open the Email Assistant setup">
+    Log in to your [Dashboard](https://myaskai.com/dashboard) and go to **AI Agent Setup > Email Assistant**. Scroll through the carousel and click **Setup AI Email Assistant**.
+  </Step>
+
+  <Step title="Test your assistant (optional but recommended)">
+    Click **Test your email assistant** and choose one of:
+    - **Send an example email** — My AskAI creates a sample customer email for you to submit
+    - **Forward an email** — copy your assistant's unique email address and forward a real customer email (it won't reply to the customer during setup)
+
+    Wait up to 30 seconds to see the generated response appear in the Dashboard. Review it and retest until you're happy with the quality.
+  </Step>
+
+  <Step title="Add and verify your support email address">
+    Enter your support email address (e.g. `support@yourcompany.com`) — you must own and have access to this inbox. Set your **inbox display name** (the name customers see in their inbox, e.g. "Acme Support Team"), then click **Send verification email**.
+
+    Check your support inbox for an email from **Postmark Support** asking you to "Confirm Sender Signature". Click the confirmation link — this proves you own the inbox. Return to My AskAI and click **I've completed verification**.
+  </Step>
+
+  <Step title="Choose your mode">
+    Select either **Manual Assist** or **Autopilot** based on how your inbox is used.
+
+    #### If you chose Manual Assist:
+    Click **Forward a test email**. An email will be pre-composed for you — send it as-is. My AskAI will verify it can receive the forwarded email and reply on your behalf. Your setup is complete. Share the assistant's email address with your team so they know how to forward queries.
+
+    #### If you chose Autopilot:
+    Set up a forwarding rule in your email provider to forward all incoming emails to your assistant's unique email address. See the [Gmail](#gmail-forwarding) and [Outlook](#outlook-forwarding) instructions below. Once the forwarding rule is active, click **Send test email** to verify the forwarding is working correctly.
+  </Step>
+
+  <Step title="View email insights">
+    Click **View email insights** to see how email-originated conversations will appear in your Insights dashboard. Email queries are tagged with the sender address so you can track what's arriving and how well the assistant is handling it.
+  </Step>
+</Steps>
+
+---
+
+## Setting Up Email Forwarding
+
+### Gmail Forwarding
+
+1. Open Gmail Settings (⚙️) and go to **Forwarding and POP/IMAP**
+2. Click **Add a forwarding address** and enter your My AskAI assistant email (found under **AI Agent Setup > Email Assistant**)
+3. Complete the Gmail verification step to confirm the forwarding address
+4. Choose to forward **all incoming mail**, or set up a filter to forward only specific emails
+
+To forward only certain emails, go to **Settings > Filters and Blocked Addresses > Create a new filter**, set your criteria (e.g. emails sent to `support@yourcompany.com`), and choose **Forward to** your assistant's address.
+
+### Outlook Forwarding
+
+1. Open Outlook Settings (⚙️) and go to **Mail > Forwarding**
+2. Toggle **Enable forwarding** to on
+3. Enter your My AskAI assistant email address
+4. Click **Save**
+
+---
+
+## Configuring Which Emails the Assistant Handles
+
+Under **AI Agent Setup > Email Assistant > Advanced Settings**, you can prevent the assistant from replying to certain emails:
+
+- **Blocked email addresses or domains** — exclude specific senders (e.g. your own team's domain, a vendor's address) or root domains (e.g. `@yourcompany.com`)
+- **Blocked phrases or keywords** — prevent responses to automated messages that contain phrases like "Out of office", "Do not reply", or "Delivery failure"
+
+---
+
+## Customising the Email Template
+
+Under **Advanced Settings** you can set:
+
+- **Introductory message** — the opening line of every assistant reply. Default: *"Thanks for getting in touch. Our AI support assistant has answered your questions below."*
+- **Footer / ending message** — the closing line. Default: *"Please reply to this email if this didn't answer your question(s) or if you need further help from someone in our team."*
+
+Adjusting these keeps the tone consistent with your brand voice.
+
+---
+
+## Escalation for Complex Threads
+
+When a customer replies to the AI's email with a follow-up question or a more complex issue, the email lands back in your inbox as a normal message — ready for a human agent to respond. The original AI reply (which you were cc'd on) gives the agent full context on what was already addressed, so there's no need to re-read the thread from scratch.
+
+For teams that want a more structured escalation flow, consider integrating My AskAI with a helpdesk like [Zendesk](/features/channels/zendesk) or [Intercom](/features/channels/intercom) for richer routing, tagging, and assignment rules.
+
+---
+
+## Lead Capture from Email Conversations
+
+The Email Assistant integrates with My AskAI's Lead Capture feature. If a new visitor emails in (rather than an existing customer), the email address is automatically captured and recorded — visible in your Insights dashboard alongside the conversation topic.
+
+---
+
+## Turning the Email Assistant Off
+
+To disable the Email Assistant at any time, go to **AI Agent Setup > Email Assistant** and toggle the switch to **Off**. If you were using Autopilot, also remove the forwarding rule from your email provider to prevent emails continuing to be forwarded to the assistant address.

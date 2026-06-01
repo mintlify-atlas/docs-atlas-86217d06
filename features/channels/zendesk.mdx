@@ -1,0 +1,187 @@
+---
+title: "Zendesk Integration Guide: Messaging & Tickets"
+sidebarTitle: "Zendesk"
+description: "Connect My AskAI to Zendesk Messaging and Zendesk Tickets for real-time chat and async AI ticket deflection with tagging and playbooks."
+---
+
+My AskAI offers three distinct Zendesk integrations that can be used independently or simultaneously: **Zendesk Messaging** (real-time chat widget), **Zendesk Tickets** (email and async ticket AI), and **AI Tagging** (automatic ticket categorisation). Each is available as a separate app in the [Zendesk Marketplace](https://www.zendesk.co.uk/marketplace/).
+
+<Note>
+  You must be an **Admin** in your Zendesk account to connect any My AskAI integration. All integrations are available on paid My AskAI plans.
+</Note>
+
+## Zendesk Messaging vs. Zendesk Tickets
+
+<Tabs>
+  <Tab title="Zendesk Messaging">
+    Zendesk Messaging is My AskAI's real-time chat integration — the AI agent responds directly inside your Zendesk Messenger widget and any other messaging channels connected to Zendesk (WhatsApp, Instagram DMs, Facebook Messenger, and more).
+
+    <Note>
+      Zendesk Messaging requires **Sunshine Conversations** access, which is included in the Zendesk Suite Professional plan or above. Contact Zendesk directly to purchase Sunshine Conversations if needed.
+    </Note>
+
+    ### Connecting Zendesk Messaging
+
+    <Steps>
+      <Step title="Open Channels in My AskAI">
+        Log in to your My AskAI Dashboard and go to **Channels**. Under "Add to helpdesk", click the Zendesk icon and select **Zendesk Messaging**.
+      </Step>
+      <Step title="Enter your Zendesk subdomain">
+        Input your Zendesk subdomain (the text before `.zendesk.com` in your Admin Center URL, e.g. `teammyaskai`) and click **Sign in**.
+      </Step>
+      <Step title="Authorise access">
+        Click **Allow access** on the Zendesk permissions screen. You'll be redirected back to My AskAI once connected.
+      </Step>
+      <Step title="Activate in Zendesk Admin Center">
+        In Zendesk, go to **AI > AI Agents**, then click **Connect** next to the My AskAI agent. Click **Connect** again on the pop-up, then use the three-dot menu to select **Set as default for all channels**.
+      </Step>
+      <Step title="Configure auto-close for solved tickets">
+        Go to **Objects and rules > Automations** and edit the "Close ticket 4 days" automation, changing "Hours since status..." to `1`. This returns conversations to the AI agent after tickets are solved. Alternatively, create a Trigger: conditions `Ticket Status IS Solved`, action `Ticket Status > Closed`.
+      </Step>
+      <Step title="Confirm and customise">
+        Back in My AskAI, click **I've completed these steps**. Give your agent a name and logo — these appear in the Messenger widget when the AI is responding.
+      </Step>
+    </Steps>
+
+    ### How the Messaging AI Works
+
+    Once connected, the AI agent automatically responds to all incoming messages in your Zendesk Messenger widget. Each response includes reference links to the sources used. A Zendesk ticket is **only created** when a conversation is escalated to a human agent — AI-only conversations don't generate tickets.
+
+    ### Human Escalation in Messaging
+
+    When a user says "Talk to a person" (or similar), or the AI cannot answer a question, a **Talk to a person** button appears in the widget. Once escalated, the AI generates a conversation summary for the incoming agent and stops responding until the ticket is closed or the agent hands control back.
+
+    <Tip>
+      Enable **Prevent immediate escalation** (under **Channels > Zendesk > Zendesk Messaging**) to require users to describe their issue before being connected to a human on their very first message. This option is on by default.
+    </Tip>
+
+    ### Pausing Messaging Replies
+
+    To temporarily pause the AI, go to **Channels > Zendesk > Zendesk Messaging**, scroll to the bottom, and toggle **Pause AI agent** on.
+  </Tab>
+
+  <Tab title="Zendesk Tickets">
+    Zendesk Tickets connects My AskAI to your email and form-based ticket queue. The AI agent reads each incoming ticket and either creates an **Internal Note** (draft for agents) or sends a **Direct Reply** to the customer.
+
+    ### Connecting Zendesk Tickets
+
+    <Steps>
+      <Step title="Open Channels in My AskAI">
+        Log in to your Dashboard and go to **Channels**. Under "Add to your existing support tools", click the Zendesk icon and select **Zendesk Tickets**.
+      </Step>
+      <Step title="Enter your Zendesk subdomain">
+        Enter your Zendesk subdomain and click **Connect your Zendesk account**. Find your subdomain in your Zendesk Admin Center URL.
+      </Step>
+      <Step title="Authorise access">
+        Click **Allow access** on the permissions screen. You'll be redirected back to My AskAI once connected.
+      </Step>
+      <Step title="Choose reply mode">
+        Select **Internal Notes** (default — AI drafts a note only agents see) or **Direct replies** (AI replies directly to the customer). You can also choose to reply to the 1st message only or all messages.
+      </Step>
+      <Step title="Test your integration">
+        Send a test email to your Zendesk inbox. You should see an AI-generated note or reply appear within moments.
+      </Step>
+    </Steps>
+
+    ### Internal Notes vs. Direct Replies
+
+    <CardGroup cols={2}>
+      <Card title="Internal Notes (Default)" icon="note-sticky">
+        The AI generates a draft response visible only to agents. Agents review and send (or edit) the response. No customer ever sees an unreviewed AI reply.
+      </Card>
+      <Card title="Direct Replies" icon="paper-plane">
+        The AI sends replies directly to customers. Best for high-volume, routine queries. Disable Zendesk's automatic ticket-creation acknowledgement emails to avoid duplicate messages.
+      </Card>
+    </CardGroup>
+
+    ### How the AI Identifies Tickets
+
+    My AskAI adds tags to every ticket it touches:
+
+    - `ai-agent-replied` — the AI has responded to this ticket
+    - `ai-agent-replied-note` — the AI responded in notes mode
+    - `human-handover-requested` — the customer asked to speak to a human
+
+    Use these tags to build Zendesk Triggers and Views that route escalated tickets to the right team automatically.
+
+    ### Human Escalation in Tickets
+
+    Configure when the AI hands off in **Channels > Zendesk > Zendesk Tickets**:
+
+    - **Cannot answer** — AI escalates automatically when it can't answer, in addition to explicit escalation requests
+    - **Escalation request only** — AI only escalates when the customer explicitly asks for a human
+
+    <Tip>
+      You can delay AI email replies to make them appear more human. Go to **Channels > Zendesk > Zendesk Tickets > First reply delay** and set the number of minutes to wait.
+    </Tip>
+
+    ### Pausing Ticket Replies
+
+    To pause the AI, go to **Channels > Zendesk > Zendesk Tickets** and toggle **Pause AI agent**.
+  </Tab>
+</Tabs>
+
+---
+
+## AI Tagging
+
+My AskAI can automatically classify and tag every Zendesk ticket using your own custom tags, categories, or custom fields — eliminating hours of manual tagging.
+
+<Steps>
+  <Step title="Set up your tags">
+    Go to **AI Agent Setup > AI Tagging** and click **Import custom field or tags**. Choose whether to auto-tag a **Custom Field** or a **Tag**.
+  </Step>
+  <Step title="Review tag descriptions">
+    My AskAI imports your existing Zendesk custom fields and auto-generates a description for each tag value. Review and refine these descriptions so the AI applies them accurately.
+  </Step>
+  <Step title="Enable auto-tagging">
+    Once descriptions look correct, turn on auto-tagging. The tag `ai-agent-tags-applied` will be added to every processed ticket.
+  </Step>
+  <Step title="Block replies for specific tags (optional)">
+    In **AI Agent Setup > AI Tagging**, find any tag and click **Block AI Replies** to prevent the AI from responding to tickets with that tag — useful for sensitive topics like billing disputes or VIP accounts.
+  </Step>
+</Steps>
+
+<Note>
+  AI Tagging costs **$0.05 per tag or custom field per ticket**, billed as an add-on at the end of each billing period. For example, 3 tags on one ticket = $0.15. You can use up to 3 custom fields per ticket and up to 200 tag values per field.
+</Note>
+
+---
+
+## Zendesk Playbooks
+
+Playbooks are pre-configured workflow scenarios that extend what My AskAI does inside Zendesk.
+
+<Accordion title="Out-of-hours AI replies only">
+  To restrict AI replies to outside of business hours:
+
+  1. Create a [schedule](https://support.zendesk.com/hc/en-us/articles/4408842938522) in Zendesk that represents your business hours.
+  2. Edit the My AskAI trigger in Zendesk ("Notify My AskAI…").
+  3. Add a condition: **Ticket within business hours > is > No**.
+
+  The AI will now only respond to tickets that arrive outside your defined business hours.
+</Accordion>
+
+<Accordion title="Collect email on escalation (Messaging)">
+  When a Messaging conversation escalates to a human, collect the visitor's email by enabling **"Use both verified and unverified emails"** in Zendesk: **Admin panel > Messaging > Messaging Settings**.
+
+  See the full [Escalation Data Collection](/features/human-escalation) guide for more options.
+</Accordion>
+
+<Accordion title="Filter tickets by brand or email address">
+  By default, the AI replies to all inbound emails. To restrict replies to specific brands or email addresses (e.g. only `support@company.com`, not `vip-support@company.com`), edit the Zendesk Trigger conditions and add the specific brand or email account as a condition.
+</Accordion>
+
+<Accordion title="Multiple AI agents on one Zendesk account">
+  You can run multiple My AskAI agents in parallel — useful for separate brands or product lines. Set up separate My AskAI accounts, follow the standard Messaging setup for each, and append a unique identifier (e.g. `-1`, `-2`) to the `organization_id` field in each account's triggers. Then contact My AskAI support to update the account settings.
+</Accordion>
+
+<Accordion title="Import Zendesk Macros as Custom Answers">
+  When connected, you can import your Zendesk Macros directly as [Custom Answers](/features/improve). Go to the **Knowledge** section of your Dashboard and click **Import Macros**.
+</Accordion>
+
+---
+
+## Required Permissions
+
+My AskAI connects to Zendesk via **OAuth** (Messaging) or **API key + subdomain** (Tickets). Admin-level access in Zendesk is required for both. No code needs to be added to your website.

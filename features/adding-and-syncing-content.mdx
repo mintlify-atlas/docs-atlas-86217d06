@@ -1,0 +1,130 @@
+---
+title: "Adding and Syncing Content to Your AI Agent"
+sidebarTitle: "Syncing Content"
+description: "Connect websites, help centers, cloud drives, and uploaded files as knowledge sources, then keep them current with automatic and manual sync options."
+---
+
+Your AI agent's answer quality is only as good as the knowledge it has access to. My AskAI supports a wide variety of content sources — from your live website and help center articles to uploaded PDFs and cloud-connected documents — and keeps them automatically up to date so your agent always reflects the latest version of your content.
+
+## Supported Content Sources
+
+<CardGroup cols={2}>
+  <Card title="Website Crawl" icon="globe">
+    Enter your domain and My AskAI crawls up to 2,500 pages per site automatically. Up to 3 websites can be added on all paid plans.
+  </Card>
+  <Card title="Help Center Integrations" icon="headset">
+    Connect Zendesk Guide, Intercom Articles, or Freshdesk Knowledge Base directly via OAuth for automatic, ongoing sync.
+  </Card>
+  <Card title="Cloud Storage" icon="cloud">
+    Link Google Drive, Notion, Microsoft OneDrive, SharePoint, Dropbox, Confluence, or Salesforce to pull in documents and pages.
+  </Card>
+  <Card title="File Uploads" icon="file-arrow-up">
+    Manually upload PDF, DOCX, TXT, XLSX, CSV, MD, RTF, TSV, and PPTX files up to 30 MB each, directly from your computer.
+  </Card>
+</CardGroup>
+
+## Adding Your First Content Source
+
+<Steps>
+  <Step title="Open the Knowledge section">
+    From your My AskAI dashboard, navigate to **Knowledge → Content**.
+  </Step>
+  <Step title="Choose a source type">
+    Select **Add website content** to crawl a URL, **Connect knowledge sources** to link a cloud integration, or **Upload files** to add local documents.
+  </Step>
+  <Step title="Authorize and configure">
+    For website crawls, enter your domain and click **Add site**. For integrations such as Zendesk or Google Drive, complete the OAuth authorization flow and pick the folders or articles you want to include.
+  </Step>
+  <Step title="Wait for indexing">
+    My AskAI will begin crawling and indexing your content immediately. Large sites or collections may take a few minutes. You will see a **last sync** date next to each item once indexing completes.
+  </Step>
+  <Step title="Verify coverage">
+    Click any domain or connection in the Knowledge section to view the full list of indexed pages or files. Use the search bar to spot-check specific articles.
+  </Step>
+</Steps>
+
+## Automatic Sync
+
+My AskAI re-crawls your connected sources on a regular schedule so your agent stays current without manual effort.
+
+| Content Source | Auto-sync Frequency |
+|---|---|
+| Websites | Every 2 weeks (fortnightly) |
+| Google Drive | Every 24 hours (if modified) |
+| Notion | Every 24 hours (if modified) |
+| OneDrive / SharePoint | Every 24 hours (if modified) |
+| Zendesk / Intercom / Freshdesk | Every 24 hours (if modified) |
+| Dropbox / Confluence / Salesforce | Every 24 hours (if modified) |
+
+<Tip>
+  For best answer quality, connect your help center through an integration rather than a website crawl. Structured help articles produce more precise, citation-ready answers than crawled HTML pages.
+</Tip>
+
+## Manual Sync
+
+Need to push an update before the next scheduled crawl? You can trigger a re-index on any individual page or file at any time.
+
+1. Go to **Knowledge → Content** and click the source you want to refresh.
+2. In the pop-up panel, find the specific page or file.
+3. Click the **refresh icon** next to the item — My AskAI will immediately re-fetch and re-index it.
+
+This is especially useful after publishing a new help article or updating a key product page mid-sprint.
+
+## Adding Individual Pages
+
+If you need to add a single URL rather than crawling an entire domain:
+
+1. Go to **Knowledge → Content → Add website content**.
+2. Click the domain you want to add the page under.
+3. At the top of the pop-up, use the **Add new page** field and paste the URL.
+
+My AskAI checks for duplicate URLs automatically, so you won't end up with multiple versions of the same page.
+
+## Excluding Pages from Indexing
+
+You can hide or delete specific pages so they are never used to answer customer questions.
+
+- **Hide a page:** Go to the domain in your Knowledge section, find the page, and click the **Visible** toggle. It will switch to **Hidden** and be excluded from all future answers.
+- **Delete a page permanently:** Click the trash can icon next to any page to remove it entirely. Use this when the page no longer exists on your site.
+
+<Warning>
+  If a page has been permanently removed from your website, use the trash can icon to delete it from My AskAI as well. Hiding it keeps the record but stops it being used; deleting it removes the record entirely.
+</Warning>
+
+To exclude entire sub-folders or directories (for example, blocking `/blog/*` from being crawled), contact My AskAI support via live chat and provide the include/exclude patterns you need.
+
+## Supported File Formats
+
+<Accordion title="File formats accepted for knowledge upload">
+  The following formats are supported when uploading files directly or via cloud connections:
+
+  | Format | Notes |
+  |---|---|
+  | PDF | Most common format for manuals, guides, and policies |
+  | DOCX | Microsoft Word documents |
+  | TXT | Plain text files |
+  | MD | Markdown files |
+  | XLSX | Excel spreadsheets |
+  | CSV | Each row is indexed with column headers as prefixes |
+  | RTF | Rich text format |
+  | TSV | Tab-separated values, treated similarly to CSV |
+  | PPTX | PowerPoint presentations |
+
+  Maximum file size for direct uploads is **30 MB**. Files uploaded via cloud connections (Google Drive, OneDrive, etc.) have a maximum size of **10 MB** due to provider API constraints.
+</Accordion>
+
+## Content Limits
+
+<Info>
+  On all paid plans, there is no limit to the number of pages crawled from a website (subject to fair use), with a default ceiling of 2,500 pages per site. The total number of files, pages, or content pieces across all sources is capped at **10,000 items** per agent. Contact support if you need to increase this limit.
+</Info>
+
+You can add up to **3 websites** on all paid plans. Additional sub-domains count as separate sites.
+
+## Best Practices
+
+- **Use integrations over crawls** where possible — Zendesk, Intercom, and Freshdesk connections produce richer, better-structured knowledge than raw HTML crawls.
+- **Keep your help center articles updated** — My AskAI syncs what exists; if your docs are outdated, your answers will be too.
+- **Check the last sync date** regularly to confirm content is being refreshed as expected.
+- **Hide seasonal or deprecated pages** rather than deleting them, so you can easily re-enable them later.
+- **Upload structured documents** (clear headings, numbered steps) for the best answer accuracy — dense walls of text are harder for the AI to parse.

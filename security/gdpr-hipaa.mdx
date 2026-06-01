@@ -1,0 +1,153 @@
+---
+title: "GDPR and HIPAA Compliance at My AskAI"
+sidebarTitle: "GDPR & HIPAA"
+description: "My AskAI's approach to GDPR compliance, HIPAA considerations for healthcare, DPA and BAA availability, data subject rights, and how to request compliance documents."
+---
+
+Regulatory compliance is an important part of deploying any AI-powered tool in your customer support stack. This page covers My AskAI's position on GDPR, HIPAA, and other relevant regulations — including what documentation is available and how to request it. If a regulation you need isn't covered here, contact the team via chat.
+
+<Tabs>
+  <Tab title="GDPR">
+    ## My AskAI and GDPR
+
+    The General Data Protection Regulation (GDPR) applies to any organisation processing personal data of individuals in the EU or UK. My AskAI takes GDPR compliance seriously and has structured its data processing activities accordingly.
+
+    ### My AskAI as a Data Controller and Data Processor
+
+    My AskAI's role under GDPR depends on the context:
+
+    - **Data Controller**: When My AskAI collects and processes your data as a subscriber (e.g. your email address, usage data, billing information), My AskAI acts as the **Data Controller** — making decisions about how that data is used.
+    - **Data Processor**: When you use My AskAI as part of your own customer support service (e.g. your customers chatting with your AI agent), My AskAI may act as a **Data Processor** on your behalf, processing data at your direction.
+
+    ### What Personal Data Is Processed
+
+    The primary personal data My AskAI collects from subscribers is your **email address**. Depending on usage, additional data may include:
+
+    - Contact data (email only for all users)
+    - Connection data (IP address, logs, timestamps)
+    - Internet data (cookies, analytics, navigation data)
+    - Content uploads (which may inadvertently include personal data)
+    - Conversation data from end-user interactions (retained for 30 days)
+
+    For the full list of processing activities and their legal bases (Legitimate Interest, Contract, Consent), see the [Privacy page](/security/privacy).
+
+    ### Legal Bases for Processing
+
+    My AskAI processes personal data under three legal bases:
+    - **Legitimate Interest (LI)**: Where processing is necessary for the pursuit of My AskAI's or a third party's legitimate interests
+    - **Contractual Duties (CD)**: Where processing is necessary to deliver the service you've subscribed to
+    - **Consent (C)**: Where you have explicitly agreed to a specific processing activity
+
+    ### Sub-Processors and DPAs
+
+    My AskAI relies on a carefully vetted list of sub-processors to deliver its service, including OpenAI, Anthropic, Qdrant, Bubble, Stripe, and others. Every sub-processor has a **Data Processing Agreement (DPA)** in place.
+
+    For the full sub-processor list and their respective DPAs, refer to the [GDPR compliance documentation](https://docs.google.com/document/d/1kFq9PfociN44ZtlEKxMPz1naIlVFhBAue5fC_X5mSfo/edit).
+
+    ### International Data Transfers
+
+    Some of My AskAI's sub-processors are based in the United States. Data transfers to these processors are lawful under:
+    - The **EU-US Data Privacy Framework** (adequacy decision by the European Commission)
+    - **Standard Contractual Clauses (SCCs)** for transfers not covered by the adequacy decision
+
+    ### Your GDPR Rights
+
+    As a data subject, you (and your end users) have the following rights under Articles 12–23 of GDPR:
+
+    <Accordion title="Right to Access">
+      You can request a copy of the personal data My AskAI holds about you at any time.
+    </Accordion>
+
+    <Accordion title="Right to Rectification">
+      You can ask My AskAI to correct inaccurate or incomplete personal data.
+    </Accordion>
+
+    <Accordion title="Right to Erasure">
+      You can request deletion of your personal data. Requests are completed within 30 days. You can also delete your account (and all associated data) directly in **Account Settings**.
+    </Accordion>
+
+    <Accordion title="Right to Data Portability">
+      Where technically feasible, you can request that My AskAI send you a copy of the personal data you have provided, or transfer it to a third party.
+    </Accordion>
+
+    <Accordion title="Right to Object or Restrict Processing">
+      You can object to processing based on legitimate interest, or request a temporary restriction on processing in certain circumstances.
+    </Accordion>
+
+    To exercise any of these rights, email [team@myaskai.com](mailto:team@myaskai.com). Requests will be acknowledged and completed within 30 days. If you are an end user of a business using My AskAI, your request will be forwarded to that business to handle directly.
+
+    ### Requesting a DPA or DPIA
+
+    - **Data Processing Agreement (DPA)**: Available to all **paid subscribers**. Contact the team via chat from your registered account email to request a copy for signing.
+    - **Data Protection Impact Assessment (DPIA)**: Available to **Enterprise plan** customers. Contact the team to request a copy.
+
+    ### Data Protection Officer
+
+    My AskAI has a designated Data Protection Officer (DPO). If you have GDPR-specific questions, contact the DPO via the support chat.
+
+    ### ICO Registration
+
+    AskAI Ltd is registered with the UK Information Commissioner's Office (ICO): [ICO registration ZB608683](https://ico.org.uk/ESDWebPages/Entry/ZB608683).
+  </Tab>
+
+  <Tab title="HIPAA">
+    ## My AskAI and HIPAA
+
+    The Health Insurance Portability and Accountability Act (HIPAA) governs how Protected Health Information (PHI) is handled by covered entities and their business associates in the United States.
+
+    ### Current HIPAA Status
+
+    <Warning>
+      My AskAI is **not currently HIPAA compliant**. If your use case involves processing Protected Health Information (PHI) — such as patient names, diagnoses, treatment details, or health insurance data — My AskAI is not certified to handle that data under HIPAA at this time.
+    </Warning>
+
+    ### Healthcare Organisations with High Volume
+
+    If you are a healthcare organisation processing **more than 10,000 support tickets per month** and require HIPAA compliance, My AskAI is open to discussing a custom arrangement.
+
+    Contact the team via the support chat, explain your volume and compliance requirements, and the team will advise on whether a Business Associate Agreement (BAA) and compliant infrastructure can be arranged for your use case.
+
+    ### What This Means for Healthcare Customers
+
+    If you are a healthcare company considering My AskAI:
+
+    <Accordion title="Can I use My AskAI for general (non-PHI) healthcare support?">
+      Yes — if your AI support agent is used for general customer support topics that do not involve Protected Health Information (e.g. appointment booking FAQs, general product information, billing questions that don't involve PHI), you may be able to use My AskAI without a HIPAA-specific arrangement.
+
+      You should consult with your legal and compliance team to determine whether any data flowing through your support conversations constitutes PHI.
+    </Accordion>
+
+    <Accordion title="What is a Business Associate Agreement (BAA)?">
+      A BAA is a contract required by HIPAA between a covered entity (e.g. a healthcare provider) and a business associate (a vendor that handles PHI on their behalf). My AskAI would need to sign a BAA before it could lawfully process PHI on your behalf.
+
+      BAA availability is currently limited. Contact the team if you believe your use case warrants a BAA discussion.
+    </Accordion>
+
+    <Accordion title="How do I request a BAA?">
+      Contact the My AskAI team via chat from your account, or email [team@myaskai.com](mailto:team@myaskai.com) to begin the conversation. Include your organisation's name, estimated monthly ticket volume, and a brief description of the types of data that would flow through the system.
+    </Accordion>
+  </Tab>
+</Tabs>
+
+## Other Regulations
+
+<Accordion title="CCPA (California Consumer Privacy Act)">
+  My AskAI's data handling practices are broadly compatible with CCPA principles, including data minimisation, transparency about data use, and honouring deletion requests. If you are a California-based business or serve California consumers and have specific CCPA compliance questions, contact [team@myaskai.com](mailto:team@myaskai.com).
+</Accordion>
+
+<Accordion title="Other Regional Regulations">
+  My AskAI aims to comply with applicable data protection laws globally. Where regulations not listed here are relevant to your use case (e.g. PIPEDA in Canada, LGPD in Brazil, PDPA in Singapore), contact the team via chat to discuss how My AskAI can support your compliance requirements.
+</Accordion>
+
+## Requesting Compliance Documentation
+
+| Document | Who can request | How to request |
+|---|---|---|
+| Data Processing Agreement (DPA) | All paid subscribers | Contact via chat from registered account |
+| Data Protection Impact Assessment (DPIA) | Enterprise plan customers | Contact via chat |
+| SOC-2 Type 2 report | Enterprise plan customers | Contact via chat |
+| Business Associate Agreement (BAA) | Healthcare organisations (case-by-case) | Email [team@myaskai.com](mailto:team@myaskai.com) |
+
+<Info>
+  For all compliance document requests, contact the My AskAI team using the chat widget on [myaskai.com](https://myaskai.com) or email [team@myaskai.com](mailto:team@myaskai.com). Please use the email address associated with your My AskAI account.
+</Info>

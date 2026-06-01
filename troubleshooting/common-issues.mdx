@@ -1,0 +1,141 @@
+---
+title: "Common My AskAI Issues and How to Fix Them"
+sidebarTitle: "Common Issues"
+description: "Quick fixes for the most frequent My AskAI problems: missing chat bubble, slow responses, unindexed content, generic answers, live chat connection errors, and more."
+---
+
+Most issues with My AskAI fall into a small number of predictable categories. This page collects the most common problems our users encounter, along with the fastest path to a fix. Work through the relevant section below before contacting support — the vast majority of issues can be resolved without assistance.
+
+<Note>
+  If you've exhausted the steps below and are still stuck, reach out via the chat widget in the My AskAI dashboard and ask to "Talk to a person." The more detail you can provide — your account email, the exact question asked, the expected response, and which content was uploaded — the faster the team can investigate.
+</Note>
+
+---
+
+<Accordion title="Chat bubble not visible on my website">
+  If the My AskAI chat bubble doesn't appear after you've added the script, work through these checks in order.
+
+  **1. Verify the script tag is placed correctly**
+
+  The installation snippet must be added before the closing `</body>` tag on every page where you want the widget to appear. If you're using a CMS like WordPress or Shopify, use the dedicated plugin or theme footer section rather than inserting HTML manually.
+
+  **2. Check for Content Security Policy (CSP) headers**
+
+  Many enterprise sites and CDNs set strict CSP headers that block third-party scripts from loading. Check your browser's developer console (F12 → Console) for errors like `Refused to load script` or `Refused to connect`. If you see these, add the following to your CSP:
+
+  ```
+  script-src 'self' https://myaskai.com;
+  connect-src 'self' https://api.myaskai.com;
+  ```
+
+  **3. Confirm the agent is in Public mode**
+
+  Private (Internal) mode prevents the widget from showing to external visitors. Go to your dashboard and check that the agent's visibility is set to **Public** or **Public + Private** under **AI Agent Setup → Settings**.
+
+  **4. Clear cache and hard-reload**
+
+  Browser caches and CDN edge caches can serve old versions of your page. Clear your browser cache with Ctrl+Shift+R (Cmd+Shift+R on Mac) and check the page again.
+
+  If none of these steps resolve the issue, message support with your site URL and a screenshot of your browser console.
+</Accordion>
+
+<Accordion title="Responses are slow">
+  My AskAI is designed for quality as well as speed, which means every answer goes through multiple quality-assurance steps before being returned. A single question can pass through 10 or more internal processes before a response is generated.
+
+  **Factors that affect response time:**
+  - Very long or detailed answers take longer to generate than short answers
+  - Complex questions requiring multiple knowledge sources take longer than simple factual lookups
+  - Current LLM API response times from providers (OpenAI, etc.) influence overall latency
+
+  **What you can do:**
+  - Most channels display a loading indicator while the agent is thinking (e.g. an animated "..." in Zendesk Messaging, or a "just thinking..." message in Intercom, HubSpot, Freshchat, and Gorgias). These reduce perceived wait times significantly. These messages can be turned off from your channel settings if preferred.
+  - Ensure your content is well-structured and concise — cleaner sources can lead to faster, more direct answers
+  - Response speeds improve with every generation of LLM model, so if times aren't acceptable today, check again in a month or two
+
+  <Info>
+    Response speed is a known industry-wide challenge for high-quality AI answers. My AskAI continuously benchmarks and upgrades to the latest models to balance quality with speed.
+  </Info>
+</Accordion>
+
+<Accordion title="Agent not answering certain questions">
+  If your agent consistently responds with "I don't know" or a generic response to questions you expect it to answer, the most likely causes are:
+
+  **1. The content isn't in the knowledge base**
+
+  Navigate to **Knowledge → Content** in your dashboard and confirm the article, page, or document that should answer the question is listed and shows a status of "Indexed" (not "Pending" or "Error").
+
+  **2. The content is too vague**
+
+  Even if the content exists, the agent will struggle if the relevant information is buried, implied, or described in very general terms. Open the source document and ask yourself: "Could a human read just this passage and confidently answer the question?" If not, add more specific detail.
+
+  **3. The question is out of scope by design**
+
+  My AskAI agents are optimised for customer support and knowledge-base questions. They are explicitly not designed for document comparison, data analysis, scheduling, or extended personal conversation. For questions outside your configured scope, consider adding a Guidance rule to redirect users gracefully.
+
+  **4. The question was answered before but no longer is**
+
+  My AskAI occasionally updates its underlying models and processing pipelines to improve overall answer quality. If a question that previously worked no longer does, it is usually temporary. Monitor the situation over a few days; if it persists, contact support with specific examples.
+</Accordion>
+
+<Accordion title="Website content not indexed or not added">
+  **Why would a website fail to be added?**
+
+  The most common reasons are:
+  - **Password protection** — the page requires a login and our crawler cannot access it
+  - **Bot blocking / anti-scraping technology** — a firewall, Cloudflare "bot fight mode," or a `robots.txt` `Disallow` rule is preventing the crawler
+
+  **What to try:**
+  1. Open the URL directly in your browser in an incognito/private window — if you see a login page or CAPTCHA, that's the blocker
+  2. Check your `robots.txt` file (e.g. `https://yoursite.com/robots.txt`) and ensure it doesn't disallow `User-agent: *`
+  3. If you use Cloudflare, temporarily disable "Bot Fight Mode" or add My AskAI's crawler to your allowlist
+
+  **Stuck on "Training" for more than 24 hours?**
+
+  If the status has not moved beyond "Training" after 24 hours, contact support via chat — the team can manually trigger re-indexing or investigate crawler-specific issues for your domain.
+</Accordion>
+
+<Accordion title="Issue connecting a live chat widget">
+  **Why does the connection fail?**
+
+  For native live-chat integrations (Zendesk, Intercom, HubSpot, Freshdesk, Gorgias), the most frequent cause of connection failures is an **OAuth authorization error** or an **insufficient scope** on the API token used.
+
+  **Steps to investigate:**
+  1. Go to **Connections → Authorizations** in your dashboard and check the status of the relevant integration. A red or "Expired" status indicates the OAuth token has been revoked or expired.
+  2. Disconnect and reconnect the integration. During reconnection, ensure the account you authorise with has **Admin** permissions on the live chat platform — read-only or agent-level accounts lack the required scopes.
+  3. If you see an error like "Invalid scope," check whether the connected account has the necessary API permissions enabled in the third-party platform's settings.
+
+  <Note>
+    For non-native live chat tools (platforms other than Zendesk, Intercom, and HubSpot), the human-handover integration works differently: My AskAI hides the existing chat widget and shows it again when the user requests a human. No credentials are required for this mode.
+  </Note>
+</Accordion>
+
+<Accordion title="Agent giving generic or unhelpful answers">
+  Generic answers usually mean the agent retrieved content that was too broad, or didn't find any strongly matching content at all.
+
+  **Improve your content quality:**
+  - Replace vague descriptions with specific, factual statements
+  - Use the same language and phrasing your customers use in support tickets
+  - Break long articles into focused, single-topic pages — shorter, targeted content is easier for the agent to retrieve accurately
+
+  **Add Custom Answers for high-frequency questions:**
+  Navigate to **Improve → Custom Answers** and add trigger phrases along with the exact response the agent should give. Custom Answers override the retrieval process entirely, guaranteeing a precise reply for known questions.
+
+  **Use Guidance to improve overall tone and specificity:**
+  Go to **Improve → Guidance** and add standing instructions such as "Always provide step-by-step instructions when explaining how to complete a task" or "Refer users to the relevant documentation link when answering how-to questions."
+</Accordion>
+
+<Accordion title='"Oops there has been an error" message'>
+  This error message typically has one of two causes:
+
+  **1. Mode mismatch**
+
+  If you uploaded files or connected a private data source (e.g. a Google Doc via Connections), that content is **Private** by default. The widget in Public mode cannot access Private content. Go to **AI Agent Setup → Settings** and change the visibility to **Public + Private** to allow the agent to use both content types.
+
+  **2. No content in the knowledge base**
+
+  If the agent has no knowledge at all, it cannot answer anything. Navigate to **Knowledge → Content** and confirm that at least one content source is indexed.
+
+  **3. Transient service issue**
+
+  Occasionally a temporary issue on My AskAI's infrastructure can cause this error. Refresh the page and try again. You can check current service status at [my-askai.instatus.com](https://my-askai.instatus.com/). If the error persists for more than a few minutes, contact support.
+</Accordion>

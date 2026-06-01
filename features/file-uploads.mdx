@@ -1,0 +1,101 @@
+---
+title: "File Uploads: Knowledge Sources and Chat Attachments"
+sidebarTitle: "File Uploads"
+description: "Upload PDFs, Word docs, spreadsheets, and more as agent knowledge sources, and let customers share files during support conversations for faster resolutions."
+---
+
+File uploads in My AskAI serve two distinct purposes: as an **admin**, you can upload documents to expand your agent's knowledge base beyond what your website or help center contains; as a **customer**, users can share files during a conversation to give your agent the context it needs to help them. Understanding how each mode works helps you configure both for maximum impact.
+
+## Admin File Uploads: Building Your Knowledge Base
+
+Uploading files to your agent's knowledge base is the fastest way to add internal documentation, product manuals, policy documents, or any content that doesn't live on a public webpage.
+
+<Accordion title="How to upload knowledge files">
+  **Adding files:**
+
+  1. Go to **Knowledge → Content → Upload files** in your dashboard.
+  2. Click **Upload files**.
+  3. Click the **File picker** or drag and drop files directly into the upload area.
+  4. You can upload up to **25 files at once**. Files are added to your agent's knowledge immediately after upload.
+
+  **Removing files:**
+
+  1. Go to **Knowledge → Content → Upload files**.
+  2. Click **Manage**.
+  3. Search for the file you want to remove and click the **trash can icon** next to it.
+
+  Once a file is deleted, it is no longer used by the agent to answer questions and the knowledge is removed from the index.
+</Accordion>
+
+<Accordion title="Supported file formats for knowledge uploads">
+  The following formats are supported for admin knowledge uploads:
+
+  | Format | Notes |
+  |---|---|
+  | PDF | Manuals, guides, policy documents, product sheets |
+  | DOCX | Microsoft Word documents |
+  | TXT | Plain text files |
+  | MD | Markdown documents |
+  | XLSX | Excel spreadsheets |
+  | CSV | Each row is indexed with its column headers as a prefix |
+  | RTF | Rich text format documents |
+  | TSV | Tab-separated values, treated similarly to CSV |
+  | PPTX | PowerPoint presentations |
+
+  **Maximum file size:** 30 MB per file.
+</Accordion>
+
+<Accordion title="File visibility: public vs. private">
+  All uploaded files are marked **Public** by default, meaning they are used to answer questions in your public-facing chat widget.
+
+  - **Public files** — the agent uses this knowledge for any customer conversation, but links to the source files are *not* shared in responses (since uploaded files are not publicly accessible URLs).
+  - **Private files** — only used when the agent is operating in [Private (Internal) mode](/features/customization). Private files are never surfaced in public widget responses.
+
+  To change a file's visibility, find it in the **Upload files** section and toggle the visibility setting.
+</Accordion>
+
+## User File Uploads: Customer Attachments in Chat
+
+In addition to knowledge uploads, customers interacting with your agent can share their own files during a conversation. This gives the agent critical context — such as an order confirmation, a receipt, or a screenshot of an error — without requiring the customer to describe it in text.
+
+<Accordion title="What customers can share in chat">
+  Customers can upload the following during a support conversation:
+
+  - **Images** — screenshots, product photos, photos of damaged items (JPEG, PNG, GIF, WebP)
+  - **PDFs** — order confirmations, receipts, invoices, or any PDF document
+
+  These files are processed in real time. The agent reads the content and incorporates it into its next response, providing a more contextually aware answer.
+
+  For image files specifically, see [Image Reading](/features/image-reading) for details on how vision processing works and which channels support it.
+</Accordion>
+
+## How Uploaded Files Are Stored and Processed
+
+<Note>
+  Knowledge files uploaded by admins are securely processed and stored in My AskAI's vector database (Qdrant) so the agent can retrieve relevant chunks when answering questions. Files shared by customers during conversations are processed transiently for the purposes of generating a response and are not stored on My AskAI's servers beyond the conversation window.
+</Note>
+
+Key storage and processing details:
+
+- **Admin knowledge files** are chunked, embedded, and stored as vector representations alongside the original text. This enables semantic search across your entire knowledge base.
+- **Customer-uploaded images** are passed to a vision-capable LLM for analysis. The image itself is not retained — only a text description is recorded in conversation logs.
+- **Isolation** — files uploaded for one agent are never accessible to another agent or organization. Your knowledge base is entirely private to your account.
+
+## File Size and Upload Limits
+
+| Limit | Value |
+|---|---|
+| Max file size (direct upload) | 30 MB |
+| Max files per upload batch | 25 files |
+| Max total knowledge items | 10,000 files, pages, or content pieces |
+
+<Tip>
+  If you need to add a large number of files, consider connecting a cloud storage source such as Google Drive, Notion, or SharePoint via **Connections** instead of uploading manually. Cloud connections sync automatically and support bulk imports without the 25-file-per-batch constraint.
+</Tip>
+
+## Security and Isolation
+
+- Files uploaded to your agent are **not shared** with any other My AskAI agent or customer account.
+- Admin knowledge files are stored with access controls tied to your organization's account.
+- Customer-uploaded files are handled transiently and are not persisted beyond what is needed to generate a response.
+- My AskAI is SOC 2 certified. For full details on security practices, see the [Security](/security/overview) section.

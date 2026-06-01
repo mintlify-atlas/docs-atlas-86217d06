@@ -1,0 +1,132 @@
+---
+title: "My AskAI Onboarding: Your First 30 Days Guide"
+sidebarTitle: "Onboarding"
+description: "Everything new My AskAI customers need to know — from initial setup requirements through a day-by-day plan for getting your AI agent fully live in 30 days."
+---
+
+The most common question new customers ask before signing up is: *"How long will this actually take to set up?"* The answer is that most teams have their AI agent writing draft replies to real tickets on the very first day they sign up. Getting to fully autonomous, customer-facing replies typically takes a few days to a few weeks, depending on how much testing and refinement you want to do before going live. This guide gives you a clear picture of what to expect — and what to do — at every stage of the journey.
+
+## What you need before getting started
+
+No specialist skills or technical knowledge are required to set up My AskAI. Here's everything you need:
+
+- **A company email address** — personal email addresses are not accepted at sign-up
+- **Admin access to your helpdesk** — required to authorise the My AskAI integration (Intercom, Zendesk, Freshdesk, HubSpot, Gorgias, etc.)
+- **Existing help documentation or a website** — My AskAI trains your agent on content you already have; the more comprehensive your documentation, the better your agent's answers
+
+<Note>
+  Developer involvement is only needed if you later choose to connect the [User Data API](/features/user-data-api) (for personalised responses) or set up [AI Actions (Tools)](/features/ai-actions-tools) for back-end integrations. Core setup is entirely no-code.
+</Note>
+
+## Your onboarding checklist
+
+Work through these tasks in order. Most teams complete the core setup in under 30 minutes.
+
+<Steps>
+
+  <Step title="Complete initial setup and connect your knowledge base">
+    Follow the [Create Your AI Agent](/start-here/create-your-ai-customer-service-agent) guide to sign up, add your first content source, and connect your helpdesk. By the end of this step your agent will be generating AI-suggested replies as internal notes on incoming tickets — visible to your team, not your customers.
+
+    **Quick-start options:**
+    - Connect a Help Center (Intercom, Zendesk, Freshdesk, GitBook) for automatic syncing
+    - Enter your website URL for a full site crawl
+    - Upload PDFs or documents directly
+
+    <Tip>
+      Help Center connections are the highest-quality content source and sync on a schedule — always prefer a direct connection over a website crawl if it's available for your platform.
+    </Tip>
+  </Step>
+
+  <Step title="Configure guidance and tone of voice">
+    Visit the **Guidance** section of your dashboard and set the ground rules for how your agent communicates. Useful starting points:
+
+    - Define your brand's tone (professional, friendly, concise, or detailed)
+    - Set scenario-based rules (e.g. "Always escalate if the customer mentions a refund or legal issue")
+    - Specify any topics the agent should never attempt to answer independently
+    - Give your agent a name that fits your brand
+
+    Good guidance has a bigger impact on answer quality than adding more content. Spend 10–15 minutes here on Day 1 and refine as you go.
+  </Step>
+
+  <Step title="Set up human escalation">
+    Configure My AskAI's [human escalation](/features/human-escalation) feature so customers who need a real person can reach one smoothly. Set up:
+
+    - Escalation triggers — the conditions under which your agent should offer a handoff to a human
+    - Escalation data collection — capture customer name, email, and issue description before the handoff so agents have full context
+    - Routing rules within your helpdesk — assign escalated conversations to the right team or agent
+
+    <Warning>
+      Do not skip this step. A well-configured escalation path is essential for customer trust. Customers should always have a clear route to a human agent, even when the AI is handling the majority of queries.
+    </Warning>
+  </Step>
+
+  <Step title="Customise the chat widget appearance">
+    Head to the **Customisation** settings in your dashboard to match the widget to your brand:
+
+    - Set your brand colours and widget button style
+    - Upload your company logo or agent avatar
+    - Write a welcome message that reflects your brand voice
+    - Configure the widget position (bottom-right, bottom-left, etc.)
+
+    A well-branded widget builds customer confidence and increases engagement. Customers are more likely to interact with an agent that clearly belongs to the product they're already using.
+  </Step>
+
+  <Step title="Connect a live chat channel">
+    If your team uses a live chat platform (Intercom, Zendesk Messaging, Freshchat, HubSpot, etc.), connect it via the **Channels** section of your dashboard. This enables your AI agent to respond within your existing live chat interface rather than as a standalone widget.
+
+    Once connected you can also:
+    - Enable **auto-tagging** to categorise conversations automatically in your helpdesk
+    - Set up routing logic so AI-handled conversations are triaged separately from escalated ones
+    - Install the **Chrome Extension** so your human agents can use the AI copilot anywhere they work
+
+    <Tip>
+      The Chrome Extension is especially useful during the early days — it lets your support team see AI-suggested answers in their browser without switching between tabs, making it easy to validate quality before fully enabling autonomous replies.
+    </Tip>
+  </Step>
+
+  <Step title="Invite your team members">
+    Go to **Team Access** in your dashboard and invite your support team, team leads, and any stakeholders who should have visibility into the AI agent's performance.
+
+    My AskAI supports multiple roles — you can grant full admin access to team leads and read-only access to others who just need to monitor the insights dashboard. Shared visibility helps the whole team align on what the AI is doing and flag issues quickly.
+  </Step>
+
+  <Step title="Review your first insights report">
+    After your agent has handled its first batch of real conversations, open the **Insights** dashboard. You'll see:
+
+    - **Top topics** — what customers are asking about most
+    - **Knowledge gaps** — questions the agent couldn't answer (opportunities to add content)
+    - **Sentiment and CSAT trends** — how customers are rating interactions
+    - **Feature requests, bug reports, and feedback** — categorised automatically from conversation content
+
+    Use this data to prioritise your next round of content additions and guidance refinements. The insights dashboard becomes more powerful the more conversations your agent handles.
+  </Step>
+
+</Steps>
+
+## Day-by-day timeline: your first 30 days
+
+<CardGroup cols={2}>
+  <Card title="Day 1 (15–30 mins)" icon="flag">
+    Connect your knowledge base and helpdesk. Add initial guidance. Enable auto-tagging. Invite team members. Your agent starts generating note replies immediately.
+  </Card>
+  <Card title="Days 2–7 (15–30 mins/day)" icon="magnifying-glass">
+    Review AI replies in your helpdesk and in Inspect & Logs. Identify knowledge gaps. Add custom answers for high-frequency misses. Refine guidance. Install the Chrome Extension across your team.
+  </Card>
+  <Card title="Days 8–14 (15 mins/day)" icon="toggle-on">
+    Review Self-learning article suggestions. Enable direct customer-facing replies. Customise helpdesk rules (assignment, tagging, triage) to fit your workflow.
+  </Card>
+  <Card title="Days 15–29 (15–45 mins/day)" icon="chart-line">
+    Monitor direct replies. Use Insights to identify low AI-resolution topics and CSAT dips. Build multi-step Tasks for high-impact support processes.
+  </Card>
+</CardGroup>
+
+<Note>
+  **Day 30:** Add your payment card and upgrade to a paid plan to continue beyond the free trial. Pro plan customers are largely self-serve; Enterprise plan customers receive white-glove onboarding support including helpdesk setup assistance and a dedicated Slack channel with the My AskAI team.
+</Note>
+
+## Support during onboarding
+
+- **Pro plan** — self-serve with live chat support available for helpdesk connection issues or bug reports
+- **Enterprise plan** — white-glove onboarding including a My AskAI team member with access to your helpdesk, setup calls, and ongoing Slack support throughout onboarding and beyond
+
+If you have questions at any point, the My AskAI support agent is available in the chat widget on every page of this documentation.

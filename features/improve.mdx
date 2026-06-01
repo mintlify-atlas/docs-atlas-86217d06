@@ -1,0 +1,86 @@
+---
+title: "Improve: Your AI Agent Answer Improvement Studio"
+sidebarTitle: "Improve"
+description: "Use Knowledge Gaps, Guidance, Custom Answers, Test, Content Usage, and Inspect & Logs to continuously refine your AI agent's accuracy and behavior."
+---
+
+Your AI agent can only answer questions it has the knowledge to answer. The Improve section of My AskAI is a dedicated studio for finding what your agent can't answer and giving it the tools it needs to do better. From automated knowledge gap detection to manual custom answers, behavior-shaping guidance, and deep conversation inspection — Improve gives you full visibility and control over your agent's performance.
+
+Access everything in this section by navigating to **Dashboard → Improve**.
+
+<Note>
+  Improving your AI agent is an ongoing process, not a one-time setup. We recommend revisiting the Improve section regularly — especially after your first few weeks live — to catch and address gaps as your customers reveal them through real conversations.
+</Note>
+
+## Improve Sub-Features
+
+<CardGroup cols={2}>
+  <Card title="Knowledge Gaps" icon="circle-question">
+    **Knowledge Gaps** shows you every question the agent couldn't answer and that resulted in a human handover. Questions are grouped by similarity so you can identify recurring patterns at a glance.
+
+    For each gap, you can fix it immediately by writing a custom answer, generating a draft from your existing documentation, or generating a knowledge snippet from your Zendesk or Intercom ticket history. Once a gap reaches 3 questions, My AskAI auto-generates a suggested answer for you to review and publish.
+  </Card>
+  <Card title="Guidance" icon="sliders">
+    **Guidance** lets you create rules that shape how the agent behaves across three categories:
+
+    - **Communication Style** — define tone, vocabulary, and writing style applied to every response.
+    - **Context & Clarification** — instruct the agent to ask follow-up questions in specific scenarios before answering.
+    - **Handover & Escalation** — define exact situations that should always trigger a human handover.
+
+    You can add up to 30 guidance rules per category (90 total). Each rule can be tested immediately using the adjacent chat window in your dashboard.
+  </Card>
+  <Card title="Custom Answers" icon="pencil">
+    **Custom Answers** (also called knowledge snippets) let you manually define the exact answer the agent should give for a specific question. Use them to correct inaccurate responses, fill gaps that don't warrant a full documentation article, or lock in precise answers for high-stakes questions.
+
+    For best results, enter the question in three different phrasings — this maximizes the chance the agent matches the custom answer when real customers ask.
+  </Card>
+  <Card title="Test" icon="flask">
+    **Test** is a batch evaluation environment that lets you assess your agent's performance before going live or after making changes. Import test questions from your Zendesk or Intercom ticket history, upload a CSV of up to 50 questions, or add questions manually.
+
+    For each test question you can score the response, add notes on what to improve, and mark whether you'd send the response to a customer. Results can be exported and shared with your team as a CSV.
+  </Card>
+  <Card title="Content Usage" icon="chart-bar">
+    **Content Usage** shows you which knowledge sources and content articles are being used most frequently to answer questions, along with the AI resolution rate for each piece of content.
+
+    Low resolution rates on a specific article can signal that the content needs updating or that customers using it are likely to need human support — useful for prioritizing documentation improvements.
+  </Card>
+  <Card title="Inspect & Logs" icon="magnifying-glass">
+    **Inspect & Logs** is a searchable log of every conversation your AI agent has had. Search by date, email address, ticket ID, or keyword to find specific conversations. Click into any conversation to see:
+
+    - The knowledge sources used for each answer
+    - How the AI interpreted the question
+    - Which guidance rules were applied
+    - A button to ask Echo (your AI copilot) to explain why the agent answered the way it did
+
+    From the same view, you can create a Custom Answer, add Guidance, or take other corrective actions without leaving the conversation context.
+  </Card>
+</CardGroup>
+
+## The Improvement Workflow
+
+Use these tools together in a repeatable cycle to keep your agent getting better over time:
+
+<Steps>
+  <Step title="Identify Gaps">
+    Start with **Knowledge Gaps** to see what your agent couldn't answer in real conversations. These are your highest-priority improvement opportunities because they represent actual customer needs.
+  </Step>
+  <Step title="Fix Gaps">
+    For each knowledge gap, choose the fastest fix: generate a snippet from existing docs, draft one from historic tickets, or write a custom answer from scratch.
+  </Step>
+  <Step title="Shape Behavior">
+    Use **Guidance** to define communication style rules, clarification workflows, and escalation triggers that align the agent with your brand and support policies.
+  </Step>
+  <Step title="Test Changes">
+    Use **Test** to validate how your changes affect performance — run your question set before and after updates to measure improvement.
+  </Step>
+  <Step title="Monitor Content">
+    Check **Content Usage** regularly to see which parts of your knowledge base are being used and how well they're resolving conversations without escalation.
+  </Step>
+  <Step title="Inspect Edge Cases">
+    Use **Inspect & Logs** to dig into individual conversations where the agent's response wasn't ideal — understand the root cause and apply the right fix.
+  </Step>
+</Steps>
+
+<Tip>
+  Self-learning runs automatically in the background and complements everything in the Improve section. It generates new knowledge articles from your human agent replies each week — so even without manual effort, your agent is getting smarter. See [Self-Learning](/features/self-learning) for details.
+</Tip>

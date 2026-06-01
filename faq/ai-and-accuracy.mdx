@@ -1,0 +1,119 @@
+---
+title: "AI Accuracy FAQ: LLMs, Hallucinations, and How It Works"
+sidebarTitle: "AI & Accuracy"
+description: "FAQ on My AskAI's AI accuracy, LLM models, hallucination prevention, RAG vs fine-tuning, streaming, temperature, conversation history, and comparisons with ChatGPT."
+---
+
+This page answers frequently asked questions about how My AskAI's AI works under the hood — including which language models power it, how hallucinations are prevented, how it differs from ChatGPT and fine-tuning approaches, and what features like answer streaming and temperature mean in practice. For general product questions see the [General FAQ](/faq/general).
+
+---
+
+<Accordion title="Will it answer questions about my competitors' products?">
+  **By default, no.** My AskAI agents are grounded exclusively in the content you upload to your knowledge base. They have no access to general internet knowledge, so if a user asks about a competitor's product, the agent will respond with "I don't know" because it genuinely has no information about it.
+
+  The only exception is if you have a comparison page or competitive analysis document in your own knowledge base — in that case, the agent will reference it in its answer.
+
+  If you want to explicitly restrict or configure how competitor-related questions are handled (for example, to redirect users to a sales page), you can do so using [Guidance](/features/improve).
+</Accordion>
+
+<Accordion title="What happens when the agent can't answer a question?">
+  When the agent cannot find a relevant answer in its knowledge base, it responds with an "I don't know" message and offers the user the option to **transfer to a human agent** via My AskAI's [Human Escalation](/features/human-escalation) feature.
+
+  Additionally, when using the Chat API, an unanswerable question also returns:
+  - `"unknown_answer": "yes"` — to flag that no answer was found
+  - `"suggestedQuestions"` — up to 3 alternative questions that the agent is highly likely to be able to answer, helping keep the user engaged productively
+
+  You can customise the exact escalation behaviour using [Guidance](/features/improve) rules — for example, triggering escalation immediately for certain high-sensitivity topics.
+</Accordion>
+
+<Accordion title="How can I test the accuracy of my AI agent's answers?">
+  There are several approaches, from fully manual to assisted:
+
+  **Manual testing in the dashboard**
+  Go to your agent's preview widget (accessible from the Guidance or Test pages) and type in a set of representative support questions. Review each answer against what you would expect.
+
+  **Batch testing**
+  Compile 50–150 real support questions (from past tickets) into a spreadsheet and share it with the My AskAI team via live chat. The team can run them as a batch and return the results for your review — this is the fastest way to get a statistically meaningful accuracy baseline.
+
+  **Note-mode testing in integrations**
+  On Zendesk, Intercom, and HubSpot, you can configure My AskAI to reply as an internal **Note** or **Comment** rather than as a live response. This lets you see exactly what the agent would have said to real customers — without them seeing it — so you can validate accuracy in a production environment safely.
+
+  The [Test](/features/improve) feature in **Improve → Test** is also available for ongoing regression testing as you update your content.
+</Accordion>
+
+<Accordion title="Which LLMs does My AskAI use?">
+  My AskAI uses a combination of language models rather than a single model. The pipeline includes:
+
+  - **Smaller, faster models** for early stages of processing (query classification, retrieval decisions, guardrail checks)
+  - **More powerful models** for final answer generation
+
+  My AskAI predominantly uses **OpenAI models** — generally whichever is the latest available at any given time. For specific tasks where Google or Anthropic models demonstrate superior performance, those may be used instead.
+
+  Reasoning models (such as OpenAI o1) are not currently used due to their significantly slower response times.
+
+  Models are continuously benchmarked and A/B tested to improve overall resolution rates. You can find more details at [myaskai.com](https://myaskai.com).
+</Accordion>
+
+<Accordion title="Is My AskAI better than fine-tuning?">
+  My AskAI uses **embeddings and Retrieval-Augmented Generation (RAG)**, not fine-tuning. These are different AI techniques with different trade-offs:
+
+  | | RAG (My AskAI) | Fine-tuning |
+  |---|---|---|
+  | Data format needed | Any content — docs, websites, files | Structured prompt/completion pairs |
+  | Setup time | Minutes to hours | Days to weeks |
+  | Knowledge updates | Instant (re-index content) | Requires retraining |
+  | Source attribution | Yes | No |
+  | Best for | Dynamic, evolving knowledge bases | Fixed, highly structured tasks |
+
+  For customer support — where your knowledge base changes frequently, source attribution matters, and setup speed is important — RAG almost always outperforms fine-tuning. Fine-tuning is most effective when you have a large, pre-formatted training dataset and want to produce stylistically consistent outputs from structured inputs.
+</Accordion>
+
+<Accordion title="How is My AskAI different from ChatGPT?">
+  Both My AskAI and ChatGPT use large language models, but they are fundamentally different products:
+
+  | | My AskAI | ChatGPT |
+  |---|---|---|
+  | Knowledge source | Your content only | General internet knowledge |
+  | Hallucination risk | Very low (grounded in your docs) | Higher (can fabricate plausible-sounding facts) |
+  | Source attribution | Yes | Limited |
+  | Out-of-scope questions | Returns "I don't know" | Attempts an answer using general knowledge |
+  | Designed for | Customer support automation | General-purpose conversation |
+
+  The key practical difference: My AskAI will not answer questions outside your knowledge base, which means every answer it does give is traceable and verifiable. ChatGPT's broader knowledge makes it more flexible but also more likely to confidently give an incorrect answer.
+</Accordion>
+
+<Accordion title="What is answer streaming?">
+  Answer streaming is a technique where the AI's response is sent to the user token-by-token (word-by-word) as it is generated, rather than waiting until the full answer is complete before displaying anything. This dramatically improves perceived response time because users start reading the answer almost immediately.
+
+  My AskAI does not currently support answer streaming in its widget UI or via the API. Responses are delivered as complete messages. This is because My AskAI applies multiple quality-assurance and guardrail steps before delivering an answer, and these steps require the full response to be generated first.
+
+  Streaming support is a commonly requested feature and is on the roadmap.
+</Accordion>
+
+<Accordion title="What is temperature and can I change it?">
+  Temperature is a parameter in language models that controls the **randomness and creativity** of responses. At temperature 0, the model always chooses the most probable next token — producing consistent, deterministic answers. At higher temperatures, the model introduces more variation, which can make answers feel more creative but also less reliable.
+
+  **My AskAI sets temperature to 0 for all agents.** This is a deliberate choice to ensure:
+  - Consistent answers to the same question asked multiple times
+  - Reliable, fact-grounded responses that don't drift into speculation
+  - Predictable behaviour for customer support scenarios
+
+  You cannot change the temperature setting. If you want responses that vary in tone or phrasing, the better approach is to use [Guidance](/features/improve) to shape the agent's style while keeping factual consistency.
+</Accordion>
+
+<Accordion title="Does the agent use conversation history when responding?">
+  Yes. Within a single ticket or conversation, your AI agent uses **all previous messages** as context when generating each new reply. This means it can understand follow-up questions, resolve pronoun references ("what about the second one?"), and maintain coherent multi-turn conversations.
+
+  **Important limitations:**
+  - The agent does **not** use context from other tickets or previous conversations with the same user — each conversation is isolated.
+  - If a conversation exceeds **1 hour of inactivity**, the agent's "memory" of earlier messages is reset.
+  - If a conversation contains more than **6 user messages**, the very earliest messages may be weighted less heavily in context.
+
+  These limits reflect the context window constraints of current LLMs and apply across all channels. Most support conversations are well within these limits in practice.
+</Accordion>
+
+<Accordion title="Can I use my own OpenAI assistant or Custom GPT?">
+  No. My AskAI does not support integrating an externally created OpenAI assistant or Custom GPT into its platform. My AskAI uses its own optimised processing pipeline — including custom retrieval, guardrails, quality assurance, and prompt engineering — which is what makes its customer support answers reliable and source-grounded.
+
+  If you have a specific use case that you believe requires a custom model, contact the team via the chat widget to discuss options.
+</Accordion>

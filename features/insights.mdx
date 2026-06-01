@@ -1,0 +1,85 @@
+---
+title: "Conversation Insights: Turn Support Into Product Intelligence"
+sidebarTitle: "Insights"
+description: "My AskAI automatically categorizes every support conversation into topics, bugs, feedback, and feature requests so you can act on patterns without reading every transcript."
+---
+
+Every conversation your AI agent has is a signal. Insights turns those signals into structured, actionable intelligence — automatically categorizing topics, flagging recurring patterns, scoring satisfaction, and surfacing the feedback your product team needs to prioritize the right work. No manual tagging, no reading through thousands of transcripts, no spreadsheet gymnastics.
+
+## How Insights Are Generated
+
+After each conversation concludes, My AskAI uses AI to analyze the full transcript and break it down into one or more **topics**. Each topic represents a distinct issue or question raised within the conversation. A single conversation may generate multiple topics if the customer raised several separate issues.
+
+Every topic receives:
+- A **title and description** summarizing the issue
+- A **category** (Question, Bug, or Feedback)
+- An **AI CSAT score** based on the conversation quality
+- A link to the original conversation for full context
+
+Topics are grouped by similarity across conversations. Once a topic has been raised three or more times, it surfaces prominently in your dashboard so you can identify what's actually happening at scale — not just one-off incidents.
+
+## Types of Insights
+
+<Accordion title="Questions">
+  **Questions** are topics where customers were seeking information, guidance, or instructions. A high volume of questions on the same topic often indicates a documentation gap — content that should be added to your knowledge base or help center so the AI can answer it in future.
+</Accordion>
+
+<Accordion title="Bugs">
+  **Bugs** are topics where customers reported something not working as expected. These are ideal for routing to an engineering or QA team. The Insights view lets you see exactly how many customers are affected and read the full conversation transcripts to understand the impact.
+</Accordion>
+
+<Accordion title="Feedback">
+  **Feedback** topics capture opinions, suggestions, and observations customers shared during their conversations. These are valuable inputs for product roadmap decisions — surfacing what real users are asking for, in their own words.
+</Accordion>
+
+## AI CSAT Scoring
+
+My AskAI trains a specialized AI model to give every conversation an AI CSAT score — meaning you get a satisfaction signal for **100% of conversations**, not just the 2–10% that typically respond to manual survey requests. This gives you a statistically meaningful view of how well your support is performing across all interactions.
+
+You can view CSAT scores at the dashboard level, per topic, and for each individual conversation. Clicking into a conversation shows the rationale behind the score.
+
+## Conversation Insight Notifications
+
+When a topic reaches a threshold you define — for example, 5 conversations about the same issue within 1 hour — My AskAI can alert you automatically so you can respond before a small problem becomes a large one.
+
+Notifications can be delivered by **email** (to all team members and the admin) or via a **Slack webhook** to a channel of your choice.
+
+To configure alerts, go to **Account Settings → Conversation Topic Alerts** and set your threshold and delivery preference.
+
+<Info>
+  Conversations held from the dashboard, or via Slack and Teams integrations, are classified as "Internal" and do not contribute to Insights. Only public-facing conversations are counted.
+</Info>
+
+## Exploring and Filtering Your Insights
+
+From the **Insights → Explorer** view you can:
+- Filter topics by category: Questions, Bugs, or Feedback
+- Sort by number of conversations or by AI resolution rate
+- View historic data across the last day, week, month, quarter, half-year, or year
+- Click into any topic to see all associated conversations and a trend chart showing activity over time
+- Mute topics that aren't relevant, or mark them as done to close them out
+
+## Exporting Insights Data
+
+Export your full Insights dataset — topics, conversation history, and questions — as a CSV file from **Insights → Explorer → Export**. This is useful for sharing patterns with your product, engineering, or customer success teams, or for deeper analysis in your own tooling.
+
+<Tip>
+  Import exported data to Google Sheets for best results — Excel can occasionally have issues parsing special characters in exported transcripts.
+</Tip>
+
+Each exported topic includes category, AI CSAT, conversation summary, resolution status, source platform, resolution time, and a unique ID for cross-referencing.
+
+## Using Insights to Drive Improvement
+
+Insights doesn't just tell you what happened — it connects directly to the tools that let you act on it:
+
+<CardGroup cols={2}>
+  <Card title="Improve Your AI Agent" icon="wrench" href="/features/improve">
+    Use Knowledge Gaps, Guidance, and Custom Answers to address recurring questions that the agent couldn't answer — turning each insight into a smarter agent.
+  </Card>
+  <Card title="Self-Learning" icon="graduation-cap" href="/features/self-learning">
+    Self-learning automatically fills knowledge gaps from human agent replies, closing the loop between what customers ask and what the AI can answer.
+  </Card>
+</CardGroup>
+
+The result is a continuous feedback loop: conversations generate insights, insights surface gaps, gaps get addressed through improvements, and the agent gets better at resolving the next wave of similar conversations on its own.

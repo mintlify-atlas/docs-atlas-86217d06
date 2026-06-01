@@ -1,0 +1,147 @@
+---
+title: "Integrations & Setup FAQ: Channels, Mobile, Languages"
+sidebarTitle: "Integrations & Setup"
+description: "FAQ covering My AskAI setup and integration questions: mobile apps, ticket routing, spam management, live chat channels, multi-language support, and live translation."
+---
+
+This page answers the most common questions about setting up My AskAI and connecting it to your existing tools and channels. Whether you're evaluating which live chat platforms are supported, wondering how to use the agent in a mobile app, or looking to manage spam, you'll find the answers here. For AI accuracy questions see the [AI & Accuracy FAQ](/faq/ai-and-accuracy), and for general platform questions see the [General FAQ](/faq/general).
+
+---
+
+<Accordion title="Can I use the AI agent within a mobile app?">
+  Yes, though My AskAI does not currently offer a native mobile SDK. There are several supported routes for embedding your AI agent in a mobile app:
+
+  - **Intercom integration** — If your mobile app already uses the Intercom Messenger SDK, connecting My AskAI to your Intercom account automatically brings AI support into the app.
+  - **Zendesk Messaging** — If your app uses the Zendesk Mobile SDK, My AskAI's Zendesk Messaging integration works within that.
+  - **HubSpot integration** — Similarly, if HubSpot's chat widget is embedded in your app, My AskAI connects through it.
+  - **Zendesk Tickets via in-app contact form** — Users can submit support tickets from within your app; the AI agent answers them as it would any Zendesk ticket.
+  - **Email via API** — You can route in-app support requests to My AskAI's [Email Assistant](/features/email-assistant) via your own backend.
+  - **Custom API integration** — Use the [Chat API](/api/chat-api) to build a fully custom in-app support experience with your own UI.
+
+  Contact support via the chat widget if you need help choosing or configuring any of these routes for your specific mobile stack.
+</Accordion>
+
+<Accordion title="Can I route tickets to different agents?">
+  Yes. Ticket routing is available through several mechanisms depending on your support platform:
+
+  **Pre-handover routing (triage)**
+  On Zendesk, you can combine My AskAI's [Ticket Tagging](/features/channels/zendesk) feature with Zendesk Triggers to route conversations to the correct AI agent or human team before the AI responds. This is useful if you have multiple agents handling different product lines or customer segments.
+
+  For Intercom, equivalent routing functionality is available — contact support to configure it.
+
+  **Post-handover routing (escalation)**
+  When the AI agent cannot resolve a conversation on supported channels (Zendesk, Intercom, HubSpot, Freshdesk, Freshchat), it either automatically escalates or offers the user the option to speak to a human. On escalation, a tag or message is applied to the ticket or conversation, which can then trigger routing rules in the respective platform to direct to the right team or agent.
+
+  **Playbooks**
+  On Zendesk, Intercom, and HubSpot, [Playbooks](/features/channels/zendesk) let you define conditional flows — for example, "if the conversation topic is billing AND the agent cannot answer, route to the billing team."
+</Accordion>
+
+<Accordion title="How do I manage spam tickets, chats, or conversations?">
+  For most businesses, spam accounts for less than **0.1%** of all support traffic, so it rarely requires special handling.
+
+  My AskAI relies on the **spam identification and filtering built into your helpdesk platform** (Zendesk, Intercom, Freshdesk, HubSpot, Gorgias) to block spam before it reaches the AI agent. These platforms are well-equipped to handle the vast majority of spam automatically.
+
+  If your account has been targeted by a spike in spam — such as a bot attack — contact the My AskAI team via chat. If spam credits have been consumed unfairly, the team can issue a refund.
+
+  My AskAI also offers a dedicated [Spam Filters](/features/customization) feature for additional control at the agent level. You can configure keyword blocks and conversation patterns that should be automatically dismissed without consuming a conversation credit.
+</Accordion>
+
+<Accordion title="How do I add macros or stock responses to the AI agent?">
+  Custom Answers are My AskAI's equivalent of macros. They let you define exact trigger phrases and the precise response the agent should give — overriding the normal retrieval process for specific questions.
+
+  **How to add them:**
+
+  1. Go to **Improve → Custom Answers** in your dashboard.
+  2. Click **Add Custom Answer**.
+  3. Enter the trigger question or phrase (e.g. "What is your refund policy?").
+  4. Enter the exact response the agent should give.
+  5. Save. The Custom Answer takes effect immediately.
+
+  **Importing macros from Zendesk:**
+  If you use Zendesk and have macros configured there, go to **Knowledge → Content** and click **Import Macros**. This converts your existing Zendesk macros into Custom Answers automatically.
+
+  For bulk imports from Freshdesk, Gorgias, or other platforms, export your macros and share them with the My AskAI team via live chat for assisted import.
+</Accordion>
+
+<Accordion title="How do I connect a live chat channel?">
+  My AskAI supports native integrations with several major live chat and helpdesk platforms. To connect a channel:
+
+  1. Go to **Channels** in your My AskAI dashboard.
+  2. Find your platform and click **Connect**.
+  3. Authorise My AskAI using your platform admin account (OAuth or API key, depending on the platform).
+  4. Follow the platform-specific setup steps.
+
+  Detailed setup guides are available for each supported channel — see the [Channels overview](/features/channels) page for links to every integration guide.
+
+  <Note>
+    Authorization requires an **admin account** on the target platform. Agent-level or read-only accounts do not have sufficient permissions to complete the integration.
+  </Note>
+</Accordion>
+
+<Accordion title="Which live chat channels are supported?">
+  My AskAI offers native integrations with the following live chat and helpdesk platforms:
+
+  <CardGroup cols={2}>
+    <Card title="Zendesk" icon="headset" href="/features/channels/zendesk">
+      Messaging and Tickets, with Tagging and Playbooks support.
+    </Card>
+    <Card title="Intercom" icon="comment-dots" href="/features/channels/intercom">
+      Full conversation support with Tagging, Playbooks, and Live Translation.
+    </Card>
+    <Card title="Freshdesk" icon="inbox" href="/features/channels/freshdesk-freshchat">
+      Ticket-based support with Tagging.
+    </Card>
+    <Card title="Freshchat" icon="message" href="/features/channels/freshdesk-freshchat">
+      Live chat with Tagging support.
+    </Card>
+    <Card title="HubSpot" icon="hubspot" href="/features/channels/hubspot">
+      Chat with Playbooks support.
+    </Card>
+    <Card title="Gorgias" icon="shop" href="/features/channels/other-channels">
+      E-commerce helpdesk with live chat support.
+    </Card>
+    <Card title="Zoho SalesIQ" icon="chart-line" href="/features/channels/other-channels">
+      Chat integration for Zoho SalesIQ users.
+    </Card>
+    <Card title="Zapier" icon="bolt" href="/features/channels/other-channels">
+      Connect My AskAI to hundreds of other tools via Zapier.
+    </Card>
+  </CardGroup>
+
+  My AskAI also supports **Slack**, **Microsoft Teams**, and a **Chrome Extension** for internal team use cases. For a full feature comparison across channels, see the [Live Chat Channels Feature Comparison](/features/channels/overview) page.
+</Accordion>
+
+<Accordion title="Can I translate conversations live?">
+  Yes, via the **Intercom Live Translation** feature. When enabled, every message sent by a customer in a non-default language is automatically translated and shown as an internal note in your default language — so your agents can follow the conversation in real time without using Google Translate.
+
+  When a human agent wants to reply, they type in their own language and click **"Translate & Send"** — the message is automatically translated into the customer's language before being delivered.
+
+  **Setup:** Contact the My AskAI team via the chat widget to enable Live Translation on your Intercom account.
+
+  **Pricing:** Translation costs $0.05 per ticket or conversation, charged as an add-on at the end of each billing period, regardless of conversation length.
+
+  <Info>
+    Live Translation is currently available for Intercom only. If you need this feature for another platform, contact support to discuss availability.
+  </Info>
+</Accordion>
+
+<Accordion title="Does it support multiple languages?">
+  Yes. My AskAI supports **95 languages** for both the agent's responses and the widget UI (localisation). 
+
+  **How to change the language:**
+  1. Go to **AI Agent Setup → Customize** in your dashboard.
+  2. Scroll to the **Language** section.
+  3. Toggle **"Enable non-English support"**.
+  4. Select your language from the drop-down.
+
+  Your agent will now respond in the selected language and all widget UI elements will be localised accordingly.
+
+  **Additional language capabilities:**
+  - Your knowledge base content can be uploaded in **any language**, regardless of the language the agent responds in.
+  - **Auto-detect** is supported — the agent can automatically detect and respond in the language the user writes in.
+  - **Zendesk and Intercom** widgets support language localisation. HubSpot localisation is available on request.
+
+  For a language not currently listed in the dropdown, contact support — additional languages can be added on request for Pro plan customers and above.
+
+  See the [Languages and Localization](/features/customization) page for the full list of supported languages and setup instructions.
+</Accordion>

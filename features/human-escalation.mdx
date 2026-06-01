@@ -1,0 +1,100 @@
+---
+title: "Human Escalation: Seamless Handoff to Your Team"
+sidebarTitle: "Human Escalation"
+description: "Discover how My AskAI smoothly hands conversations to human agents via Zendesk, Intercom, Freshdesk, HubSpot, and more — with full context included."
+---
+
+My AskAI is designed to resolve the majority of customer questions automatically, but it's built with the understanding that some conversations need a human touch. Human escalation ensures customers can always reach a real person when they need to — without you having to build a separate support workflow. The agent integrates directly with your existing live chat and ticketing tools, so your team works from the same platforms they already know.
+
+## When Escalation Is Triggered
+
+The agent is smart about knowing when to step aside. Escalation happens in several scenarios:
+
+<CardGroup cols={2}>
+  <Card title="Customer Requests It" icon="hand">
+    The agent auto-recognizes escalation intent — phrases like "speak to a person," "talk to support," or "I need help from a human" — in a wide variety of phrasings and languages.
+  </Card>
+  <Card title="Agent Can't Answer" icon="circle-question">
+    When the AI doesn't have sufficient knowledge to answer, it offers the customer the option to escalate via a button or by typing "Talk to a person."
+  </Card>
+  <Card title="Customer Frustration Detected" icon="face-angry">
+    If the agent senses the customer is becoming frustrated after repeated failed attempts to answer, it proactively initiates handover.
+  </Card>
+  <Card title="Guidance-Based Rules" icon="sliders">
+    You can define custom escalation scenarios using Guidance — for example, "If the user contacts us about a safety issue, hand over to a person."
+  </Card>
+</CardGroup>
+
+<Info>
+  For ticketing integrations, you can also configure **auto-handover** when the AI can't answer — meaning customers never see an "I don't know" response at all.
+</Info>
+
+## The Escalation Workflow
+
+Here's the end-to-end experience from the customer's perspective:
+
+<Steps>
+  <Step title="Customer Initiates or Triggers Escalation">
+    The customer either requests a human agent, hits a question the AI can't answer, or triggers a guidance-based escalation rule.
+  </Step>
+  <Step title="Conversation Summary Generated">
+    My AskAI automatically generates an AI summary of the conversation so far. This is attached to the handover — the customer doesn't need to repeat themselves, and your agent gets up to speed instantly.
+  </Step>
+  <Step title="Data Collection (Optional)">
+    If you have escalation data collection configured, the agent asks the customer for any required details — email address, name, order number, bug description — conversationally, before the handover completes.
+  </Step>
+  <Step title="Handover to Live Chat or Ticketing">
+    The conversation is transferred to your connected live chat platform. The agent's summary and any collected data are automatically passed through.
+  </Step>
+  <Step title="Human Agent Picks Up">
+    Your support agent sees the full conversation history, the AI-generated summary, and any collected context. Resolution is faster because no information is lost.
+  </Step>
+</Steps>
+
+<Note>
+  The AI-generated conversation summary shown during human escalation cannot be turned off — it's always included to ensure a smooth handover experience for both the customer and your team.
+</Note>
+
+## Escalation Data Collection
+
+Before handing off, the agent can collect specific information you need to resolve the ticket faster. This is configured as a Task and collects data conversationally — no forms required. You can collect any data: email address, phone number, order number, device details, bug description, or anything else relevant to your workflow.
+
+Once collected, the data appears in the conversation or ticket history. For Zendesk Messaging users, collected email addresses and names are automatically attached to the escalated ticket.
+
+## Supported Live Chat and Ticketing Channels
+
+My AskAI integrates natively with the most popular support platforms. All integrations support automated conversation summaries at the point of handover.
+
+| Platform | Human Handover | Email Handover |
+|---|---|---|
+| Intercom | ✅ | ✅ |
+| Zendesk (Messaging + Tickets) | ✅ | ✅ |
+| HubSpot | ✅ | ✅ |
+| Freshdesk | ✅ | ✅ |
+| Freshchat | ✅ | — |
+| Gorgias | ✅ | ✅ |
+
+You can also configure a **Link escalation** — a URL pointing to a contact form, help page, or ticketing system — as a fallback if you're not using one of the native integrations.
+
+<CardGroup cols={2}>
+  <Card title="Zendesk Integration" icon="headset" href="/features/channels/zendesk">
+    Learn how escalation works with Zendesk Messaging and Tickets, including tagging and playbooks.
+  </Card>
+  <Card title="Intercom Integration" icon="comments" href="/features/channels/intercom">
+    Explore Intercom escalation workflows, human handover configuration, and live translation.
+  </Card>
+</CardGroup>
+
+## Reviewing Escalated Conversations
+
+All escalated conversations are logged and searchable in your dashboard. Use **Improve → Inspect & Logs** to filter your conversation history to show only escalated tickets. From there you can review the full conversation, understand why the handover occurred, and take action to prevent the same gap from occurring in future.
+
+<Tip>
+  After each handover, My AskAI automatically adds an admin note in the conversation suggesting specific improvements — adding guidance, creating a custom answer, or connecting live customer data. This turns every escalation into an improvement opportunity.
+</Tip>
+
+## Configuring Escalation Triggers
+
+To change your connected helpdesk provider at any time, go to **Dashboard → Account Settings**, scroll to the bottom, and click to change or remove your current support provider.
+
+To define scenario-based escalation rules, go to **Dashboard → Improve → Guidance → Handover & Escalation** and add your rules there. You can track how often each escalation rule is triggered to make sure your rules aren't over-escalating.

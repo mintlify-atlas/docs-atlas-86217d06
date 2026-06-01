@@ -1,0 +1,102 @@
+---
+title: "Training Your AI Agent on Historic Support Tickets"
+sidebarTitle: "Historic Tickets"
+description: "Turn thousands of past support conversations into structured help articles that power more accurate, real-world AI answers from day one."
+---
+
+Your historic support tickets are one of the richest knowledge sources available to you — they capture the exact questions your customers ask, in the exact language they use. My AskAI can connect directly to your helpdesk, analyze thousands of past conversations, and automatically generate a set of structured help articles that your AI agent uses to answer future questions with far greater relevance and accuracy.
+
+## Why Historic Tickets Matter
+
+Most companies launch a new AI support agent with only their public help center docs as a knowledge source. The problem is that help center articles are written by support teams for what they *think* customers will ask — not necessarily what they *actually* ask. Your ticket history bridges that gap.
+
+<CardGroup cols={2}>
+  <Card title="Real customer language" icon="comments">
+    Tickets contain the informal phrasing, abbreviations, and edge cases that never make it into polished help docs — exactly what an AI agent needs to match incoming questions.
+  </Card>
+  <Card title="Instant knowledge base" icon="bolt">
+    If your docs are incomplete or out of date, historic ticket training generates a working knowledge base from what your human agents have already answered.
+  </Card>
+  <Card title="Faster time to value" icon="gauge-high">
+    Rather than spending weeks writing documentation, you get a usable AI knowledge base generated within hours of connecting your helpdesk.
+  </Card>
+  <Card title="Covers undocumented edge cases" icon="triangle-exclamation">
+    One-off questions, workarounds, and product quirks that never get documented still appear in tickets — and your AI agent will learn them.
+  </Card>
+</CardGroup>
+
+## Supported Helpdesks
+
+My AskAI connects directly to the following helpdesks for historic ticket training:
+
+- **Intercom**
+- **Zendesk**
+- **Freshdesk / Freshchat**
+- **Gorgias**
+- **HubSpot**
+
+## The Ticket Import Workflow
+
+<Steps>
+  <Step title="Opt in to historic ticket training">
+    When you create a new My AskAI account, you will be asked during onboarding whether you want to train on historic tickets. Select **Yes** to enable it.
+
+    If you skipped this step during onboarding, you can still enable historic ticket training up to **1 week after sign-up** by going to **Knowledge** and toggling on **Train on historic tickets**.
+
+    If your account is older than one week, contact My AskAI support via live chat and the team will trigger the training manually.
+  </Step>
+  <Step title="Connect your helpdesk">
+    My AskAI uses a direct API integration with each supported helpdesk — there is no manual export required. Navigate to **Knowledge → Connect knowledge sources**, select your helpdesk (e.g. Zendesk or Intercom), and complete the OAuth authorization to grant read access to your ticket history.
+  </Step>
+  <Step title="Training begins automatically">
+    Once your helpdesk is connected, My AskAI will begin analyzing your historic tickets immediately. The system processes up to **5,000+ tickets** to identify common questions, recurring themes, and the answers your human agents provided.
+  </Step>
+  <Step title="Review generated articles">
+    Within approximately **6 hours** of connecting, you will find a set of generated help articles in your dashboard under **Improve → Self-learning**. My AskAI produces around **20 detailed, grouped articles** — think of each as a category page covering a cluster of related questions with multiple knowledge entries per article.
+  </Step>
+  <Step title="Edit and refine">
+    Open any generated article to review and edit the content. Articles are written in Markdown, so you can adjust wording, remove incorrect information, or add context before the articles go live. You can also copy content directly into your help center if you want to publish it externally.
+  </Step>
+  <Step title="Publish to your AI agent">
+    Articles are automatically published to your AI agent once generated. If you want to review before publishing, go to **Improve → Self-learning → Settings** and disable auto-publish. You can then approve and publish articles individually.
+  </Step>
+</Steps>
+
+## What My AskAI Learns from Tickets
+
+My AskAI doesn't simply copy and paste raw ticket transcripts into your knowledge base. Instead, it:
+
+1. **Groups tickets by topic** — clustering similar questions together to identify recurring themes.
+2. **Extracts generalizable answers** — pulling out the resolution or explanation provided by your human agents, discarding user-specific details like order numbers or account IDs.
+3. **Generates structured articles** — producing clean, readable help content that the AI agent can use to answer future questions accurately.
+
+<Info>
+  The AI agent only learns knowledge that is generalizable across customers. It will never retain or expose user-specific information such as names, account numbers, or order details from past tickets.
+</Info>
+
+## Filtering and Scope
+
+By default, historic ticket training runs across **all available historic tickets** in your connected helpdesk. My AskAI automatically filters out:
+
+- Tickets resolved without a meaningful agent reply
+- Tickets containing only personal data with no actionable knowledge
+- Spam or bot-generated conversations
+
+If you need to restrict training to a specific subset of tickets (for example, only tickets tagged with a certain product area, or only tickets from the last 12 months), contact My AskAI support via live chat and the team can configure a custom scope for your account.
+
+## Privacy and Data Handling
+
+<Note>
+  My AskAI accesses your ticket history through an approved OAuth connection with read-only permissions. Your ticket data is used solely to generate help articles — raw ticket content is processed and then discarded. The generated articles contain only generalizable knowledge, never personal customer information. For full details on data handling, see the [Privacy](/security/privacy) section.
+</Note>
+
+Key privacy guarantees:
+
+- **Read-only API access** — My AskAI cannot modify, reply to, or delete tickets in your helpdesk.
+- **No raw ticket storage** — ticket content is processed to extract knowledge and is not stored on My AskAI servers beyond the processing window.
+- **Anonymized output** — generated articles contain no customer names, email addresses, or account identifiers.
+- **Isolated per agent** — ticket data from one My AskAI agent is never shared with or accessible by another agent or organization.
+
+## Ongoing vs. One-Time Training
+
+Historic ticket training is primarily a **one-time bootstrapping step** designed to give your AI agent a strong starting knowledge base at launch. Going forward, My AskAI's [Self-learning](/features/self-learning) feature takes over — continuously analyzing new human agent replies and updating your knowledge articles on a weekly basis, so your agent keeps improving automatically without any additional manual setup.

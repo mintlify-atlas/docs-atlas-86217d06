@@ -1,0 +1,81 @@
+---
+title: "My AskAI Security Overview: SOC-2, Encryption, and Controls"
+sidebarTitle: "Security Overview"
+description: "My AskAI is SOC-2 Type 2 certified. Learn about our encryption, access controls, infrastructure security, penetration testing, and how to report vulnerabilities."
+---
+
+Security is foundational to how My AskAI is built and operated. Whether you're evaluating My AskAI for an enterprise deployment, completing a vendor security assessment, or simply want to understand how your data is protected, this page provides a concise overview of our security posture. For detailed compliance documentation, see the [Privacy](/security/privacy) and [GDPR & HIPAA](/security/gdpr-hipaa) pages.
+
+## Security Certifications
+
+<CardGroup cols={2}>
+  <Card title="SOC-2 Type 2" icon="shield-check">
+    My AskAI is **SOC-2 Type 2 certified**. This means an independent auditor has reviewed our security controls over time and verified they meet the Trust Services Criteria. You can review our trust page at [trust.myaskai.com](https://trust.myaskai.com).
+  </Card>
+  <Card title="ICO Registration" icon="building-columns">
+    AskAI Ltd is registered with the UK Information Commissioner's Office (ICO) as a data controller. Our ICO registration can be found on the [ICO public register](https://ico.org.uk/ESDWebPages/Entry/ZB608683).
+  </Card>
+</CardGroup>
+
+<Note>
+  To request a copy of the full SOC-2 report or our Data Protection Impact Assessment (DPIA), you must be on an **Enterprise plan**. Contact the team via chat to make this request.
+</Note>
+
+## Data Encryption
+
+All data handled by My AskAI is encrypted at multiple layers:
+
+| Layer | Standard |
+|---|---|
+| **Data in transit** | TLS 1.2+ (all connections between your browser, the API, and our services) |
+| **Data at rest** | AES-256 encryption across all storage |
+
+Your uploaded content (embedded vectors) and reference content (text, source URLs, metadata) are stored with **Qdrant**, a secure vector database running on Google Cloud Platform (GCP) in The Dalles, Oregon, USA (us-west1-gcp).
+
+## Infrastructure Security
+
+My AskAI is hosted on enterprise-grade cloud infrastructure:
+
+- **Google Cloud Platform (GCP)** for primary vector storage (Qdrant)
+- **Render** and **Bubble** for application hosting and backend services
+- **CloudFlare** for network-level protection and DDoS mitigation
+- Uploaded files are automatically deleted after processing — they are not stored long-term by My AskAI unless you explicitly request otherwise
+- All uploaded content is stored in **isolated containers**, ensuring no cross-customer data leakage
+
+## Access Controls
+
+<Accordion title="Role-Based Access">
+  The My AskAI dashboard uses role-based access control (RBAC). Account owners can assign team members as **Insights Only**, **Full Access**, or **Admin** roles, limiting exposure to sensitive settings and billing information. See the [Team Access](/account-management/team-access) page for details.
+</Accordion>
+
+<Accordion title="Two-Factor Authentication (2FA)">
+  Native 2FA is not currently built into My AskAI's login flow. However, customers using **Google Workspace** sign-in can enforce 2FA/MFA at the Google Workspace admin level. Enterprise customers with specific 2FA requirements should contact the team to discuss options.
+</Accordion>
+
+<Accordion title="Audit Logs and Traceability">
+  My AskAI maintains traceability measures across key processing activities including account access, content uploads, and conversation handling. For full details of traceability controls by processing activity, refer to the [GDPR compliance documentation](/security/gdpr-hipaa).
+</Accordion>
+
+## Penetration Testing and Security Audits
+
+My AskAI undergoes regular security audits and penetration testing as part of maintaining its SOC-2 Type 2 certification. Results are available to Enterprise customers under NDA. Contact the team via chat to request more information.
+
+## Data Handling Principles
+
+- Your data is **never used** to train AI models or shared with third parties for marketing purposes
+- Conversation and chat logs are retained for **30 days**
+- Uploaded content is **yours** — it is only used to power your AI support agent and is deleted when you remove it
+- OpenAI does **not** store your content or use it for model training (since March 2023, OpenAI has not used API data for training)
+
+## Responsible Disclosure
+
+If you believe you have found a security vulnerability or a data breach in My AskAI, please report it as soon as possible:
+
+- **Via chat:** Use the support chat on [myaskai.com](https://myaskai.com) to report a potential vulnerability
+- **Via email:** Contact [team@myaskai.com](mailto:team@myaskai.com) with details of the potential issue
+
+Please provide as much detail as possible, including steps to reproduce the issue. My AskAI takes all security reports seriously and will acknowledge and investigate all credible reports promptly.
+
+<Warning>
+  Please do not publicly disclose vulnerability details before giving My AskAI reasonable time to investigate and remediate.
+</Warning>

@@ -1,0 +1,103 @@
+---
+title: "AI Answers on Your Content: How It Works"
+sidebarTitle: "AI Answers"
+description: "Learn how My AskAI indexes your content, retrieves relevant knowledge, and generates precise AI answers grounded in your documentation."
+---
+
+My AskAI transforms your existing help documentation, website, and support content into a live AI customer support agent that can answer questions around the clock. Rather than relying on a fixed FAQ or keyword matching, it uses semantic search and large language models to understand the intent behind a customer's question and respond with a precise, grounded answer drawn directly from your knowledge base.
+
+## How Indexing Works
+
+When you add content to My AskAI, it is scraped or uploaded and then vectorized — converted into numerical representations that capture the meaning of the text. This allows the agent to perform semantic search: it doesn't just look for exact keywords, it understands context and intent.
+
+<Steps>
+  <Step title="Add Your Content">
+    Connect your website URLs, help center, file uploads, or integrations. My AskAI scrapes and processes the content automatically.
+  </Step>
+  <Step title="Vectorization">
+    Each piece of content is embedded into a vector store, enabling semantic similarity search across your entire knowledge base.
+  </Step>
+  <Step title="Retrieval">
+    When a customer asks a question, the agent identifies the 6 most relevant pieces of content from across all your knowledge sources simultaneously.
+  </Step>
+  <Step title="Answer Generation">
+    The retrieved content is passed to an LLM, which synthesizes a precise, natural-language answer grounded in your documentation — not invented from thin air.
+  </Step>
+</Steps>
+
+## Supported Content Sources
+
+My AskAI supports a wide range of content types so you can train the agent on everything your team already knows.
+
+<Accordion title="View all supported content types">
+  **Websites**
+  - Any publicly accessible website URL — pages are scraped and kept in sync automatically.
+
+  **File Uploads** (up to 30 MB per file)
+  - PDF, DOCX, XLSX, CSV, TXT, MD, RTF, TSV, PPTX
+
+  **Cloud Storage & Productivity Tools**
+  - Google Drive (up to 10 MB per file)
+  - OneDrive (up to 10 MB per file)
+  - Dropbox
+  - SharePoint
+  - Notion
+  - Confluence
+
+  **Help Center Integrations**
+  - Zendesk knowledge articles
+  - Intercom knowledge articles
+  - Freshdesk knowledge articles
+
+  **CRM & E-commerce**
+  - Salesforce
+  - Shopify pages, products, and customer data
+
+  **Historic Support Tickets**
+  - Historic Zendesk and Intercom tickets can be used to generate knowledge snippets that fill gaps in the agent's knowledge base.
+
+  You can add up to **10,000 pieces of content** across all sources. Contact support if you need more.
+</Accordion>
+
+## Answer Generation and Source Citations
+
+The agent retrieves up to 6 relevant content chunks from across your entire knowledge base when generating a response. A single answer may draw from one article or from several — whatever is most relevant to the specific question.
+
+Source citations are included so customers and your team can see exactly which content the answer was drawn from. This builds trust and makes it easy to verify or improve answers over time.
+
+<Note>
+  My AskAI is designed to avoid hallucination. It will only answer based on content you have explicitly added. If relevant knowledge isn't present, the agent will say so and offer escalation rather than fabricating an answer. Use the [Improve](/features/improve) tools to close those gaps over time.
+</Note>
+
+## Handling Knowledge Gaps
+
+When the agent cannot confidently answer a question, it doesn't guess — it takes one of the following actions depending on your configuration:
+
+<CardGroup cols={2}>
+  <Card title="Human Escalation" icon="user-headset">
+    The agent offers to connect the customer with a human agent via your live chat integration (Zendesk, Intercom, Freshdesk, HubSpot, and others).
+  </Card>
+  <Card title="Escalation Data Collection" icon="clipboard-list">
+    Before handing off, the agent collects relevant details — name, email, issue description — conversationally, so your team has context when they pick up the conversation.
+  </Card>
+  <Card title="Auto-Handover" icon="rotate">
+    For ticketing integrations, you can configure automatic handover when the AI can't answer, so customers never see an "I don't know" response.
+  </Card>
+  <Card title="Knowledge Gap Logging" icon="magnifying-glass">
+    Every unanswered question is logged under Improve → Knowledge Gaps so you can review and add the missing content.
+  </Card>
+</CardGroup>
+
+## Multilingual Support
+
+My AskAI supports **95 languages** for both content and responses. You can upload content in any language regardless of your agent's response language setting. The agent can also auto-detect the customer's language and respond accordingly.
+
+<Tip>
+  Custom answers are best written in English — My AskAI will automatically translate them into the user's language when responding.
+</Tip>
+
+## Image Reading
+
+Your AI agent can read and interpret images shared in chats and emails. When a customer attaches a screenshot or photo, the agent processes the image and uses it as additional context when formulating its answer — no need for the customer to describe what they're seeing.
+
+Image reading is available for Intercom (chat and email), Zendesk Messaging, Zendesk Tickets, and Freshdesk. Each image-read reply costs $0.02, and up to 3 images can be processed per message.

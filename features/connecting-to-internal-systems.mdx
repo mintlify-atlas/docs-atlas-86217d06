@@ -1,0 +1,228 @@
+---
+title: "Connecting Your AI Agent to Internal Systems via APIs"
+sidebarTitle: "Internal Systems"
+description: "Learn how to give your AI agent secure access to your internal APIs for order management, CRM lookups, subscription systems, and real-time data retrieval."
+---
+
+Your AI agent becomes dramatically more useful when it can reach into your own systems — not just your help articles. With the right connections in place, the agent can look up a specific customer's order history, verify their subscription status, check current product availability, or trigger a write action like a refund or address update, all from within a live support conversation. My AskAI connects to your internal systems securely via APIs that you control and configure.
+
+<Warning>
+  Connecting to internal systems almost always requires developer involvement. You will be creating or adapting APIs specifically for your AI agent to call. Ensure your engineering team is involved before starting this process.
+</Warning>
+
+---
+
+## Use Cases
+
+<CardGroup cols={2}>
+  <Card title="Order management" icon="box">
+    Look up real-time order status, dispatch information, tracking numbers, and return eligibility for any order ID or customer.
+  </Card>
+  <Card title="CRM and customer records" icon="users">
+    Retrieve account details, contact history, support tier, and any open issues for a verified customer.
+  </Card>
+  <Card title="Subscription systems" icon="credit-card">
+    Check active plan, renewal date, usage limits, and feature entitlements — then surface the right answer automatically.
+  </Card>
+  <Card title="Authentication and identity" icon="shield">
+    Trigger password resets, verify account ownership, or unlock accounts — all via API, without human intervention.
+  </Card>
+  <Card title="Inventory and product data" icon="tag">
+    Query live stock levels, product variants, and availability to answer "do you have this in my size?" accurately.
+  </Card>
+  <Card title="Payments and billing" icon="receipt">
+    Issue refunds, apply credits, or retrieve invoice history by calling your payments platform API directly.
+  </Card>
+</CardGroup>
+
+---
+
+## How My AskAI Connects to Your Systems
+
+All connections to internal systems are made via **AI Actions (Tools)** — HTTP POST requests that your AI agent makes to endpoints you define. The flow looks like this:
+
+```
+User sends a message
+       ↓
+AI agent evaluates intent
+       ↓
+Agent identifies required data (e.g. order status)
+       ↓
+Agent calls your internal API with extracted parameters
+       ↓
+Your API returns structured JSON
+       ↓
+Agent composes a natural-language response and sends it to the user
+```
+
+The agent only calls an API when it determines that live data is needed — it won't make unnecessary requests for questions it can answer from its knowledge base.
+
+---
+
+## Authentication Options
+
+My AskAI supports three primary authentication patterns for internal APIs:
+
+| Method | When to use |
+|---|---|
+| **Bearer token** | Simple, long-lived server-to-server tokens. Best for internal tools. |
+| **API key (custom header)** | When your API uses a non-standard header like `X-Internal-Key`. |
+| **OAuth 2.0** | For third-party systems that require delegated access with token refresh. |
+
+All credentials are stored securely and attached automatically to every API call — end users never see or interact with them.
+
+---
+
+## Setting Up an Authorization
+
+Before configuring a tool, create an Authorization record to store your API credentials securely.
+
+<Steps>
+  <Step title="Navigate to Connections > Authorizations">
+    Log in to your [Dashboard](https://myaskai.com/dashboard) and go to **Connections > Authorizations**.
+  </Step>
+
+  <Step title="Create a new authorization">
+    Click **+ New Authorization** and give it a descriptive name, such as `Order Management API – Production`.
+  </Step>
+
+  <Step title="Choose your auth type and enter credentials">
+    Select the authorization type (Bearer token, API key, or OAuth 2.0) and enter the required credentials.
+
+    **Bearer token example:**
+    ```
+    Header name:  Authorization
+    Header value: Bearer eyJhbGciOiJSUzI1NiJ9...
+    ```
+
+    **API key example:**
+    ```
+    Header name:  X-Internal-API-Key
+    Header value: int_key_abc123xyz789
+    ```
+  </Step>
+
+  <Step title="Save and assign to a tool">
+    Save the authorization. You can now select it when configuring any AI Action — the credentials will be attached to every call that tool makes.
+  </Step>
+</Steps>
+
+---
+
+## Configuring a Tool to Call Your Internal API
+
+Once your Authorization is set up, create the Tool (AI Action) that uses it:
+
+<Steps>
+  <Step title="Go to Tasks & Tools > Tools (APIs)">
+    In your Dashboard, navigate to **Tasks & Tools > Tools (APIs)** and click **+ New**.
+  </Step>
+
+  <Step title="Define the endpoint and method">
+    Enter your internal API endpoint. All tool calls use POST:
+
+    ```
+    https://internal.yourcompany.com/api/v1/orders/lookup
+    ```
+  </Step>
+
+  <Step title="Select your Authorization">
+    Choose the Authorization you created in the previous section. My AskAI will attach the stored credentials to every request automatically.
+  </Step>
+
+  <Step title="Define request and response schemas">
+    Tell the agent what to send and what to expect back.
+
+    **Request body:**
+    ```json
+    {
+      "customer_email": "{{user_email}}",
+      "order_id": "{{order_id}}"
+    }
+    ```
+
+    **Expected response:**
+    ```json
+    {
+      "order": {
+        "id": "string",
+        "status": "string",
+        "items": "array",
+        "dispatch_date": "string",
+        "tracking_url": "string"
+      }
+    }
+    ```
+  </Step>
+
+  <Step title="Test and save">
+    Use the chat widget in your Dashboard to trigger the tool and verify the response. Once confirmed, save the tool — it's now available to your agent.
+  </Step>
+</Steps>
+
+---
+
+## Example: Internal API Call
+
+Here is a representative cURL command showing exactly what My AskAI sends to your internal API when a tool is triggered:
+
+```bash
+curl -X POST https://internal.yourcompany.com/api/v1/orders/lookup \
+  -H "Authorization: Bearer eyJhbGciOiJSUzI1NiJ9..." \
+  -H "Content-Type: application/json" \
+  -d '{
+    "customer_email": "alex@example.com",
+    "order_id": "ORD-9182"
+  }'
+```
+
+**Expected response:**
+```json
+{
+  "order": {
+    "id": "ORD-9182",
+    "status": "In Transit",
+    "items": ["Running Shoes (UK 9, Black)"],
+    "dispatch_date": "2024-11-05",
+    "tracking_url": "https://track.fedex.com/794644792798"
+  }
+}
+```
+
+Your API receives the call, looks up the order, and returns structured JSON — the agent handles everything else.
+
+---
+
+## Security Best Practices
+
+<Accordion title="Use read-only API scopes where possible">
+  If a tool only needs to retrieve data (e.g. order lookup), create a dedicated API key or OAuth scope with **read-only permissions**. Reserve write-enabled credentials only for tools that need to make changes (e.g. refunds, cancellations).
+</Accordion>
+
+<Accordion title="Create dedicated API credentials for My AskAI">
+  Rather than reusing existing admin credentials, create a dedicated API key or service account specifically for My AskAI. This allows you to rotate, audit, or revoke access independently without affecting other integrations.
+</Accordion>
+
+<Accordion title="IP allowlisting">
+  For additional security, you can restrict your internal API to only accept requests from My AskAI's IP addresses. Contact My AskAI support via the live chat widget to obtain the list of egress IP addresses to allowlist on your firewall or API gateway.
+</Accordion>
+
+<Accordion title="Validate request authenticity">
+  Your API should validate the Authorization header on every request and return a `401 Unauthorized` immediately if it is missing or incorrect — never process requests without a valid credential.
+</Accordion>
+
+<Accordion title="Never expose credentials to users">
+  All API credentials are stored server-side within My AskAI and are never surfaced in the browser, the chat widget, or in any conversation. Users cannot see or access your internal API keys.
+</Accordion>
+
+---
+
+## Choosing the Right Connection Type
+
+My AskAI offers three distinct ways to connect your internal systems depending on your use case:
+
+| Scenario | Best approach |
+|---|---|
+| Look up data for a **verified user** (e.g. order history by email) | [User Data API](/features/user-data-api) |
+| Look up data for **any user** using parameters they provide (e.g. order ID) | [AI Actions (Tools)](/features/ai-actions-tools) |
+| **Multi-step workflow** that collects info, applies logic, and calls APIs | [Tasks](/features/tasks) |

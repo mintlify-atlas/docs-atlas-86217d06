@@ -1,0 +1,95 @@
+---
+title: "Troubleshooting My AskAI Login and Billing Issues"
+sidebarTitle: "Login & Billing"
+description: "Step-by-step fixes for My AskAI login failures, magic link issues, missing billing info, invoice downloads, payment card updates, subscription cancellation, and 2FA lockouts."
+---
+
+Login and billing problems are among the most stressful things to encounter — you just want access to your account or a clear picture of your charges. This page covers the most common issues and how to resolve them quickly. For anything not covered here, or for billing disputes, the My AskAI support team can be reached via the chat widget in the dashboard.
+
+<Note>
+  For billing-related queries that require access to your Stripe account (invoices, payment methods, subscription changes), only the **account owner** can take action. Team members added under **Team Access** do not have billing permissions. See the section on billing visibility below.
+</Note>
+
+---
+
+<Accordion title="I can't log in">
+  My AskAI uses **magic links** (passwordless email login) by default. If the magic link isn't working, the most likely cause is your email provider automatically "clicking" links in incoming emails to scan them for spam or viruses — which consumes the single-use magic link before you see it.
+
+  **What to try:**
+
+  1. **Request a new magic link** and open it within 30 seconds of receiving the email, before your email provider can scan it.
+  2. **Set up a password for your account.** Go to **Account Settings → Security → Set a password**. Once you have a password, you can log in with email + password and bypass magic links entirely.
+  3. **Check your spam or junk folder** — the login email may have been filtered.
+  4. **Try a different email client or browser** — some corporate email security proxies strip or rewrite links. Forwarding to a personal email to click the link can help diagnose this.
+
+  If you still cannot access your account after trying all of the above, contact support via the My AskAI website and include your account email address.
+</Accordion>
+
+<Accordion title="No billing information is visible for my account">
+  If you navigate to **Account Settings → Billing** and see no subscription or invoice information, you are likely logged in as a **team member** rather than the **account owner**.
+
+  Billing information is only visible to the owner of the account.
+
+  **What to do:**
+
+  1. Go to **Account Settings → Team Access** to find out who the account owner is.
+  2. Ask the account owner to log in and retrieve the billing information, or to share the relevant invoice or plan details with you.
+  3. If you believe you are the account owner but still see no billing data, it's possible the subscription was created under a different email address. Try logging out and logging back in with any other email addresses you may have used when signing up.
+
+  <Info>
+    My AskAI uses Stripe as its payment processor. All billing details (invoices, payment methods, subscription status) are managed through your Stripe customer portal, accessible from **Account Settings → Billing → Manage subscription on Stripe**.
+  </Info>
+</Accordion>
+
+<Accordion title="How do I download an invoice or receipt?">
+  Invoices are managed through Stripe, My AskAI's payment processor.
+
+  **Steps:**
+
+  1. Log in as the **account owner**.
+  2. Go to **Account Settings → Billing**.
+  3. Click **"Manage subscription on Stripe."**
+  4. In Stripe, scroll to **Invoice history**.
+  5. Click the download arrow next to the relevant invoice to download a PDF.
+
+  Invoices are available for every billing period since your subscription started. If you need an invoice in a specific format for tax or accounting purposes (e.g. with a VAT number), update your Stripe billing details before the next invoice is generated.
+</Accordion>
+
+<Accordion title="I need to cancel my subscription">
+  **How to cancel:**
+
+  Email **team@myaskai.com** from the email address associated with your My AskAI account and the team will process the cancellation for you.
+
+  **What happens after cancellation:**
+  - Your AI agent remains active until the end of the current billing period.
+  - After the billing period ends, the agent is deactivated and no longer responds to users.
+  - Your account data is retained for a period after cancellation before being permanently deleted — contact the team if you need to export your data before closing the account.
+
+  <Warning>
+    My AskAI (myaskai.com) is **not affiliated** with the "Ask AI" mobile app (askaichat.app). If you're trying to cancel a subscription to that app, you need to contact them directly — My AskAI's support team cannot assist with cancellations for a separate product.
+  </Warning>
+</Accordion>
+
+<Accordion title="I'm locked out due to 2FA / MFA issues">
+  My AskAI does not currently offer native two-factor authentication (2FA) or multi-factor authentication (MFA) for its own login system.
+
+  **However:**
+  - If you signed up using a **work Google account (G Suite / Google Workspace)**, Google's own 2FA applies to your login. If you are locked out of your Google account, you will need to recover it through Google's standard account recovery process.
+  - If you require 2FA for compliance purposes, My AskAI's **Enterprise plan** can accommodate this. Contact the team via the chat widget to discuss Enterprise options.
+
+  If you signed up with a regular email and password and need to reset your password, see the "I can't log in" section above.
+</Accordion>
+
+<Accordion title="I need to update my payment card">
+  Payment card updates are handled through Stripe.
+
+  **Steps:**
+
+  1. Log in as the **account owner**.
+  2. Go to **Account Settings → Billing**.
+  3. Click **"Manage subscription on Stripe."**
+  4. In the Stripe portal, click the three-dot menu next to your current payment method, or click **Add payment method** to add a new card.
+  5. Once the new card is added, set it as the default payment method.
+
+  Changes take effect immediately — your next invoice will be charged to the updated card. If a recent payment failed because of a card issue, updating the card and then retrying the payment from the Stripe portal should resolve the failed payment.
+</Accordion>

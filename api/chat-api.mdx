@@ -1,0 +1,296 @@
+---
+title: "Chat API: Multi-Turn Conversations with Your AI Agent"
+sidebarTitle: "Chat API"
+description: "Create chat sessions, send messages, and retrieve conversation history via API to build fully conversational AI-powered support experiences in your product."
+---
+
+The Chat API lets you embed a fully conversational AI support experience anywhere in your product. Unlike the [Query API](/api/query-api), which handles single-shot questions, the Chat API maintains conversation context across multiple messages through the concept of a **session**. Each session has a unique `session_id` that ties all messages together, allowing your agent to understand follow-up questions, refer back to earlier context, and give coherent multi-turn responses.
+
+The typical flow is: create a session → send a message → receive a reply → send a follow-up → and so on, until the conversation is resolved.
+
+<Info>
+  You can pass `"insights": true` in any message request to generate conversation insights in your My AskAI dashboard. When Insights is enabled, each response also returns a `conversation_id` that you can include in subsequent requests to group them into a single conversation record.
+</Info>
+
+---
+
+## Endpoint 1 — Create a Session
+
+```
+POST https://api.myaskai.com/v1/chat/sessions
+```
+
+Creates a new chat session and returns a `session_id`. Pass this ID in all subsequent message requests for this conversation.
+
+### Request Parameters
+
+<ParamField body="agent_id" type="string" required>
+  The unique identifier of the My AskAI agent to use for this session. Find it in **Settings → API**.
+</ParamField>
+
+<ParamField body="user_id" type="string">
+  An optional identifier for the end user. Used for analytics and personalisation via the [User Data API](/api/user-data-api).
+</ParamField>
+
+### Example Request
+
+```bash
+curl -X POST https://api.myaskai.com/v1/chat/sessions \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "agent_id": "agt_abc123",
+    "user_id": "usr_987"
+  }'
+```
+
+### Response Fields
+
+<ResponseField name="session_id" type="string">
+  A unique identifier for the newly created session. Pass this in all subsequent `/messages` calls.
+</ResponseField>
+
+<ResponseField name="created_at" type="string">
+  ISO 8601 timestamp of when the session was created.
+</ResponseField>
+
+### Example Response
+
+```json
+{
+  "session_id": "sess_x7k2m9p4",
+  "created_at": "2024-10-15T09:30:00Z"
+}
+```
+
+---
+
+## Endpoint 2 — Send a Message
+
+```
+POST https://api.myaskai.com/v1/chat/sessions/{session_id}/messages
+```
+
+Sends a user message within an existing session and returns the agent's reply. The `messages` array you include should contain the **full conversation history** for this session — the API is stateless and does not store messages server-side between calls.
+
+### Path Parameters
+
+<ParamField path="session_id" type="string" required>
+  The `session_id` returned when you created the session.
+</ParamField>
+
+### Request Parameters
+
+<ParamField body="messages" type="array" required>
+  The full conversation history as an ordered array of message objects. Each object has:
+
+  <ParamField body="messages[].role" type="string" required>
+    Either `"user"` (messages from the end user) or `"assistant"` (replies from the AI agent).
+  </ParamField>
+
+  <ParamField body="messages[].content" type="string" required>
+    The text content of the message.
+  </ParamField>
+</ParamField>
+
+<ParamField body="insights" type="boolean">
+  Set to `true` to log this conversation in your My AskAI dashboard Insights view. When enabled, the response includes a `conversation_id`.
+</ParamField>
+
+<ParamField body="conversation_id" type="string">
+  Pass the `conversation_id` returned by a previous message request to link all API calls to a single conversation record in Insights.
+</ParamField>
+
+### Example Request — First Message
+
+```bash
+curl -X POST https://api.myaskai.com/v1/chat/sessions/sess_x7k2m9p4/messages \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "messages": [
+      {
+        "role": "user",
+        "content": "How do I cancel my subscription?"
+      }
+    ],
+    "insights": true
+  }'
+```
+
+### Example Request — Follow-up Message
+
+```bash
+curl -X POST https://api.myaskai.com/v1/chat/sessions/sess_x7k2m9p4/messages \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "messages": [
+      {
+        "role": "user",
+        "content": "How do I cancel my subscription?"
+      },
+      {
+        "role": "assistant",
+        "content": "To cancel your subscription, email team@myaskai.com from your account email address."
+      },
+      {
+        "role": "user",
+        "content": "What happens to my data after I cancel?"
+      }
+    ],
+    "insights": true,
+    "conversation_id": "conv_jf83ls9"
+  }'
+```
+
+### Response Fields
+
+<ResponseField name="reply" type="object">
+  The agent's response message.
+
+  <ResponseField name="reply.role" type="string">
+    Always `"assistant"`.
+  </ResponseField>
+
+  <ResponseField name="reply.content" type="string">
+    The text of the agent's reply.
+  </ResponseField>
+</ResponseField>
+
+<ResponseField name="sources" type="array">
+  Knowledge-base sources used to generate the reply.
+
+  <ResponseField name="sources[].title" type="string">
+    Title of the source document.
+  </ResponseField>
+
+  <ResponseField name="sources[].url" type="string">
+    URL of the source, if available.
+  </ResponseField>
+</ResponseField>
+
+<ResponseField name="unknown_answer" type="string">
+  Set to `"yes"` if the agent couldn't find a relevant answer. Also includes `suggestedQuestions` in this case.
+</ResponseField>
+
+<ResponseField name="suggestedQuestions" type="array">
+  Returned alongside `unknown_answer: "yes"`. Contains up to 3 alternative questions the agent is highly likely to be able to answer.
+</ResponseField>
+
+<ResponseField name="human_handover" type="boolean">
+  `true` when a Guidance rule recommended escalation to a human agent.
+</ResponseField>
+
+<ResponseField name="conversation_id" type="string">
+  Returned when `insights` is `true`. Pass this back in subsequent requests to link them to the same Insights record.
+</ResponseField>
+
+### Example Response
+
+```json
+{
+  "reply": {
+    "role": "assistant",
+    "content": "To cancel your subscription, email team@myaskai.com from the email address associated with your account and the team will take care of everything for you."
+  },
+  "sources": [
+    {
+      "title": "Cancel subscription",
+      "url": "https://help.myaskai.com/account-management/billing/cancel-subscription"
+    }
+  ],
+  "conversation_id": "conv_jf83ls9"
+}
+```
+
+---
+
+## Endpoint 3 — Retrieve Conversation History
+
+```
+GET https://api.myaskai.com/v1/chat/sessions/{session_id}/messages
+```
+
+Returns the full message history for a session. Useful for rendering a conversation in your UI or auditing past exchanges.
+
+### Path Parameters
+
+<ParamField path="session_id" type="string" required>
+  The session whose message history you want to retrieve.
+</ParamField>
+
+### Example Request
+
+```bash
+curl -X GET https://api.myaskai.com/v1/chat/sessions/sess_x7k2m9p4/messages \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+### Response Fields
+
+<ResponseField name="session_id" type="string">
+  The session identifier.
+</ResponseField>
+
+<ResponseField name="messages" type="array">
+  Ordered array of all messages in the session.
+
+  <ResponseField name="messages[].role" type="string">
+    `"user"` or `"assistant"`.
+  </ResponseField>
+
+  <ResponseField name="messages[].content" type="string">
+    Text content of the message.
+  </ResponseField>
+
+  <ResponseField name="messages[].created_at" type="string">
+    ISO 8601 timestamp of when the message was sent.
+  </ResponseField>
+</ResponseField>
+
+### Example Response
+
+```json
+{
+  "session_id": "sess_x7k2m9p4",
+  "messages": [
+    {
+      "role": "user",
+      "content": "How do I cancel my subscription?",
+      "created_at": "2024-10-15T09:31:00Z"
+    },
+    {
+      "role": "assistant",
+      "content": "To cancel your subscription, email team@myaskai.com from the email address associated with your account.",
+      "created_at": "2024-10-15T09:31:03Z"
+    },
+    {
+      "role": "user",
+      "content": "What happens to my data after I cancel?",
+      "created_at": "2024-10-15T09:31:45Z"
+    },
+    {
+      "role": "assistant",
+      "content": "After cancellation your agent is deactivated at the end of the current billing period. Your data is retained for 30 days and then permanently deleted, unless you request earlier deletion.",
+      "created_at": "2024-10-15T09:31:49Z"
+    }
+  ]
+}
+```
+
+---
+
+## Error Codes
+
+| HTTP status | Description |
+|---|---|
+| `400 Bad Request` | Missing required field (`agent_id`, `messages`) or malformed request body. |
+| `401 Unauthorized` | Missing or invalid API key. |
+| `404 Not Found` | The `session_id` does not exist or has expired. |
+| `429 Too Many Requests` | Rate limit exceeded. |
+| `500 Internal Server Error` | Unexpected server error — retry with exponential back-off. |
+
+<Warning>
+  Sessions are not permanent. If you need to replay a conversation after a session expires, pass the full message history you stored client-side as the `messages` array in your next request to maintain context.
+</Warning>

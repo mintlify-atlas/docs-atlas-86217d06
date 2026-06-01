@@ -1,0 +1,92 @@
+---
+title: "Site Search: AI-Powered Search for Your Help Center"
+sidebarTitle: "Site Search"
+description: "Give visitors an instant AI search experience alongside your chat widget — type a question and get a ranked list of the most relevant pages from your content."
+---
+
+My AskAI's Site Search feature transforms the way visitors find information on your website or help center. Instead of typing keywords and scanning through pages of results hoping to find the right article, users type a natural language question and receive a curated list of the most relevant pages — powered by the same AI that drives your chat agent. It's a smarter, faster alternative to the basic keyword search that most websites ship by default.
+
+<Info>
+  Site search is only available when using My AskAI via the **My AskAI widget**. It is not available through Zendesk, Intercom, Freshdesk, or other helpdesk integrations.
+</Info>
+
+## How Site Search Works
+
+Site search uses the same semantic understanding technology that powers your chat agent's answers. When a user types a query:
+
+1. My AskAI analyzes the intent behind the query (not just the keywords).
+2. It searches across all pages and documents indexed in your agent's knowledge base.
+3. It returns up to **10 ranked results** — the most relevant pages, ordered by semantic similarity to the query.
+4. Each result displays the page title and a content snippet, with a direct link to the source.
+
+This means a user searching for *"how do I get a refund"* will find your returns policy page even if it uses the phrase *"requesting reimbursement"* rather than the word *"refund"*.
+
+## Site Search vs. Chat: When to Use Each
+
+<CardGroup cols={2}>
+  <Card title="Site Search" icon="magnifying-glass">
+    Best for users who want to **browse and self-serve** — they know roughly what they're looking for and want to find the right page quickly. Results are a list of relevant links, not a generated answer.
+  </Card>
+  <Card title="Chat" icon="message">
+    Best for users who have a **specific question** and want a direct, conversational answer. The agent synthesizes an answer from your knowledge base and can handle follow-up questions.
+  </Card>
+</CardGroup>
+
+<Note>
+  Users can switch freely between Search and Chat modes using the navigation menu in the My AskAI widget. You don't need to choose one or the other — both are available simultaneously.
+</Note>
+
+## Enabling Site Search
+
+<Steps>
+  <Step title="Open your widget settings">
+    In your My AskAI dashboard, go to **Customize** to access your widget configuration.
+  </Step>
+  <Step title="Confirm your content sources are connected">
+    Site search draws from the same knowledge base as your chat agent. Make sure you have at least one content source connected under **Knowledge → Content** — website pages, uploaded files, or cloud connections all count.
+  </Step>
+  <Step title="Enable the Search tab in the widget">
+    In your widget settings, ensure the **Search** mode is enabled in the navigation options. This adds a Search tab to the widget alongside Chat.
+  </Step>
+  <Step title="Deploy or update your widget embed code">
+    If you are adding the widget to your site for the first time, copy the embed snippet from your dashboard and paste it into your site's HTML before the closing `</body>` tag. If the widget is already installed, the Search tab will appear automatically — no code changes needed.
+  </Step>
+  <Step title="Test the search experience">
+    Open your widget on your live site and switch to the Search tab. Type a few questions your customers commonly ask and verify that the most relevant pages appear in the results.
+  </Step>
+</Steps>
+
+## Use Cases
+
+<Accordion title="Documentation sites">
+  Developer docs and technical documentation sites often have hundreds of pages. Site search lets developers type questions like *"how do I authenticate with the API"* and get immediately linked to the relevant reference page — no scrolling through a sidebar navigation required.
+</Accordion>
+
+<Accordion title="Help centers and knowledge bases">
+  Customer-facing help centers benefit enormously from semantic search. Customers rarely use the exact terminology support teams write in. Site search bridges this language gap, returning the right article even when the customer's wording doesn't match the article title.
+</Accordion>
+
+<Accordion title="E-commerce product pages">
+  If you've connected your Shopify store or product catalog, site search can help shoppers find product pages, size guides, shipping policies, and FAQs quickly — reducing the need to contact support at all.
+</Accordion>
+
+<Accordion title="Internal knowledge bases">
+  When used in [Private (Internal) mode](/features/customization), site search can power an internal tool for your support team — letting agents quickly surface internal SOPs, escalation guides, or policy documents by typing a natural language query.
+</Accordion>
+
+## Configuration and Content Sources
+
+Site search uses the exact same content sources as your chat agent — there is no separate indexing or configuration required. Any page or document visible in your **Knowledge → Content** section is automatically available in search results.
+
+This means:
+- **Adding new content** to your knowledge base makes it instantly searchable.
+- **Hiding or deleting a page** removes it from both chat answers and search results simultaneously.
+- **Sync schedules** apply equally to chat and search — website pages are re-crawled fortnightly, cloud connections are refreshed every 24 hours.
+
+## Limits and Pricing
+
+Site search is included on **all plans, including the free plan**, and there is no limit to the number of searches performed. Searches do not count toward your conversation quota.
+
+<Tip>
+  Use site search as a lower-friction entry point for users who are still exploring. If they can't find what they need in search results, the chat tab is right there for them to ask a more specific question — creating a natural escalation path from self-service to assisted support.
+</Tip>

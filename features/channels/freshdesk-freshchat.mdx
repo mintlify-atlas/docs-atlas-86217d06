@@ -1,0 +1,208 @@
+---
+title: "Freshdesk & Freshchat Integration Guide"
+sidebarTitle: "Freshdesk & Freshchat"
+description: "Connect My AskAI to Freshchat for live chat and Freshdesk for email ticket deflection, with AI tagging and human escalation for both."
+---
+
+My AskAI offers two separate Freshworks integrations that work independently or together: **Freshchat** for real-time conversation handling in your live chat widget, and **Freshdesk** for AI-powered responses to incoming email and form-based support tickets. Both integrations require no code on your website and are available on paid My AskAI plans.
+
+<Note>
+  Freshchat requires a **Freshchat Pro plan** or above. Freshdesk is available on any paid Freshdesk plan. You can use both integrations simultaneously, but AI Tagging can only be configured for **one** of them at a time — not both.
+</Note>
+
+---
+
+<Tabs>
+  <Tab title="Freshchat">
+    Freshchat is Freshworks' real-time messaging platform. My AskAI integrates as a conversational AI agent inside the Freshchat widget, responding to customers instantly using your knowledge base.
+
+    ### Connecting Freshchat
+
+    <Steps>
+      <Step title="Open Channels in My AskAI">
+        Log in to your Dashboard and go to **Channels**. Under "Add to helpdesk", click the **Freshworks** icon and select **Freshchat**.
+      </Step>
+      <Step title="Enter API credentials">
+        Enter your **API key** and **Chat URL** from Freshchat. Find them in your Freshchat dashboard at **Admin Settings > Marketplace and Integrations > API Settings > API details for chat**. Click **Connect your Freshchat account**.
+      </Step>
+      <Step title="Enable the webhook">
+        In your Freshchat dashboard, go to **Admin Settings > Marketplace and Integrations > Conversation Webhooks** and toggle from Disabled to **Enabled**. Paste in the webhook URL from My AskAI:
+        `https://ask.myaskai.com/projects/webhooks/freshchat`
+      </Step>
+      <Step title="Verify the connection">
+        Send a test message to your Freshchat widget. The My AskAI setup page will show **"Webhook successfully setup"** to confirm.
+      </Step>
+      <Step title="Choose a reply mode">
+        By default, the AI creates **draft note replies**. To have it reply directly to customers, go to **Channels > Freshworks > Freshchat** and toggle **Direct replies** on.
+      </Step>
+    </Steps>
+
+    <Note>
+      Before connecting, ensure you have turned off **Freddy AI** (Freshworks' native AI agent) to prevent conflicting replies.
+    </Note>
+
+    ### Reply Modes
+
+    <CardGroup cols={2}>
+      <Card title="Direct Replies" icon="paper-plane">
+        The AI replies directly to customers in the Freshchat widget. Best for teams that want full automation. New conversations transfer back to the AI after a conversation is resolved and the threading interval has passed.
+      </Card>
+      <Card title="Note Replies" icon="note-sticky">
+        The AI creates an internal note after each customer message for agents to review and send. Ideal when you want AI assistance without full automation.
+      </Card>
+    </CardGroup>
+
+    ### Human Escalation
+
+    When a user says "Talk to a person" (or similar), or the AI cannot answer, it escalates automatically. On escalation:
+
+    - An internal note is added to the conversation summarising the chat for the incoming agent.
+    - If you've set up the **AI Chat Status** conversation property, it updates to `human-handover-requested`.
+    - The AI stops responding for the rest of that conversation.
+
+    **Auto-assign escalated conversations:** Create a Conversation Assignment Rule in Freshchat (**Admin Settings > Configurations and Workflows > Workflows > Conversation Assignment Rules**) that targets conversations where AI Chat Status = `human-handover-requested` and routes them to the correct team or agent.
+
+    ### AI Chat Status Property
+
+    To track AI activity in your Freshchat inbox, create a conversation property:
+
+    1. Go to **Freshchat Admin Settings > Configuration and Workflow > Conversation Properties**.
+    2. Create a new **Dropdown** property called `AI Chat Status` with internal name `ai_chat_status`.
+    3. The AI will automatically populate this field with one of three values:
+       - `ai-agent-replied` — AI has sent a reply
+       - `human-handover-requested` — escalation requested
+       - `ai-agent-tag-blocked` — reply blocked by a tag rule
+
+    ### AI Tagging for Freshchat
+
+    <Steps>
+      <Step title="Set up tagging">
+        Go to **AI Agent Setup > Auto-Tagging** and click **Import conversation property**. Select a tag or custom field from Freshchat and click **Import conversation property**.
+      </Step>
+      <Step title="Review descriptions">
+        Check and refine the auto-generated descriptions for each property value. Accuracy here directly affects tagging quality.
+      </Step>
+      <Step title="Enable auto-tagging">
+        Toggle tagging on. Tags are applied automatically from that point forward.
+      </Step>
+      <Step title="Block replies by tag (optional)">
+        In **AI Agent Setup > AI Tagging**, click **Block** next to any tag value to prevent the AI from responding to conversations with that topic. Blocked conversations are automatically escalated to a human.
+      </Step>
+    </Steps>
+
+    **Cost:** $0.05 per conversation property per conversation, billed as an add-on.
+
+    ### Additional Options
+
+    | Setting | Location |
+    |---|---|
+    | Prevent immediate escalation | **Channels > Freshworks > Freshchat** |
+    | Auto-close inactive conversations | **Channels > Freshworks > Freshchat** |
+    | Triage / chatbot trigger phrase | **Channels > Freshworks > Freshchat** (Chatbot/Triage toggle) |
+    | Hide "Just thinking…" message | **Channels > Freshworks > Freshchat** |
+    | Pause AI agent | **Channels > Freshworks > Freshchat** |
+  </Tab>
+
+  <Tab title="Freshdesk">
+    Freshdesk is Freshworks' ticket management system. My AskAI connects to your Freshdesk inbox and responds to incoming email and web form tickets — either as internal draft notes for agents, or as direct replies to customers.
+
+    ### Connecting Freshdesk
+
+    <Steps>
+      <Step title="Install from Freshworks Marketplace">
+        Install My AskAI from the [Freshworks Marketplace](https://www.freshworks.com/apps/) into your Freshdesk workspace.
+      </Step>
+      <Step title="Open Channels in My AskAI">
+        Log in to your Dashboard and go to **Channels**. Under "Add to helpdesk", click the **Freshworks** icon and select **Freshdesk Tickets**.
+      </Step>
+      <Step title="Enter your Freshdesk domain and API key">
+        Enter your Freshdesk domain (e.g. `myaskai` from `myaskai.freshdesk.com` — use your original Freshdesk subdomain, not any custom domain) and your API key. Find your API key at **Profile icon > Profile Settings > View API Key** in Freshdesk. Click **Connect your Freshdesk account**.
+      </Step>
+      <Step title="Choose reply mode">
+        Select **Internal Notes** (default) or **Direct replies**. You can also choose to reply to the 1st message only or all messages.
+      </Step>
+      <Step title="Test the integration">
+        Send a test email to your Freshdesk inbox. An AI-generated note or reply should appear within seconds.
+      </Step>
+    </Steps>
+
+    <Tip>
+      Create a dedicated Freshdesk agent seat for My AskAI using that account's API key. This makes it clear which responses are from the AI and lets you customise the AI agent's name and avatar.
+    </Tip>
+
+    ### Reply Modes
+
+    <CardGroup cols={2}>
+      <Card title="Internal Notes (Default)" icon="note-sticky">
+        The AI drafts a suggested response as an internal note on every incoming ticket. Agents review, tweak if needed, and send. No customer sees an unreviewed AI reply.
+      </Card>
+      <Card title="Direct Replies" icon="paper-plane">
+        The AI replies directly to the customer. Recommended for high-volume routine queries. Disable Freshdesk's automatic ticket-creation acknowledgement email to avoid duplicate messages.
+      </Card>
+    </CardGroup>
+
+    ### How Freshdesk Tracks AI Activity
+
+    My AskAI adds tags to tickets automatically:
+
+    - `ai-agent-replied` — AI has responded to this ticket
+    - `human-handover-requested` — customer asked to speak to a human
+
+    Use these tags in Freshdesk **Automation rules** (on Ticket Updates) to build custom views or auto-reassign escalated tickets to human agents.
+
+    ### Human Escalation
+
+    Configure escalation behaviour in **Channels > Freshdesk**:
+
+    - **Cannot answer** — the AI escalates automatically when it can't answer, as well as on explicit requests
+    - **Escalation request only** — the AI only escalates when the customer explicitly asks
+
+    **Auto-reassign escalated tickets:** Create a Freshdesk Automation rule on "Ticket Updates" filtering on tag `human-handover-requested` to re-assign, change status, or notify agents.
+
+    ### AI Tagging for Freshdesk
+
+    <Steps>
+      <Step title="Set up tagging">
+        Go to **AI Agent Setup > AI Tagging** and click **Import tag or custom field**. Select a tag or custom field imported from Freshdesk and click **Import tag/custom field**.
+      </Step>
+      <Step title="Review descriptions">
+        Review the auto-generated description for each tag value. The accuracy of your descriptions determines how well the AI categorises tickets.
+      </Step>
+      <Step title="Enable auto-tagging">
+        Toggle auto-tagging on. The tag `ai-agent-tags-applied` will be added to every processed ticket.
+      </Step>
+      <Step title="Block replies by tag (optional)">
+        Click **Block** next to any tag value in **AI Agent Setup > AI Tagging** to prevent the AI from responding to tickets in that category. Blocked tickets receive the tag `ai-agent-tag-blocked`.
+      </Step>
+    </Steps>
+
+    **Cost:** $0.05 per tag or custom field per ticket, billed as an add-on.
+
+    <Warning>
+      You can only configure AI Tagging for Freshchat **or** Freshdesk — not both at the same time.
+    </Warning>
+
+    ### Controlling Which Tickets the AI Responds To
+
+    By default the AI responds to all **New** email and web form tickets. To filter by ticket type, source, subject, or any other condition, edit the My AskAI **Automation** that was created in Freshdesk (**Admin Settings > Automations**) and add conditions as needed.
+
+    ### Additional Options
+
+    | Setting | Location |
+    |---|---|
+    | First reply delay | Not natively available — contact support |
+    | Pause AI agent | **Channels > Freshworks > Freshdesk** |
+    | Copilot for follow-ups | Install the [Chrome Extension](/features/channels/other-channels) for in-inbox AI drafting on follow-up tickets |
+  </Tab>
+</Tabs>
+
+---
+
+## Required API Credentials
+
+| Integration | Credentials Needed |
+|---|---|
+| Freshchat | API Key + Chat URL (from Freshchat Admin Settings) |
+| Freshdesk | Domain subdomain + API Key (from Freshdesk Profile Settings) |
+
+Both integrations use API key authentication — no OAuth flow is required. My AskAI also creates a webhook in Freshchat and an Automation rule in Freshdesk automatically during setup.

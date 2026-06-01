@@ -1,0 +1,98 @@
+---
+title: "Understanding Account Limits: Conversations and Content"
+sidebarTitle: "Limits"
+description: "Learn about My AskAI's conversation and content limits, how usage is tracked, what happens when you exceed them, and how to increase your allowance."
+---
+
+My AskAI keeps its limits simple: there are **no content limits** on paid plans (no caps on pages, files, or words in your knowledge base), and the only limit you need to think about is your **monthly conversation allowance**. This page explains how conversation limits work, what happens when you go over them, and how to monitor your usage in real time.
+
+## Content Limits
+
+<Accordion title="Are there limits on how much content I can upload?">
+  On all paid My AskAI plans, there are **no limits** on the amount of training content you can add — no page caps, no file count limits, and no word or token limits. You can add as many webpages, documents, and other content sources as your knowledge base requires.
+</Accordion>
+
+<Accordion title="Is there a character limit on questions asked to the AI agent?">
+  Yes — individual questions submitted to the AI agent can be up to **400 characters** in length.
+</Accordion>
+
+## Conversation Limits
+
+Conversation limits are applied at the **account level** across all channels and all visitors — not per individual user or per agent.
+
+### How Conversations Are Counted
+
+Because My AskAI works across many channels, counting varies slightly by integration type:
+
+| Channel type | Counting method |
+|---|---|
+| **My AskAI widget** | Any number of AI responses in a single chat thread within a 1-hour session = 1 conversation |
+| **Live chat integrations** (Zendesk Messaging, Intercom, Freshchat, Gorgias chat, HubSpot chat) | Every **2 AI responses** = 1 conversation credit (i.e. each reply = 0.5 credits) |
+| **Ticket/email integrations** (Zendesk Tickets, Freshdesk, Gorgias email, Intercom email, HubSpot email) | First AI reply = 1 credit; each subsequent reply in the same ticket = 0.5 credits |
+
+**Example:** A ticket with 10 user messages would count as **5 conversation credits** (1 for the first reply + 0.5 × 9 for each subsequent reply).
+
+### Plan Conversation Allowances
+
+| Plan | Monthly conversations included | Overage rate |
+|---|---|---|
+| Pro | 1,000 | $0.12 per conversation |
+| Scale | 2,000 | $0.10 per conversation |
+| Enterprise | Custom | Negotiated |
+
+<Note>
+  During your **30-day free trial** there is no conversation limit. Flex overage charges only apply once you are on a paid plan.
+</Note>
+
+### Do Unused Conversations Roll Over?
+
+No. Unused conversation credits **do not roll over** to the following month. Your allowance resets monthly on the same date you originally signed up (which may differ from your billing renewal date).
+
+## What Happens When You Exceed Your Limit?
+
+My AskAI uses **Flex pricing** — your AI agent will **never stop responding** to customers mid-month just because you've reached your conversation limit. Instead, additional conversations beyond your plan's allowance are charged automatically at the per-conversation overage rate for your plan.
+
+Overage charges appear on your **next month's invoice**, or are settled at the time of cancellation.
+
+<Warning>
+  Flex pricing cannot be disabled. If you are concerned about overage costs, monitor your usage dashboard regularly and consider upgrading to a plan with a higher conversation allowance.
+</Warning>
+
+<Accordion title="Can I disable Flex pricing or cap my usage?">
+  Flex pricing cannot currently be disabled, and there is no way to hard-cap conversations at your plan limit. If managing costs is a concern, upgrading to a higher plan tier is the most effective approach. You can also contact the My AskAI team via chat to discuss your options.
+</Accordion>
+
+<Accordion title="Can I limit conversations from specific employees or internal users?">
+  There is currently no mechanism to limit conversations originating from specific team members or internal users. If this is a requirement, contact the team via chat to discuss your use case.
+</Accordion>
+
+## Monitoring Your Usage
+
+You can view your real-time conversation usage at any time:
+
+<Steps>
+  <Step title="Open Account Settings">
+    Navigate to **Account Settings** in your My AskAI dashboard.
+  </Step>
+  <Step title="View Usage">
+    On the main Account Settings page you will see a summary of how many conversations you have consumed in the current billing period, along with any projected overage costs.
+  </Step>
+  <Step title="Check the Cost Estimator">
+    After 7 days on a paid plan with a connected helpdesk, a **cost estimator** will appear in the Billing section showing your projected monthly spend based on actual usage patterns.
+  </Step>
+</Steps>
+
+<Tip>
+  Regularly reviewing your usage dashboard helps you anticipate costs and decide whether to upgrade your plan before the end of the billing cycle.
+</Tip>
+
+## How to Increase Your Limits
+
+<CardGroup cols={2}>
+  <Card title="Upgrade Your Plan" icon="arrow-up">
+    The most straightforward way to increase your conversation allowance is to upgrade to a higher plan tier. Go to **Account Settings → Billing → "Manage subscription on Stripe"** to change plans.
+  </Card>
+  <Card title="Move to Enterprise" icon="building">
+    For very high volumes or custom limits, the Enterprise plan offers negotiated conversation allowances tailored to your business. Contact the My AskAI team to discuss Enterprise pricing.
+  </Card>
+</CardGroup>

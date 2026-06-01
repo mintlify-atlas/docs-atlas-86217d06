@@ -1,0 +1,148 @@
+---
+title: "User Data API: Personalise Answers with Live User Context"
+sidebarTitle: "User Data API"
+description: "Register a webhook so My AskAI can fetch live user context before each conversation, enabling your AI agent to give personalised, account-aware support answers."
+---
+
+The User Data API lets your AI agent give personalised answers by fetching live data about the person it is talking to — their subscription tier, recent orders, account status, or any other information your backend holds. Rather than calling your systems directly, My AskAI calls a webhook URL you register. Your endpoint receives the user's identifier, looks up the relevant data, and returns it as a JSON response. The agent then injects that context into its reasoning before composing a reply.
+
+This is especially powerful for e-commerce and SaaS support scenarios: instead of giving a generic "check your account page" reply, the agent can say "Your last order (#12345) was delivered on 1 September and is currently showing as Delivered."
+
+<Info>
+  If you run a Shopify store, you can use the no-code Shopify connector instead of building a custom endpoint. Go to **Knowledge → Content → Connect live user data** to get started.
+</Info>
+
+---
+
+## How It Works
+
+<Steps>
+  <Step title="You register a webhook URL">
+    In the My AskAI dashboard go to **Knowledge → Content**, scroll to **Connect live user data**, and click **+ New Connection**. Enter your endpoint URL, the `Authorization` header name, and the corresponding secret key.
+  </Step>
+  <Step title="A user starts a conversation">
+    When a user with a validated email address contacts your AI agent, My AskAI detects their identifier (e.g. their email address, extracted from a Zendesk ticket or an authenticated Intercom conversation).
+  </Step>
+  <Step title="My AskAI calls your endpoint">
+    My AskAI makes a `POST` request to your registered URL, sending the user's identifier in the request body. Your endpoint must respond within **10 seconds**.
+  </Step>
+  <Step title="Your endpoint returns user data">
+    You return a JSON payload containing any user context that may be relevant for answering support questions — name, plan, order history, entitlements, and so on.
+  </Step>
+  <Step title="The agent uses the data">
+    My AskAI injects the returned data into the agent's context window. The agent can then reference it when composing its reply.
+  </Step>
+</Steps>
+
+---
+
+## Configuring the Webhook
+
+1. Log in to your My AskAI dashboard.
+2. Go to **Knowledge → Content**.
+3. Scroll to **Connect live user data** and click **+ New Connection**.
+4. Fill in the following fields:
+   - **API endpoint URL** — the full URL My AskAI should call (e.g. `https://api.yourcompany.com/myaskai/user-data`)
+   - **Authorization Header** — the header name your endpoint expects (e.g. `Authorization`)
+   - **Authorization Header Key** — the secret value My AskAI will send in that header
+5. Enter a test user email address and click **Test User Data API** to verify your endpoint returns a valid response.
+6. Once satisfied, click the toggle to **Activate live user data**.
+
+---
+
+## Incoming Request from My AskAI
+
+My AskAI sends the following `POST` request to your endpoint for every new support conversation or ticket where the user's identifier is available.
+
+### Headers My AskAI Sends
+
+| Header | Value |
+|---|---|
+| `Content-Type` | `application/json` |
+| `Authorization` | The secret key you configured in the dashboard |
+
+### Request Body
+
+<ParamField body="identifier" type="string" required>
+  The user's email address, extracted from the authenticated support conversation or ticket. This is the lookup key your endpoint should use to retrieve user data.
+</ParamField>
+
+### Example Request Body
+
+```json
+{
+  "identifier": "alex@example.com"
+}
+```
+
+---
+
+## Expected Response from Your Endpoint
+
+Your endpoint must return an HTTP `200` with a JSON body containing the following fields.
+
+<ResponseField name="user_info" type="string" required>
+  A string containing all relevant user information. Format it clearly so the agent can parse and reference individual data points — plain text with newlines or a structured format both work well. Keep it focused: include only information that might be needed to answer a support question.
+
+  <Info>
+    If `user_info` exceeds **1,500 characters**, each response is charged as a tool call at $0.02 per message.
+  </Info>
+</ResponseField>
+
+<ResponseField name="identifier" type="string" required>
+  Echo back the same `identifier` value that was sent in the request.
+</ResponseField>
+
+### Example Response
+
+```json
+{
+  "user_info": "Name: Alex Johnson\nEmail: alex@example.com\nSubscription: Pro (Monthly)\nSubscription Start Date: January 15, 2024\nNext Renewal Date: January 15, 2025\n\nRecent Orders:\n1. Order #12345\n   - Date: September 1, 2024\n   - Items: Running Shoes (x1)\n   - Status: Delivered\n\n2. Order #12346\n   - Date: September 10, 2024\n   - Items: Fitness Tracker (x1)\n   - Status: In Transit\n\n3. Order #12347\n   - Date: September 25, 2024\n   - Items: Wireless Earbuds (x1)\n   - Status: Processing",
+  "identifier": "alex@example.com"
+}
+```
+
+---
+
+## Authentication of Incoming Requests
+
+My AskAI authenticates itself to your endpoint using the shared secret you configure in the dashboard. Verify this secret on every request to ensure you only process calls from My AskAI.
+
+```js
+// Example Node.js Express middleware
+app.post('/myaskai/user-data', (req, res) => {
+  const authHeader = req.headers['authorization'];
+  if (authHeader !== process.env.MYASKAI_WEBHOOK_SECRET) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+  // ... look up user data and respond
+});
+```
+
+---
+
+## Performance Requirements
+
+| Requirement | Value |
+|---|---|
+| Maximum response time | 10 seconds |
+| Response format | `application/json` |
+| Maximum `user_info` length (free) | 1,500 characters |
+
+---
+
+## Error Handling
+
+Your endpoint should return appropriate HTTP status codes for error conditions. If your endpoint is unavailable or returns an error, My AskAI will continue the conversation **without** user context rather than failing the entire conversation.
+
+| Status code | Meaning |
+|---|---|
+| `200 OK` | User data returned successfully |
+| `400 Bad Request` | Request body missing the `identifier` field |
+| `401 Unauthorized` | Authorization header missing or incorrect |
+| `404 Not Found` | No user found for the provided identifier |
+| `500 Internal Server Error` | Unexpected error in your backend |
+
+<Warning>
+  If your endpoint times out or returns a `5xx` error, the agent continues without user context. This means it gives a generic rather than personalised answer, but the conversation is not interrupted. Monitor your endpoint's reliability to avoid degraded personalisation.
+</Warning>

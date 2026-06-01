@@ -1,0 +1,184 @@
+---
+title: "User Data API: Personalise Responses with Live Account Data"
+sidebarTitle: "User Data API"
+description: "Inject live, per-user context into your AI agent so it can answer personalised questions about orders, subscriptions, and account details in real time."
+---
+
+By default your AI agent answers questions from the static knowledge you've provided — help articles, product pages, documentation. That's powerful for general support, but it can't tell a specific customer where their specific order is, or what their current subscription plan includes. The User Data API closes that gap. When a verified user contacts your support channel, My AskAI calls an endpoint you provide, receives a structured response with that user's data, and uses it to give a personalised, accurate answer — all without the user ever waiting for a human to look it up.
+
+## Why the User Data API Matters
+
+Without user context, your agent can only give generic answers:
+
+> "To check your order status, please log in to your account and visit the Orders page."
+
+With the User Data API connected, the agent responds with their actual data:
+
+> "Hi Alex — your most recent order (#12346, Fitness Tracker) is currently in transit and is estimated to arrive on 12 November. Your Premium Monthly subscription renews on 15 October."
+
+This is the difference between a help widget and a true AI support agent.
+
+<Note>
+  If you have a Shopify store, you can skip the manual setup below and use the [Shopify connector](/features/shopify) instead — it connects your order and customer data with no code required.
+</Note>
+
+---
+
+## Supported Integrations
+
+The User Data API requires a **verified user identity** — meaning the user's email address must be confirmed by the support channel. It is currently supported with:
+
+- Zendesk Tickets and Zendesk Messaging
+- Intercom
+- Gorgias Tickets (not Gorgias Live Chat)
+- HubSpot Email and HubSpot Live Chat
+- Freshdesk and Freshchat
+
+<Info>
+  If you don't see a "Connect live user data" option in your Dashboard, your current integration may not be on the supported list above. Check your channel before contacting support.
+</Info>
+
+---
+
+## Setup
+
+<Steps>
+  <Step title="Build your user data endpoint">
+    Create a POST endpoint on your infrastructure that accepts a JSON body with an `identifier` field (the user's verified email address) and returns a JSON object containing that user's relevant data.
+
+    My AskAI will call this endpoint on every new support conversation where a verified email is available.
+
+    **Request My AskAI sends to your endpoint:**
+    ```json
+    {
+      "identifier": "alex@example.com"
+    }
+    ```
+
+    Your endpoint must respond within **10 seconds** and return a valid JSON response.
+  </Step>
+
+  <Step title="Format your response correctly">
+    Your endpoint must return a JSON object with a `user_info` string and the `identifier` echo. The `user_info` value contains all the context you want the agent to have — formatted as readable plain text or structured with headers.
+
+    **Example response:**
+    ```json
+    {
+      "user_info": "Name: Alex Johnson\nEmail: alex@example.com\nSubscription: Premium (Monthly)\nSubscription Start: January 15, 2024\nNext Renewal: November 15, 2024\n\nRecent Orders:\n1. Order #12345\n   - Date: September 1, 2024\n   - Items: Running Shoes\n   - Status: Delivered\n\n2. Order #12346\n   - Date: September 10, 2024\n   - Items: Fitness Tracker\n   - Status: In Transit\n\n3. Order #12347\n   - Date: September 25, 2024\n   - Items: Wireless Earbuds\n   - Status: Processing",
+      "identifier": "alex@example.com"
+    }
+    ```
+
+    <Tip>
+      Include all fields a support agent would typically look up — subscription status, recent orders, account tier, any pending issues. Avoid including data that isn't relevant to support queries, as overly long responses may slow down the agent.
+    </Tip>
+  </Step>
+
+  <Step title="Configure the connection in your Dashboard">
+    1. Log in to your [Dashboard](https://myaskai.com/dashboard) and go to **Knowledge > Content**.
+    2. Scroll to **Connect live user data** and click **+ New Connection**.
+    3. Enter your **API endpoint URL**, **Authorization Header name** (e.g. `Authorization`), and your **Authorization Header value** (e.g. `Bearer your_secret_token`).
+  </Step>
+
+  <Step title="Test with a real email address">
+    Enter a test user's email address — one that will return a real response from your endpoint — and click **Test User Data API**. You should see your example response appear below the button. Re-test until you're satisfied with the data returned.
+  </Step>
+
+  <Step title="Activate">
+    Once your test response looks correct, click the toggle to **Activate live user data**. From this point on, every new support conversation with a verified email address will trigger a call to your endpoint, and the agent will use the returned data in its responses.
+  </Step>
+</Steps>
+
+---
+
+## Full API Specification
+
+### Endpoint
+
+| Property | Value |
+|---|---|
+| **Method** | `POST` |
+| **Example URL** | `https://api.yourcompany.com/user-data` |
+| **Content-Type** | `application/json` |
+
+### Headers
+
+My AskAI will attach the Authorization header you configured during setup. No other headers are required.
+
+### Request Body
+
+```json
+{
+  "identifier": "user@example.com"
+}
+```
+
+| Field | Type | Description |
+|---|---|---|
+| `identifier` | String | The verified email address of the user |
+
+### Response Body
+
+```json
+{
+  "user_info": "...",
+  "identifier": "user@example.com"
+}
+```
+
+| Field | Type | Description |
+|---|---|---|
+| `user_info` | String | All relevant user context, formatted as readable text |
+| `identifier` | String | Echo of the identifier sent in the request |
+
+### Error Codes
+
+| Code | Meaning |
+|---|---|
+| `401 Unauthorized` | Authorization header is missing or invalid |
+| `400 Bad Request` | Request body missing the `identifier` field or malformed |
+| `404 Not Found` | No user data found for the provided identifier |
+| `500 Internal Server Error` | Unexpected server-side error |
+
+If your API returns an error, the agent will continue supporting the user — it simply won't have additional user context for that conversation.
+
+---
+
+## Example: Subscription Question
+
+**Without User Data API:**
+
+> *User:* "What plan am I on?"
+> *Agent:* "You can check your current plan by logging in to your account and visiting the Billing page."
+
+**With User Data API connected:**
+
+> *User:* "What plan am I on?"
+> *Agent:* "You're currently on the Premium Monthly plan, Alex. Your next renewal date is 15 November 2024. Would you like to know more about what's included in your plan, or would you like to make any changes?"
+
+---
+
+## Security
+
+<CardGroup cols={2}>
+  <Card title="Server-side only" icon="server">
+    Your endpoint is called **server-to-server** by My AskAI. Credentials are never exposed in the browser or to end users.
+  </Card>
+  <Card title="Verified identity only" icon="shield-check">
+    The User Data API only fires when the user's email is **confirmed** by the support channel — no spoofing risk.
+  </Card>
+  <Card title="Isolated per conversation" icon="lock">
+    My AskAI's silo architecture ensures there is **no cross-talk** between users — one user's data is never returned to another.
+  </Card>
+  <Card title="Authorization header" icon="key">
+    Your endpoint is protected by an Authorization header that only My AskAI knows. Use a long, randomly generated token.
+  </Card>
+</CardGroup>
+
+---
+
+## Pricing
+
+The User Data API is included at **no extra cost** on all plans. However, if your `user_info` response exceeds **1,500 characters**, each such response is charged at the tool rate of **$0.02 per message**. Keep your response concise and relevant to avoid unexpected charges.
+
+For the full technical reference, see the [User Data API reference](/api/user-data-api).

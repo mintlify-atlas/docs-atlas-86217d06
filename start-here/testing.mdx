@@ -1,0 +1,119 @@
+---
+title: "Testing Your AI Agent Before Going Live"
+sidebarTitle: "Testing"
+description: "Validate answer quality, check escalation flows, and iterate on knowledge gaps before your AI agent handles real customer conversations."
+---
+
+Rushing an AI agent live without thorough testing is one of the most common mistakes teams make. A few hours spent asking questions, checking edge cases, and reviewing the logs will save you far more time dealing with confused customers later. My AskAI gives you purpose-built tools to test every part of the agent experience — from the accuracy of individual answers to the reliability of your human handoff — all without touching a single real conversation.
+
+## Testing workflow
+
+<Steps>
+  <Step title="Set your agent to Private mode">
+    Before you start, make sure your agent is not yet visible to real customers. In your My AskAI dashboard, go to **Settings** and set the agent's visibility to **Private (Internal)**. In this mode the widget is only accessible via a direct preview link that you control — it won't appear to site visitors.
+
+    <Note>
+      Private mode is ideal for internal QA rounds and stakeholder sign-off. You can share the preview link with your team without publishing the agent publicly. See the [Private mode docs](/features/customization) for details.
+    </Note>
+  </Step>
+
+  <Step title="Open the built-in Test mode">
+    Navigate to **Improve → Test** in the dashboard. This panel lets you send questions directly to your agent and see exactly how it responds, including which source documents were used to generate each answer. Nothing you do here reaches real customers or counts against your conversation quota.
+  </Step>
+
+  <Step title="Ask your known questions">
+    Start with questions you already know the answers to — your most common support queries, FAQs, and any tricky edge cases. Work through them systematically and note:
+
+    - **Correctness** — Is the answer factually accurate based on your knowledge base?
+    - **Completeness** — Does the response cover the full context a customer would need?
+    - **Tone** — Does it match the brand voice you configured?
+    - **Hallucinations** — Does the agent ever confidently state something that isn't in your content?
+
+    <Tip>
+      Keep a simple spreadsheet with three columns: *Question*, *Expected answer*, *Actual answer*. This gives you a repeatable regression test you can run after every content update.
+    </Tip>
+  </Step>
+
+  <Step title="Test your escalation flows">
+    Human handoff is just as important as answer quality. Test the scenarios where the agent *should* escalate:
+
+    - Ask a question with no relevant content in your knowledge base and confirm the agent gracefully offers to connect the customer to a human.
+    - Explicitly request a human agent mid-conversation and verify the handoff triggers correctly.
+    - Check that escalation captures the right contact details or routes to the correct team.
+
+    <Tip>
+      If you're integrated with a live-chat platform (Zendesk, Intercom, etc.), test the escalation end-to-end in a sandbox/staging environment of that platform so you can see exactly what the human agent receives.
+    </Tip>
+  </Step>
+
+  <Step title="Review conversations in Inspect & Logs">
+    After running your test questions, head to **Improve → Inspect & Logs**. This section shows a full transcript of every conversation, the confidence score for each answer, the source documents cited, and whether escalation was triggered.
+
+    Look out for:
+    - Low-confidence answers that may be unreliable.
+    - Questions where the wrong source document was cited.
+    - Conversations that escalated unnecessarily.
+    - Any abrupt or unhelpful "I don't know" responses that could be fixed with a custom answer.
+  </Step>
+
+  <Step title="Fill knowledge gaps with Custom Answers">
+    Where the logs reveal gaps, head to **Improve → Custom Answers** to write targeted responses for specific questions. Custom Answers take priority over the general knowledge base, so they're perfect for:
+
+    - Highly specific product or policy questions.
+    - Questions the AI consistently misunderstands.
+    - Sensitive topics where you need precise, pre-approved wording.
+
+    <Note>
+      The **Improve → Knowledge Gaps** section automatically surfaces questions your agent couldn't answer confidently, so you don't have to hunt for them manually.
+    </Note>
+  </Step>
+
+  <Step title="Update and re-sync knowledge sources">
+    If testing reveals that your content itself is out of date or incomplete, update your source material and then trigger a re-sync from **Connections** in the dashboard. Once the sync completes, repeat your key test questions to confirm the new content has been picked up.
+  </Step>
+
+  <Step title="Run a final review and go live">
+    Once you're confident in answer quality and escalation behaviour, set your agent visibility back to **Active** and remove it from Private mode. Monitor **Inspect & Logs** closely for the first 24–48 hours after launch and be ready to add Custom Answers for any new gaps that emerge from real customer conversations.
+
+    <Tip>
+      Schedule a recurring review of Knowledge Gaps every week for the first month. Real customer questions will surface topics your internal testing didn't anticipate, and acting on them quickly drives a measurable improvement in deflection rate.
+    </Tip>
+  </Step>
+</Steps>
+
+---
+
+## What to test for
+
+<CardGroup cols={2}>
+  <Card title="Answer accuracy" icon="circle-check">
+    Verify that every answer is grounded in your actual content. If the agent fabricates details, check whether the relevant content is synced and clearly worded.
+  </Card>
+  <Card title="Edge cases & out-of-scope questions" icon="triangle-exclamation">
+    Ask questions completely outside your product domain. The agent should politely acknowledge it can't help and offer escalation — not guess.
+  </Card>
+  <Card title="Escalation reliability" icon="arrow-up-right-from-square">
+    Confirm that every escalation path works: human handoff, contact-form capture, and any live-chat routing rules. A failed handoff is worse than no answer at all.
+  </Card>
+  <Card title="Tone and brand voice" icon="pen-nib">
+    Read responses aloud. Do they sound like your brand? Too formal? Too casual? Adjust the persona settings in **Settings → Agent** if needed.
+  </Card>
+  <Card title="Multi-turn conversations" icon="comments">
+    Don't just test single questions — have a full back-and-forth conversation. Ensure the agent maintains context correctly across multiple turns.
+  </Card>
+  <Card title="Language and localisation" icon="globe">
+    If you serve customers in multiple languages, test queries in each language your agent is expected to support. Check that responses are accurate and naturally worded.
+  </Card>
+</CardGroup>
+
+---
+
+## Improving after launch
+
+Testing doesn't stop when you go live. Use the **Improve** section continuously to keep your agent sharp:
+
+- **Knowledge Gaps** — A regularly updated list of questions the agent couldn't answer confidently.
+- **Custom Answers** — Targeted, pre-approved responses for specific queries.
+- **Guidance** — High-level instructions that shape how the agent reasons and responds.
+- **Inspect & Logs** — Full conversation transcripts for qualitative review.
+- **Content Usage** — See which knowledge sources are being used most (and least) so you can prioritise content updates.

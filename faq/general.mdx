@@ -1,0 +1,118 @@
+---
+title: "General FAQ: How My AskAI Works, Plans, and Features"
+sidebarTitle: "General"
+description: "Answers to the most common general questions about My AskAI: how it works, agents, plans, rate limits, SLAs, social accounts, and the difference from My AskAI Classic."
+---
+
+This page answers the most frequently asked general questions about My AskAI — from how the underlying technology works to practical questions about plans, limits, and features. If you're looking for questions about AI accuracy, see the [AI & Accuracy FAQ](/faq/ai-and-accuracy), or for setup and integrations see the [Integrations & Setup FAQ](/faq/integrations-and-setup).
+
+---
+
+<Accordion title="How does My AskAI work?">
+  My AskAI uses a technique called **Retrieval-Augmented Generation (RAG)** combined with large language models. Here's what happens behind the scenes when a user asks a question:
+
+  1. **Content ingestion** — When you add a website, file, or document, My AskAI extracts the text and breaks it into chunks. Each chunk is converted into a numerical vector (an "embedding") that represents its semantic meaning. These embeddings are stored in a vector database.
+  2. **Semantic search** — When a user asks a question, that question is also vectorised. My AskAI searches for the six most semantically similar content chunks in your knowledge base.
+  3. **LLM answer generation** — The question and the retrieved chunks are passed to a large language model (currently GPT-4o class models from OpenAI). The model is instructed to answer the question using only those chunks — not general world knowledge.
+  4. **Response delivery** — The generated answer, along with source references, is returned to the user.
+
+  This approach grounds the agent's answers in your content and prevents it from making things up or drawing on information you haven't provided.
+</Accordion>
+
+<Accordion title="Which messages will my AI agent respond to?">
+  Your AI agent responds to text-based customer support questions. By default it will respond to any incoming message in your connected channels (Zendesk, Intercom, HubSpot, etc.) that arrives in a new conversation or ticket.
+
+  **Current limitations:**
+  - The agent cannot see **images or attachments** sent within a conversation. It will respond with a message asking the user to describe their issue in text. Support for image reading in live conversations is on the roadmap.
+  - The agent is optimised for support questions. It is not a general-purpose chatbot — asking it where it's from or requesting that it write a poem will produce a politely unhelpful response by design.
+
+  You can use [Guidance](/features/improve) to further scope which types of questions the agent responds to, or [Playbooks](/features/channels/zendesk) (on supported channels) to control routing logic.
+</Accordion>
+
+<Accordion title="Will it make things up or hallucinate?">
+  By default, **no**. My AskAI is configured so the agent only answers questions when the answer is contained within the content you've uploaded. If it can't find a relevant answer, it says "I don't know" and offers the user the option to speak to a person.
+
+  This is a deliberate design choice for two reasons:
+  1. Answers grounded in your content are verifiable — you can trace any response back to a source.
+  2. Without this restriction, users could effectively use your My AskAI as a free general-purpose AI assistant, which would consume your conversation limits and pollute your Insights data.
+
+  While My AskAI trains its system carefully for factual accuracy, no AI service is 100% accurate. Always review answers to high-stakes questions.
+</Accordion>
+
+<Accordion title="Does it get smarter over time?">
+  Yes — but not automatically through passive conversation monitoring. My AskAI does not learn directly from individual conversations. Instead, it improves through deliberate human-in-the-loop actions:
+
+  - **Self-learning** — My AskAI's [Self-learning](/features/self-learning) feature surfaces conversations where the agent struggled, so you can review and improve them.
+  - **Knowledge Gaps** — The [Knowledge Gaps](/features/improve) view shows questions the agent couldn't answer, helping you identify missing content to add.
+  - **Custom Answers** — Add [Custom Answers](/features/improve) for questions you want answered verbatim.
+  - **Content updates** — Keeping your help docs, website, and knowledge sources up to date is the single most effective way to improve answer quality.
+
+  Over time, acting on these signals produces a measurably more accurate agent.
+</Accordion>
+
+<Accordion title="Can I give my agent a personality, tone, or custom persona?">
+  Yes. You can fully customise your agent's name, tone, writing style, and behavioural constraints using [Guidance](/features/improve). Guidance lets you add standing instructions that apply to every answer — for example:
+
+  - "Always respond in a friendly, casual tone and sign off with 'Let me know if there's anything else I can help with!'"
+  - "Never speculate. If you are unsure, direct the user to contact the support team."
+  - "Refer to yourself as 'Aria' and never acknowledge that you are an AI."
+
+  Guidance is the primary way to shape the agent's "personality" and ensure it reflects your brand voice.
+</Accordion>
+
+<Accordion title="Can I have multiple AI agents or multiple knowledge bases?">
+  Yes. My AskAI supports multiple agents via the [Multibrand](/features/multibrand) feature. You can have one agent per brand, product line, or customer segment, each with its own knowledge base, persona, and channel integrations.
+
+  If you need multiple knowledge bases within a single agent (for example, to support multiple products under one brand), get in touch with the team via the chat widget to discuss configuration options.
+</Accordion>
+
+<Accordion title="Can I use macros or canned responses with My AskAI?">
+  Yes. There are several ways to bring existing macros or canned responses into My AskAI:
+
+  1. **Import Zendesk Macros** — If you use Zendesk, go to **Knowledge → Content** and click **Import Macros** to convert them into Custom Answers automatically.
+  2. **Add Custom Answers manually** — Go to **Improve → Custom Answers** and add trigger phrases with the exact response text. The agent will use these verbatim when a matching question arrives.
+  3. **Upload a document** — If you don't need exact verbatim responses, create a document containing your canned responses and upload it as a knowledge source. The agent will reference it (with natural language variation) rather than using it word-for-word.
+
+  For a large volume of macros from platforms like Freshdesk or Gorgias, contact support for assisted bulk import.
+</Accordion>
+
+<Accordion title="Do you have rate limits for conversations?">
+  My AskAI's AI agents scale with your usage and can process as many concurrent tickets as your plan allows. Some customers process over 100,000 tickets per month without issue.
+
+  Each plan comes with a **monthly conversation limit**. If you regularly exceed your limit, you will see notifications in the dashboard and can upgrade your plan from **Account Settings → Billing**. For enterprise volumes, contact the team to discuss custom limits.
+
+  The agent handles every conversation in parallel — having hundreds of simultaneous users does not degrade response times for others.
+</Accordion>
+
+<Accordion title="What is the difference between My AskAI and My AskAI Classic?">
+  **My AskAI** (the current product) is a purpose-built **AI customer support agent** designed for businesses. It focuses on answering customer support questions across live-chat channels, ticketing systems, and email — and generates actionable insights from those conversations.
+
+  **My AskAI Classic** is the earlier product, which was a more general-purpose AI chatbot builder for creating Q&A bots from your own content. It's still available and supported.
+
+  **Key differences:**
+
+  | Feature | My AskAI (new) | My AskAI Classic |
+  |---|---|---|
+  | Focus | Customer support | General Q&A |
+  | Integrations | Zendesk, Intercom, HubSpot, Freshdesk, Gorgias, etc. | Embeddable widget |
+  | Insights & Analytics | Yes | Limited |
+  | Self-learning | Yes | No |
+
+  If you have an existing Classic subscription and want to switch to the new product, email team@myaskai.com. The Classic and new product use separate subscriptions and dashboards.
+</Accordion>
+
+<Accordion title="Do you offer a Service Level Agreement (SLA)?">
+  Yes. My AskAI offers a **99.99% uptime SLA over a 90-day rolling period** for customers on the [Enterprise plan](https://myaskai.com/enterprise-ai-customer-service-agent).
+
+  You can monitor current operational status and any ongoing incidents at the public status page: [my-askai.instatus.com](https://my-askai.instatus.com/).
+</Accordion>
+
+<Accordion title="What are your social media accounts?">
+  You can follow My AskAI and stay up to date with new features and case studies at:
+
+  - **Twitter / X:** [@usemyaskai](https://twitter.com/usemyaskai)
+  - **LinkedIn:** [My AskAI on LinkedIn](https://www.linkedin.com/company/myaskai/)
+  - **YouTube:** [@usemyaskai on YouTube](https://www.youtube.com/channel/UCy48gfu2KjSYOa2rKLM_dmg)
+
+  For the latest product updates, visit the [changelog](https://feedback.myaskai.com/changelog).
+</Accordion>

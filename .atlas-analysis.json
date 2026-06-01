@@ -1,23 +1,11 @@
 {
-  "$schema": "https://mintlify.com/docs.json",
-  "name": "My AskAI",
+  "projectType": "saas",
+  "projectName": "My AskAI",
+  "projectDescription": "An AI-powered customer support agent platform that deflects support tickets, surfaces actionable insights from conversations, and integrates with popular live chat and helpdesk tools.",
   "theme": "almond",
-  "colors": {
-    "primary": "#ec3b11",
-    "light": "#f09c84"
-  },
-  "favicon": "https://media.brand.dev/9dc0a3de-3c83-4bef-9d0c-bd08e5ff2021.png",
-  "navbar": {
-    "primary": {
-      "type": "github",
-      "href": "https://github.com/arainey2022/myaskai-docs"
-    }
-  },
-  "footer": {
-    "socials": {
-      "github": "https://github.com/arainey2022/myaskai-docs"
-    }
-  },
+  "primaryColor": "#ec3b11",
+  "lightColor": "#f09c84",
+  "darkColor": null,
   "navigation": {
     "tabs": [
       {
@@ -152,5 +140,22 @@
         ]
       }
     ]
-  }
+  },
+  "keyFeatures": [
+    "AI-powered customer support agent that answers questions from your content",
+    "Human escalation with seamless handoff to live agents",
+    "Conversation insights: feedback, bugs, feature requests surfaced automatically",
+    "Integrations with Zendesk, Intercom, Freshdesk, HubSpot, Gorgias, Slack, Teams",
+    "Self-learning from conversations and historic tickets",
+    "AI Actions (Tools) for executing tasks during conversations",
+    "User Data API for personalizing agent responses",
+    "Multibrand support with multiple AI agents and knowledge bases",
+    "Customizable agent persona, tone, and appearance",
+    "GDPR and SOC-2 compliant security"
+  ],
+  "publicApiSurface": [
+    "Query API — ask questions against your AI agent's knowledge base",
+    "Chat API — send and receive messages in a conversational session",
+    "User Data API — inject per-user context into AI agent responses"
+  ]
 }

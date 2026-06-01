@@ -1,0 +1,152 @@
+---
+title: "Multibrand: Run Multiple AI Agents from One Account"
+sidebarTitle: "Multibrand"
+description: "Create and manage separate AI agents for different brands, products, regions, or languages — each with its own knowledge base, persona, and channel connections."
+---
+
+My AskAI supports running multiple distinct AI agents from a single account. Each agent has its own knowledge base, persona, tone, channel connections, and customisation — completely independent from the others. This is ideal for businesses with multiple products, regional teams speaking different languages, agencies managing client accounts, or resellers building branded instances for customers. You get the simplicity of one dashboard with the flexibility of fully separated agents.
+
+## What "Multibrand" Means
+
+A "multibrand" setup means having two or more AI agents active at the same time, each configured independently:
+
+- **Separate knowledge bases** — Agent A only knows about Product A; Agent B only knows about Product B
+- **Separate personas** — different names, tones, and response styles per agent
+- **Separate channels** — one agent on Zendesk for your enterprise product, another on Intercom for your consumer product
+- **Separate insights** — conversation analytics, knowledge gaps, and CSAT data are tracked per agent
+
+---
+
+## Use Cases
+
+<Accordion title="Multiple products under one company">
+  If your company sells two distinct products with different help content — for example, a SaaS platform and a mobile app — you can run a separate agent for each. Customers of each product only interact with an agent that knows their product, reducing confusion and improving answer quality.
+</Accordion>
+
+<Accordion title="Multiple brands or business units">
+  Enterprise companies with multiple brands (e.g. an acquisition that operates under a different name) can run a completely separate agent per brand — different name, different visual identity, different knowledge base — while managing everything from one My AskAI login.
+</Accordion>
+
+<Accordion title="Regional teams and languages">
+  Run one agent for your English-speaking market and a second for your French or German market, each with content sourced from the relevant regional help center. While My AskAI agents can already auto-reply in 95+ languages, separate regional agents allow for regionally-specific policies, pricing, and contact details.
+</Accordion>
+
+<Accordion title="Different user groups (B2B vs B2C)">
+  Route customers to different agents based on whether they're a business customer or an end consumer. The B2B agent can have a more technical, formal tone and access to enterprise documentation; the B2C agent can be more conversational and focused on product basics.
+</Accordion>
+
+<Accordion title="Agencies and resellers">
+  Create a separate agent for each client. Each agent has its own knowledge base trained on that client's content, its own branding (with [Remove Branding](/features/customization) enabled), and its own embed code. Manage all client agents from your single agency account.
+</Accordion>
+
+---
+
+## How to Create a Second Agent
+
+<Steps>
+  <Step title="Open your account dashboard">
+    Log in to your [Dashboard](https://myaskai.com/dashboard). In the top navigation or sidebar, find the **agent switcher** — this shows your current active agent by name.
+  </Step>
+
+  <Step title="Create a new agent">
+    Click **+ New Agent** (or the equivalent option in your account menu). Give the new agent a name that clearly identifies its purpose — for example, `Acme Enterprise Support`, `Product B Help`, or `French Market Agent`.
+  </Step>
+
+  <Step title="Add knowledge to the new agent">
+    Your new agent starts with an empty knowledge base. Go to **Knowledge > Content** and add the relevant content sources — website URLs, file uploads, or connections (Google Drive, Notion, Zendesk Help Center, etc.) specific to this agent.
+
+    <Note>
+      Content is **not shared** between agents. Each agent's knowledge base is completely separate. Content you add to Agent A is invisible to Agent B and vice versa.
+    </Note>
+  </Step>
+
+  <Step title="Configure the agent's persona and settings">
+    Go to **AI Agent Setup** and configure this agent's name, tone, escalation settings, and any [Guidance](/features/improve) rules. You can give each agent a different personality — formal for enterprise, friendly and casual for consumer.
+  </Step>
+
+  <Step title="Connect the agent to its channels">
+    Go to **Channels** and connect this agent to the relevant helpdesk or embed it on the relevant website. For example, you might connect Agent A to your Zendesk subdomain and Agent B to your Intercom workspace.
+
+    For helpdesk-specific setup for multiple agents, refer to the relevant channel guide:
+    - [Intercom multibrand setup](/features/channels/intercom)
+    - [Zendesk Tickets multibrand setup](/features/channels/zendesk)
+    - [Gorgias multibrand setup](/features/channels/other-channels)
+    - [HubSpot multibrand setup](/features/channels/hubspot)
+    - [Freshdesk multibrand setup](/features/channels/freshdesk-freshchat)
+  </Step>
+
+  <Step title="Test each agent independently">
+    Use the chat widget preview in each agent's Dashboard to confirm it answers correctly from its own knowledge base and escalates correctly when it can't answer. Switch between agents using the agent switcher at the top of the Dashboard.
+  </Step>
+</Steps>
+
+---
+
+## Managing Separate Knowledge Bases Per Agent
+
+Each agent's knowledge base is managed independently. To switch between agents' knowledge bases, use the agent switcher at the top of the Dashboard — everything you see (content, connections, tasks, insights) changes to reflect the currently selected agent.
+
+| Knowledge source | Per-agent? |
+|---|---|
+| Website content | ✅ Separate per agent |
+| File uploads | ✅ Separate per agent |
+| Cloud connections (Drive, Notion, etc.) | ✅ Separate per agent |
+| Shopify store | ✅ Separate per agent |
+| Custom answers and guidance | ✅ Separate per agent |
+| AI Actions (Tools) and Tasks | ✅ Separate per agent |
+
+---
+
+## White-Labelling and Reselling
+
+There are several ways to white-label or resell My AskAI for agency and reseller use cases:
+
+<CardGroup cols={2}>
+  <Card title="Remove branding" icon="eye-slash" href="/features/customization">
+    Remove the "Powered by My AskAI" badge from the chat widget for $49/month per agent. Add custom styling to match your client's brand.
+  </Card>
+  <Card title="Custom API integration" icon="code">
+    Consume My AskAI entirely via API to create and manage agents, add content, and query the AI programmatically — ideal for building a fully embedded, white-label product.
+  </Card>
+</CardGroup>
+
+You can create agents on behalf of clients, remove My AskAI branding, apply your client's colours and logo, and install the widget on their site. Pricing and margins are entirely at your discretion.
+
+---
+
+## Team Access Across Multiple Agents
+
+Team members can be given access to one or more agents. Each agent has its own set of invited users — a team member added to Agent A does not automatically have access to Agent B.
+
+<CardGroup cols={2}>
+  <Card title="Team access management" icon="users" href="/account-management/team-access">
+    Learn how to invite team members, set roles (admin vs. Insights-only), and manage access per agent.
+  </Card>
+  <Card title="Affiliate and reselling programme" icon="handshake" href="/account-management/affiliate-and-reselling">
+    Explore reselling and white-labelling options, including how agencies can build branded instances for clients.
+  </Card>
+</CardGroup>
+
+<Note>
+  Unlimited team seats are available on **Pro** and **Enterprise** plans. Each team member added to an agent counts as one seat for that agent's plan.
+</Note>
+
+---
+
+## Frequently Asked Questions
+
+<Accordion title="Can each agent have a different helpdesk connection?">
+  Yes. Each agent manages its own channel connections independently. Agent A can be connected to Zendesk while Agent B is connected to Intercom — they operate entirely separately.
+</Accordion>
+
+<Accordion title="Is there a limit on how many agents I can create?">
+  There is no hard limit on the number of agents you can create. Each agent is billed independently based on its conversation volume. Contact the My AskAI team via live chat for enterprise pricing on large numbers of agents.
+</Accordion>
+
+<Accordion title="Can agents share knowledge or tools?">
+  No — each agent's knowledge base, AI Actions, and Tasks are completely separate. This is intentional: it ensures each agent gives precise, brand-appropriate answers without cross-contamination from unrelated content.
+</Accordion>
+
+<Accordion title="Can I transfer content from one agent to another?">
+  Content is not automatically transferred between agents. You would need to reconnect the same knowledge sources (e.g. re-add the same website URL or cloud connection) on the second agent. Contact support if you need help migrating a large knowledge base.
+</Accordion>

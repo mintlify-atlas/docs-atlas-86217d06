@@ -1,0 +1,107 @@
+---
+title: "Privacy and Data Handling at My AskAI"
+sidebarTitle: "Privacy"
+description: "Understand what data My AskAI collects, how your content and customer conversations are stored, OpenAI's role, data deletion, and residency options."
+---
+
+My AskAI takes data privacy seriously — both for the businesses that use the platform and for the end users who interact with AI agents powered by it. This page explains what data is collected, how it is used, where it is stored, and what rights you and your customers have over that data. For regulatory compliance details, see the [GDPR & HIPAA](/security/gdpr-hipaa) page.
+
+## What Data My AskAI Collects
+
+<Accordion title="Account and Contact Data">
+  When you sign up for My AskAI, the primary data collected is your **email address**. This is used to manage your account, send login links, and communicate with you about the service.
+
+  Additional data collected includes:
+  - **Internet data**: cookies, audience metrics, navigation data
+  - **Connection data**: IP address, access logs, usage timestamps
+  - **Identification data**: first and last name, only if explicitly provided
+
+  My AskAI collects only the minimum data necessary to provide the service.
+</Accordion>
+
+<Accordion title="Your Uploaded Content">
+  Content you upload — webpages, documents, and other training material — is used exclusively to power your AI support agent. Specifically:
+
+  - Uploaded files are **automatically deleted** after they have been processed (converted to vectors), unless you explicitly request otherwise
+  - The text content, vectors, and metadata (source URLs, titles) are stored securely in **Qdrant**, a vector database hosted on Google Cloud Platform in The Dalles, Oregon, USA
+  - Your content is stored in **isolated containers** — it is never mixed with or accessible to other customers' data
+  - Content is **only used** to answer queries routed to your agent; it is never used to train AI models or shared with third parties
+
+  You own your content. Deleting content from the My AskAI dashboard removes it from all storage.
+</Accordion>
+
+<Accordion title="Customer Conversation Data">
+  When end users interact with your AI agent — whether via the My AskAI widget, Zendesk, Intercom, or another channel — the following may be captured:
+
+  - The **content of the conversation** (questions asked and AI responses given)
+  - Any **user identifiers** passed via the User Data API or escalation forms (e.g. email addresses, names — only if your customers provide them)
+  - **Conversation ratings** (CSAT scores) if you have enabled that feature
+
+  **Retention period:** Conversation and chat logs are retained for **30 days**, after which they are deleted.
+
+  My AskAI recommends not collecting sensitive personal data through conversations. While it cannot always be prevented (if a user volunteers personal information), the platform is not designed to store personal data beyond what is necessary to answer support queries.
+</Accordion>
+
+<Accordion title="Usage Analytics">
+  My AskAI collects anonymised usage analytics to improve the product. This includes how features are used, performance data, and error logs. Sub-processors used for this purpose include **Amplitude** and **Hotjar**, both of which have Data Processing Agreements in place.
+</Accordion>
+
+## OpenAI and AI Model Data Handling
+
+My AskAI uses OpenAI's API (and Anthropic's API) to power AI responses. Here is what this means for your data:
+
+<Accordion title="Does OpenAI use my data to train its models?">
+  **No.** Since 1 March 2023, OpenAI no longer uses data submitted via the API to train its models. Conversations processed through My AskAI via the OpenAI API are **not** used for training.
+
+  You can review OpenAI's data usage policy at [openai.com/policies/api-data-usage-policies](https://openai.com/policies/api-data-usage-policies).
+</Accordion>
+
+<Accordion title="Does OpenAI store my uploaded content?">
+  **No.** OpenAI processes your uploaded documents to convert text into searchable vectors, but it does not store the original content. All content storage is with Qdrant, not OpenAI.
+
+  OpenAI may retain API inputs and outputs for up to **30 days** for abuse monitoring purposes, after which they are deleted.
+</Accordion>
+
+<Accordion title="Data Processing Agreement with OpenAI">
+  My AskAI has a signed **Data Processing Agreement (DPA)** with OpenAI as a sub-processor. This DPA ensures that OpenAI processes any data it receives in compliance with GDPR requirements.
+
+  A copy of the OpenAI DPA is available at [openai.com/policies/data-processing-addendum](https://openai.com/policies/data-processing-addendum).
+</Accordion>
+
+## Data Deletion
+
+<Accordion title="Deleting your own data">
+  You can delete your account and all associated data at any time from **Account Settings** by scrolling to the bottom and clicking **"Delete my account and all my data"**. Deletion takes up to 24 hours to process and is permanent — data cannot be recovered.
+
+  To request deletion of specific data (e.g. individual content sources or conversation logs), contact [team@myaskai.com](mailto:team@myaskai.com). Requests will be completed within 30 days in accordance with GDPR Article 17.
+</Accordion>
+
+<Accordion title="Deleting your customers' data">
+  If one of your end users requests deletion of their personal data (as is their right under GDPR and similar regulations), you as the account owner are responsible for fulfilling that request. Contact My AskAI at [team@myaskai.com](mailto:team@myaskai.com) to request deletion of data associated with a specific end user. Requests will be completed within 30 days.
+</Accordion>
+
+## Data Residency
+
+My AskAI's primary infrastructure is located in the **United States** (Google Cloud Platform, us-west1-gcp — The Dalles, Oregon). Some EU-based processing is used where possible.
+
+Data transfers from the EU/EEA to US sub-processors are governed by:
+- **EU-US Data Privacy Framework** adequacy decision
+- **Standard Contractual Clauses (SCCs)** approved by the European Commission
+- Individual **Data Processing Agreements** with each sub-processor
+
+For organisations with strict data residency requirements (e.g. EU-only storage), contact the My AskAI team to discuss options available on the Enterprise plan.
+
+## Privacy Policy and DPA
+
+<CardGroup cols={2}>
+  <Card title="Privacy Policy" icon="file-lines" href="https://myaskai.com/privacy">
+    Read the full My AskAI Privacy Policy at myaskai.com/privacy.
+  </Card>
+  <Card title="Data Processing Agreement" icon="file-contract" href="https://docs.google.com/document/d/1kFq9PfociN44ZtlEKxMPz1naIlVFhBAue5fC_X5mSfo/edit">
+    Paid customers who require a signed DPA can request one via chat from their registered account.
+  </Card>
+</CardGroup>
+
+<Note>
+  A signed Data Processing Agreement (DPA) is available to paid My AskAI customers. Contact the support team from your registered account email to request a copy for signing.
+</Note>

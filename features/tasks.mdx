@@ -1,0 +1,225 @@
+---
+title: "Tasks: Automate Multi-Step Support Workflows"
+sidebarTitle: "Tasks"
+description: "Build structured, multi-step workflows that your AI agent follows automatically—collecting info, calling APIs, and completing complex processes end to end."
+---
+
+Tasks are the most powerful feature available in My AskAI. Where [AI Actions](/features/ai-actions-tools) let your agent make a single API call to answer a question, Tasks let it follow a complete, multi-step process — collecting information from the user at each stage, applying business logic, calling one or more APIs, and confirming the outcome. Think of a Task as a natural-language SOP: instead of rigid, click-through chatbot flows, users have a real conversation while the agent works through each step behind the scenes.
+
+<Note>
+  Tasks with tool (API) calls are available for accounts on plans with **5,000+ conversations per month**. Tasks without API calls are available on all paid plans. Contact support via the live chat widget if you're unsure which plan you need.
+</Note>
+
+## What Are Tasks?
+
+Tasks bring together four capabilities in one workflow:
+
+- **User data** — personalised context fetched via the [User Data API](/features/user-data-api)
+- **AI Actions** — API calls to your backend systems
+- **Guidance** — tone, style, and behaviour rules for this specific workflow
+- **Knowledge** — your agent's existing help content
+
+A classic example is a refund task:
+
+1. Identify which order the user wants to refund
+2. Ask for the reason and check it against your return policy
+3. Confirm the details with the customer
+4. Issue the refund via your payments API
+5. Send a confirmation message
+
+All of this happens automatically, in your existing helpdesk, with no human agent required.
+
+---
+
+## When Should You Use Tasks?
+
+Tasks involve more setup than other features, so reserve them for high-impact scenarios:
+
+- The **1–2 workflows** that, if automated, would reduce your ticket volume the most (check your [Insights](/features/insights) to find these)
+- Processes that require **multi-turn conversations** — collecting several pieces of information before acting
+- Complex flows with **business logic** — e.g. "only offer a refund if the order is within 30 days and the item is unopened"
+
+<Tip>
+  Review your Insights dashboard and sort topics by lowest resolution rate. These are your best candidates for Tasks — they're the issues your team handles manually most often.
+</Tip>
+
+---
+
+## How to Create a Task
+
+<Steps>
+  <Step title="Navigate to Tasks & Tools">
+    In your [Dashboard](https://myaskai.com/dashboard), go to **Tasks & Tools** in the left-hand menu and click **Create**.
+  </Step>
+
+  <Step title="Give the task a name and description">
+    Use a short, action-oriented name like `Process Refund`, `Update Contact Details`, or `Cancel Subscription`. Add a brief description of what the task does — this helps your team recognise it later.
+
+    **Example description:**
+    ```
+    Assist users with requesting a refund for a recent order, including eligibility checks and issuing the refund via the payments API.
+    ```
+  </Step>
+
+  <Step title="Add example trigger phrases">
+    Provide 2–3 sample user messages that should start this task. These train the agent to recognise when to invoke it.
+
+    **Positive examples:**
+    ```
+    I'd like a refund on my last order
+    Can I return order #4521?
+    I want my money back for the item I received damaged
+    ```
+
+    **Negative examples (optional):**
+    ```
+    Can I change my subscription plan?
+    Where is my order?
+    ```
+  </Step>
+
+  <Step title="Write an end-to-end example conversation">
+    Show the agent exactly how the conversation should flow from start to finish. Include the normal happy path and at least one variation.
+
+    **Example:**
+    ```
+    Normal flow:
+    - Customer: I want a refund on order #4521
+    - Agent: I'd be happy to help. Can you tell me the reason for the return?
+    - Customer: The item arrived damaged
+    - Agent: I'm sorry to hear that. To confirm, you'd like a refund for order #4521 due to damage — is that correct?
+    - Customer: Yes
+    - Agent: Your refund has been processed and will appear in 3–5 business days. Is there anything else I can help with?
+    ```
+  </Step>
+
+  <Step title="Define instruction steps">
+    Break the task into numbered steps in plain English. Each step tells the agent what to do, what to check, and which tool to call (if any).
+
+    **Step 1 — Identify the order**
+    ```
+    Unless already provided, ask the customer for their order ID.
+    If they already provided it, skip this step.
+    ```
+
+    **Step 2 — Collect the reason**
+    ```
+    Ask the customer for the reason for their refund request.
+    Check the reason against the return policy (items must be returned within 30 days; opened perishables are excluded).
+    If ineligible, explain why and offer alternatives.
+    ```
+
+    **Step 3 — Confirm before acting**
+    ```
+    Repeat the order ID and reason back to the user and ask them to confirm before proceeding.
+    ```
+
+    **Step 4 — Process the refund**
+    ```
+    Call the refund API with the confirmed order ID.
+    - Tool: {{process_refund}}
+    - Only proceed after confirmation in Step 3.
+    ```
+
+    **Step 5 — Confirm completion**
+    ```
+    Tell the customer the refund was successful and provide the expected timeframe.
+    If the refund fails, apologise and call {{handover}} to escalate to a human agent.
+    ```
+
+    <Note>
+      Reference tools by wrapping their name in double curly braces: `{{tool_name}}`. Use `{{handover}}` anywhere you want the agent to escalate to a human.
+    </Note>
+  </Step>
+
+  <Step title="Add handover rules">
+    Define when the agent should stop and hand off to a human:
+
+    ```
+    Handover if the user is requesting a refund for a safety issue.
+    Handover if the user has failed to provide a valid order ID after two attempts.
+    ```
+  </Step>
+
+  <Step title="Set tone and guidance">
+    Tasks have their own tone guidance, separate from your agent's global guidance. Keep it focused:
+
+    ```
+    Be empathetic but concise. The user wants the issue resolved quickly.
+    Acknowledge any inconvenience briefly before moving to resolution.
+    ```
+  </Step>
+
+  <Step title="Save, test, and activate">
+    1. Click **Save changes** — do not toggle live yet.
+    2. Close the task and test it using the chat widget in your Dashboard.
+    3. Once you're happy with the results, open the task, toggle **Set task live**, and click **Save changes**.
+  </Step>
+</Steps>
+
+---
+
+## Triggering Conditions
+
+Tasks are triggered when the agent detects that a user message matches one of the example phrases you provided. The agent compares the intent of each incoming message against all active tasks and selects the best match. If no task matches, the agent falls back to answering from its knowledge base.
+
+You can improve trigger accuracy by:
+
+- Providing **varied phrasing** in your positive examples (formal and informal)
+- Adding **negative examples** to prevent false positives
+- Using specific terminology your customers actually use
+
+---
+
+## Use Cases by Industry
+
+<Accordion title="SaaS: Plan changes and proration">
+  Guide users to the right plan based on their usage and entitlements, check their contract term, calculate prorated charges, confirm billing details, and execute the plan switch via your billing API — all in one conversation.
+</Accordion>
+
+<Accordion title="SaaS: Seat management and access requests">
+  Identify the workspace and admin, verify the requester's identity, check seat availability, create and assign new seats, provision roles and SSO groups, and log the audit trail automatically.
+</Accordion>
+
+<Accordion title="eCommerce: Refunds and returns">
+  Look up the order, confirm item condition and your returns policy, offer a refund, exchange or store credit, generate a returns label, and trigger the refund when the item is scanned — without any human agent involvement.
+</Accordion>
+
+<Accordion title="eCommerce: Missing parcels and delivery issues">
+  Check courier tracking and GPS delivery proof, verify address preferences, apply your loss policy, issue a replacement or refund, and file the carrier claim with evidence automatically.
+</Accordion>
+
+<Accordion title="Fintech: Transaction disputes">
+  Collect disputed charge details, verify device and location, check eligibility windows, file a chargeback with the correct reason code, and keep the customer informed through each stage of resolution.
+</Accordion>
+
+<Accordion title="Healthcare: Appointment triage and scheduling">
+  Collect symptoms and urgency markers, check provider availability and insurance eligibility, recommend the right visit type, book the slot, collect co-pay, and set reminders — with automatic escalation for red-flag symptoms.
+</Accordion>
+
+<Accordion title="Travel: Flight changes and disruption handling">
+  Read fare class rules and waiver policies, propose rebooking options, handle ancillaries like seats and bags, collect any fare difference, and push the updated itinerary and boarding passes automatically.
+</Accordion>
+
+<Accordion title="Insurance: First notice of loss (FNOL)">
+  Capture incident details with guided questions, check policy coverage and deductibles, book an inspection, issue temporary accommodation if covered, and provide a claim number and timeline.
+</Accordion>
+
+---
+
+## Relationship Between Tasks, Actions, and Knowledge
+
+| Feature | Best for |
+|---|---|
+| **Knowledge** | Answering questions from your help content — the foundation of your agent |
+| **Guidance** | Controlling simple response behaviours and single-step follow-up questions |
+| **AI Actions (Tools)** | Making a single API call to fetch or update data |
+| **Tasks** | Multi-step processes that combine logic, API calls, and user interaction |
+
+Tasks wrap Actions — a single Task may invoke one or more Tools across multiple steps.
+
+---
+
+## Pricing
+
+Tasks are charged at **$0.02 per reply** that was part of an active task. For example, a two-step task that collects information in one reply and confirms it in a second reply costs $0.04 total. You are only charged for replies where the agent was actively following a task.

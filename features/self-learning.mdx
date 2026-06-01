@@ -1,0 +1,75 @@
+---
+title: "Self-Learning: Your AI Agent Improves Automatically"
+sidebarTitle: "Self-Learning"
+description: "My AskAI analyzes human agent replies to escalated tickets, identifies knowledge gaps, and generates new articles to improve future AI answers automatically."
+---
+
+Self-learning is one of the most impactful features in My AskAI. Rather than requiring you to manually update your knowledge base every time a gap is discovered, the agent analyzes conversations where a human agent stepped in and automatically generates new knowledge articles to fill those gaps. It happens in the background, on a weekly basis, without any manual effort on your part.
+
+Accounts with self-learning enabled have seen a **40–60% drop in previously unanswerable questions** and a **5% increase in AI resolution rate** — with the biggest gains occurring immediately after enabling the feature.
+
+## How Self-Learning Works
+
+Self-learning identifies the difference between what your human agents know and what the AI currently knows — then bridges that gap.
+
+<Steps>
+  <Step title="Conversation Is Escalated">
+    A customer's question couldn't be answered by the AI, so it was handed over to a human agent. The human agent replies and resolves the ticket.
+  </Step>
+  <Step title="AI Analyzes the Gap">
+    My AskAI compares the human agent's reply against what the AI agent knew at the time. It identifies the missing knowledge that would have allowed the AI to answer.
+  </Step>
+  <Step title="Knowledge Article Generated">
+    An AI-generated article is automatically drafted containing the generalizable knowledge from that human reply. Only knowledge that applies broadly is captured — not user-specific information like account details.
+  </Step>
+  <Step title="Article Published to Knowledge Base">
+    The article is automatically published and made available to the AI agent. From that point on, the agent can answer similar questions without escalation.
+  </Step>
+  <Step title="Weekly Updates">
+    Every week, existing self-learning articles are automatically updated using new human agent replies from the previous seven days. You receive an email notification summarizing which articles changed.
+  </Step>
+</Steps>
+
+## Reviewing Self-Learning Articles
+
+You can see everything the agent has learned — and review or edit any generated article — from your dashboard.
+
+Navigate to **Dashboard → Improve → Self-Learning** to see the full list of AI-generated articles. Articles that were updated in the latest weekly run will have a **green dot** next to their title. Clicking into an article shows additions highlighted in green and deletions in red, so you can see exactly what changed.
+
+<Tip>
+  You can edit any self-learning article at any time. Articles use Markdown formatting, and you can preview how the content will appear before saving. Use the tone of voice settings in **Self-Learning → Settings** to ensure generated articles match your brand voice.
+</Tip>
+
+## Self-Learning Modes
+
+Self-learning works in both of My AskAI's reply modes:
+
+<CardGroup cols={2}>
+  <Card title="Direct Reply Mode" icon="reply">
+    In direct reply mode, self-learning analyzes any conversation where the ticket was escalated to a human. It compares the human's replies against the AI's responses to identify the knowledge gap.
+  </Card>
+  <Card title="Notes Mode" icon="note-sticky">
+    In notes mode, self-learning reviews the entire conversation — both human and AI replies — to find gaps. This means your agent is learning and improving even while you're still testing it before going live.
+  </Card>
+</CardGroup>
+
+<Warning>
+  Self-learning only captures **generalizable knowledge** — information that would be useful for answering future questions from other customers. It will never learn from user-specific information such as account details, personal data, or one-off edge cases.
+</Warning>
+
+## Managing Self-Learning
+
+- **Turn off auto-publishing**: Go to **Improve → Self-Learning → Settings** and disable publishing if you want to review articles before they go live.
+- **Unpublish individual articles**: Toggle the published/unpublished switch next to any individual article.
+- **Delete an article**: Open the article and click the trash can icon.
+- **Change tone of voice**: In **Self-Learning → Settings**, customize the tone of voice prompt used by the AI when generating new articles — use your own brand voice or generate a prompt automatically from your homepage.
+
+## The Improvement Feedback Loop
+
+Self-learning is part of a broader feedback loop that makes your AI agent progressively better over time:
+
+<Note>
+  Self-learning works alongside the tools in the [Improve](/features/improve) section. Use Knowledge Gaps to see what couldn't be answered, self-learning to automatically fill those gaps from human replies, and Guidance or Custom Answers to add further control where needed.
+</Note>
+
+Every escalated conversation is an opportunity. Self-learning ensures that each one makes your agent more capable — automatically, at scale, without your team having to manually write documentation for every edge case your customers raise.

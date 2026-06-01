@@ -1,0 +1,191 @@
+---
+title: "AI Actions (Tools): Automate Tasks with Your Agent"
+sidebarTitle: "AI Actions"
+description: "Give your AI agent the ability to call APIs and take real actions—look up orders, issue refunds, update records—automatically during conversations."
+---
+
+AI Actions (also called Tools) transform your AI agent from a knowledge lookup bot into a true automation engine. Rather than only answering questions from static content, an agent equipped with AI Actions can reach into your backend systems in real time — looking up a specific order, checking whether a subscription is active, triggering a password reset, or issuing a refund — all without human intervention. The agent decides on its own when a tool call is necessary based on what the user is asking.
+
+## What Are AI Actions?
+
+Tools are how your AI support agent can interact with your systems and backend in a more autonomous way. For each ticket or conversation, the agent evaluates whether it needs to use one of the tools you've configured, and only invokes a tool when it determines one is required.
+
+<Note>
+  AI Actions differ from the [User Data API](/features/user-data-api). The User Data API retrieves information about a specific, **verified** user (e.g. from an email ticket or authenticated chat). AI Actions can be triggered by **any** user and are better suited to lookups that don't require identity verification, or to write-actions like refunds and updates.
+</Note>
+
+### What can AI Actions do?
+
+You can build a tool for practically anything you'd use an API for today:
+
+- **Data lookups** — property details, product availability, order status by order ID
+- **Write actions** — process refunds, cancel subscriptions, update address records
+- **Automation triggers** — kick off a background check, create a support ticket, send a confirmation email
+- **Knowledge enrichment** — query an internal knowledge base or CRM to augment the agent's response
+
+---
+
+## How to Configure an AI Action
+
+<Steps>
+  <Step title="Open Tasks & Tools in your Dashboard">
+    Log in to your [Dashboard](https://myaskai.com/dashboard) and navigate to **Tasks & Tools > Tools (APIs)**, then click **+ New**.
+  </Step>
+
+  <Step title="Define the API endpoint">
+    Enter the **POST API endpoint** your tool will call. For example:
+
+    ```
+    https://api.yourcompany.com/orders/lookup
+    ```
+
+    All tools use POST requests. My AskAI will send a JSON body to this URL each time the agent invokes the action.
+  </Step>
+
+  <Step title="Add authentication headers">
+    Add any required **Authorization** headers so My AskAI can authenticate with your API. For example:
+
+    ```
+    Authorization: Bearer sk_live_abc123xyz
+    ```
+
+    See [Authorizations](#authorizations) below for the full list of supported credential types.
+  </Step>
+
+  <Step title="Define the JSON request body">
+    Specify the fields the tool needs to send. Include the parameters your API expects — the agent will populate these from the conversation context. For example:
+
+    ```json
+    {
+      "email": "{{user_email}}",
+      "order_id": "{{order_id}}"
+    }
+    ```
+  </Step>
+
+  <Step title="Define the JSON response body">
+    Tell the agent which fields to look for in the API response, so it knows how to interpret and surface the result. For example:
+
+    ```json
+    {
+      "order": {
+        "id": "ORD-9182",
+        "status": "In Transit",
+        "estimated_delivery": "2024-11-08",
+        "carrier": "FedEx",
+        "tracking_number": "794644792798"
+      }
+    }
+    ```
+  </Step>
+
+  <Step title="Save and test">
+    Save the tool, then open the chat widget in your Dashboard and ask a question that should trigger it. Confirm the agent calls the API and returns an accurate answer. Once satisfied, the tool is active.
+  </Step>
+</Steps>
+
+---
+
+## Authorizations
+
+Many APIs require credentials. My AskAI stores these securely and attaches them automatically whenever the tool is invoked — your users never see them.
+
+Supported authorization methods:
+
+| Method | How it works |
+|---|---|
+| **Bearer token** | Static token passed as `Authorization: Bearer <token>` |
+| **API key header** | Custom header such as `X-API-Key: <key>` |
+| **Basic auth** | Base64-encoded username:password in the Authorization header |
+| **OAuth 2.0** | OAuth credential flow; token refresh handled automatically |
+
+You can manage all credentials under **Connections > Authorizations** in your Dashboard.
+
+<Warning>
+  Use API credentials with the **minimum required scopes**. If a tool only needs to read order data, use a read-only key. Avoid giving your AI agent write access to systems unless the action explicitly requires it.
+</Warning>
+
+---
+
+## Example Action Definition
+
+Below is a representative example of a complete tool definition for an order-status lookup:
+
+```json
+{
+  "name": "get_order_status",
+  "description": "Retrieves the current status and tracking information for a given order ID.",
+  "endpoint": "https://api.yourcompany.com/orders/status",
+  "method": "POST",
+  "headers": {
+    "Authorization": "Bearer sk_live_abc123xyz",
+    "Content-Type": "application/json"
+  },
+  "request_body": {
+    "order_id": "{{order_id}}",
+    "email": "{{user_email}}"
+  },
+  "response_body": {
+    "order": {
+      "id": "string",
+      "status": "string",
+      "estimated_delivery": "string",
+      "carrier": "string",
+      "tracking_number": "string"
+    }
+  }
+}
+```
+
+The agent extracts `order_id` and `email` from the conversation, calls the endpoint, and uses the response to compose a natural-language answer for the user.
+
+---
+
+## Use Cases
+
+<Accordion title="Order status and shipment tracking">
+  A user asks "Where is my order #4521?" — the agent extracts the order ID, calls your order-management API, and responds with the current status, carrier, and estimated delivery date. No human involvement required.
+</Accordion>
+
+<Accordion title="Subscription and account checks">
+  A user asks "What plan am I on?" or "Is my trial still active?" — the agent looks up their subscription record and responds with their current plan, renewal date, and any active features.
+</Accordion>
+
+<Accordion title="Self-service refunds">
+  A user requests a refund. The agent calls your payments API to check eligibility (e.g. within the refund window, correct item condition), confirms the refund with the user, then triggers the refund via API — all within the same conversation thread.
+</Accordion>
+
+<Accordion title="Password and access resets">
+  A user is locked out. The agent calls your auth API to trigger a password reset email or generate a temporary access link, and confirms the action to the user instantly.
+</Accordion>
+
+<Accordion title="Internal knowledge base search">
+  The agent can be given access to an internal search API that isn't part of your public help center — querying internal runbooks, product specs, or database records to deliver more precise answers.
+</Accordion>
+
+<Accordion title="Address and contact updates">
+  A user wants to change their delivery address. The agent collects the new address, confirms it with the user, then calls your CRM or order API to update the record — no human agent needed.
+</Accordion>
+
+---
+
+## How the Agent Decides to Use a Tool
+
+The agent does not call a tool on every message. It evaluates the user's intent and determines whether:
+
+1. The question can be answered from its existing knowledge base alone, or
+2. Live, dynamic data is required (e.g. a specific order, a specific account) that it cannot know from static content.
+
+If live data is needed, the agent selects the most relevant configured tool, extracts the required parameters from the conversation, and makes the API call — all transparently and in real time.
+
+<Tip>
+  Write clear, specific **descriptions** for each tool so the agent can reliably decide when to use it. A description like "Retrieves live order status for a given order ID" is much better than "Order lookup."
+</Tip>
+
+---
+
+## Pricing
+
+Tool calls are charged at **$0.02 per reply** in which a tool was used. You are only charged for responses where an actual API call was made — if the agent answers from its knowledge base, there is no tool charge.
+
+For complex automations involving multiple tool calls within a structured flow, see [Tasks](/features/tasks).

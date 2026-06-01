@@ -1,0 +1,88 @@
+---
+title: "How to Debug an Incorrect or Unexpected AI Answer"
+sidebarTitle: "Debug AI Answers"
+description: "A step-by-step process for diagnosing why your AI agent gave a wrong, incomplete, or off-topic answer and how to fix it using Inspect & Logs and content improvements."
+---
+
+AI agents can only answer based on the knowledge and instructions you give them. When an answer comes back wrong, incomplete, or completely off-topic, the cause is almost always one of three things: the content needed to answer the question isn't in the knowledge base, the content exists but is too vague or ambiguous for the agent to use confidently, or the question falls outside the scope of what the agent was configured to handle. The good news is that all three causes are diagnosable and fixable using the tools built into your My AskAI dashboard.
+
+<Note>
+  After making any fix, always re-test the original question before calling the issue resolved. The agent's behaviour changes as soon as you save an update, so re-testing takes only a few seconds.
+</Note>
+
+## Debugging Workflow
+
+<Steps>
+  <Step title="Find the conversation in Inspect & Logs">
+    Open your My AskAI dashboard and navigate to **Improve → Inspect & Logs**. Search for the conversation either by ticket ID or by the question text.
+
+    **Tip:** If you can't find the conversation, reproduce it by asking the same question in the preview widget on the Guidance page. The new conversation will appear in Inspect & Logs within seconds.
+  </Step>
+
+  <Step title="Open the Inspect side panel and Ask Echo">
+    Click on the conversation. The **Inspect** side panel will open. Click **Ask Echo** and type in the original question. Echo is My AskAI's internal meta-agent — it will explain exactly how the answer was constructed, including:
+
+    - A summary of the answer generated
+    - The knowledge sources (help centre articles, web pages, files, Custom Answers) that were retrieved and used
+    - Any Guidance rules that were applied
+    - Whether User Data, a Tool, or a Task contributed to the answer
+
+    Review this output carefully — it reveals the raw inputs the agent worked with.
+  </Step>
+
+  <Step title="Identify the gap">
+    Using the Echo output, determine the root cause. The most common causes are:
+
+    - **Content is missing** — the knowledge base simply does not contain information on this topic.
+    - **Content is outdated** — the relevant article exists but contains stale information.
+    - **Content is too vague** — the article touches on the topic but doesn't answer the specific question explicitly.
+    - **Conflicting instructions** — two knowledge sources or Guidance rules contradict each other.
+    - **Question is out of scope** — the question is about something your agent was never intended to answer (e.g. competitor comparisons, data analysis, complex arithmetic).
+  </Step>
+
+  <Step title="Fix the root cause">
+    Choose the right fix based on what you found:
+
+    <CardGroup cols={2}>
+      <Card title="Content is missing" icon="file-plus">
+        Add the relevant help article, webpage, or document to your knowledge base under **Knowledge → Content**. After adding, the agent will index it automatically.
+      </Card>
+      <Card title="Content is vague or outdated" icon="pencil">
+        Update the source document or page with clearer, more specific language. Re-sync the content from **Knowledge → Content** once updated.
+      </Card>
+      <Card title="Need an exact answer" icon="list-check">
+        Add a **Custom Answer** under **Improve → Custom Answers**. Custom Answers let you specify trigger phrases and the exact response the agent should give — ideal for FAQs, policy statements, and anything that needs to be word-perfect.
+      </Card>
+      <Card title="Need to shape behaviour" icon="sliders">
+        Add or update a **Guidance** rule under **Improve → Guidance**. Use Guidance to control tone, restrict topics, force human escalation, or add standing instructions that apply to every answer.
+      </Card>
+    </CardGroup>
+  </Step>
+
+  <Step title="Re-test the question">
+    Once you've made the fix, return to the preview widget and ask the same question again. Check that:
+
+    - The answer is now correct and complete
+    - The sources shown are the right ones
+    - No unintended side effects appear in related questions
+
+    If the answer is still not right, go back to Step 2 and repeat the process with the updated content indexed.
+  </Step>
+</Steps>
+
+---
+
+## Common Root Causes at a Glance
+
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| "I don't know" on a question you have content for | Content not indexed or still syncing | Check Knowledge → Content; wait for indexing to complete |
+| Vague or generic answer | Source document lacks specific detail | Improve the source content or add a Custom Answer |
+| Outdated information in the answer | Content has been updated externally but not re-synced | Trigger a re-sync from Knowledge → Content |
+| Conflicting answers to similar questions | Two sources contradict each other | Remove or update the conflicting source; use Custom Answers to override |
+| Agent ignores Guidance rule | Rule wording is too broad or too narrow | Review the rule in Improve → Guidance and refine trigger conditions |
+| Out-of-scope question | Question is inherently unanswerable by the agent | Consider adding a Guidance rule to redirect these questions gracefully |
+
+<Warning>
+  My AskAI agents are designed for customer support and knowledge-base questions. They are not built for document comparison, data analysis, maths calculations, or appointment scheduling. If users are regularly asking these types of questions, use Guidance to redirect them to appropriate resources.
+</Warning>

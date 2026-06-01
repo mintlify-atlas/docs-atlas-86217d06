@@ -1,0 +1,105 @@
+---
+title: "My AskAI API Reference: Getting Started Guide"
+sidebarTitle: "Introduction"
+description: "Authenticate and make your first call to the My AskAI API. Covers base URL, API keys, rate limits, error codes, and links to all three API references."
+---
+
+The My AskAI API gives you programmatic access to your AI support agent, letting you embed it inside your own apps, workflows, and integrations. Three distinct APIs cover every use case: the **Query API** for one-shot questions, the **Chat API** for multi-turn conversations, and the **User Data API** for passing per-user context back to My AskAI so your agent can give personalised answers. All three share the same authentication mechanism and base URL described on this page.
+
+## Base URL
+
+Every request is made to the following base URL:
+
+```
+https://api.myaskai.com/v1
+```
+
+## Authentication
+
+All API requests must include your API key as a Bearer token in the `Authorization` header. Retrieve your key from the My AskAI dashboard under **Settings → API**.
+
+```bash
+curl -X POST https://api.myaskai.com/v1/query \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"question": "How do I reset my password?", "agent_id": "agt_abc123"}'
+```
+
+<Note>
+  Keep your API key secret. Do not expose it in client-side code or public repositories. If a key is compromised, regenerate it immediately from **Settings → API** in your dashboard.
+</Note>
+
+## Getting Your API Key
+
+<Steps>
+  <Step title="Open your My AskAI dashboard">
+    Log in at [myaskai.com](https://myaskai.com) and navigate to your agent's dashboard.
+  </Step>
+  <Step title="Go to Settings → API">
+    Click **Settings** in the left-hand navigation, then select the **API** tab.
+  </Step>
+  <Step title="Copy your API key">
+    Your key is displayed on this page. Click **Copy** to copy it to your clipboard. If you need to rotate the key, click **Regenerate**.
+  </Step>
+</Steps>
+
+<Tip>
+  The API is available as an add-on on paid plans. If you don't see the API tab, check that your current plan includes API access, or upgrade from **Settings → Billing**.
+</Tip>
+
+## Rate Limits
+
+My AskAI enforces rate limits to ensure reliable service for all customers. Default limits are:
+
+| Limit type | Default |
+|---|---|
+| Requests per minute | 60 |
+| Requests per day | 10,000 |
+| Max query length | 750 characters |
+
+When you exceed a rate limit the API returns an **HTTP 429** response. Use exponential back-off before retrying. If your use case requires higher limits, contact support.
+
+## Request Requirements
+
+- All requests must use `POST` (except `GET /v1/chat/sessions/{session_id}/messages`).
+- Set the `Content-Type: application/json` header on every request.
+- Request and response bodies are always JSON.
+
+## Error Responses
+
+The API uses standard HTTP status codes. Every error response includes a JSON body with a human-readable `error` field.
+
+```json
+{
+  "error": "This question is too long. Please ensure questions are less than 750 characters."
+}
+```
+
+| Status code | Meaning |
+|---|---|
+| `400 Bad Request` | Missing or invalid request parameters |
+| `401 Unauthorized` | Missing, invalid, or expired API key |
+| `404 Not Found` | The requested resource (e.g. session) does not exist |
+| `429 Too Many Requests` | Rate limit exceeded |
+| `500 Internal Server Error` | Unexpected server-side error — retry with back-off |
+
+<Warning>
+  A `401` error almost always means your `Authorization` header is missing or the key has been regenerated. Double-check that your request includes `Authorization: Bearer YOUR_API_KEY`.
+</Warning>
+
+## API Reference Pages
+
+<CardGroup cols={2}>
+  <Card title="Query API" icon="magnifying-glass" href="/api/query-api">
+    Ask a one-shot question against your agent's knowledge base and receive an instant answer with source attribution.
+  </Card>
+  <Card title="Chat API" icon="message" href="/api/chat-api">
+    Hold multi-turn conversations with your AI agent using persistent sessions.
+  </Card>
+  <Card title="User Data API" icon="user" href="/api/user-data-api">
+    Supply per-user context so your agent delivers personalised support answers.
+  </Card>
+  <Card title="Channels & Integrations" icon="plug" href="/features/channels">
+    Prefer a no-code route? Connect Slack, Microsoft Teams, or Zapier without writing any API calls.
+  </Card>
+</CardGroup>

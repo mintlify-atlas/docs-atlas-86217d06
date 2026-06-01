@@ -1,0 +1,92 @@
+---
+title: "Image Reading: AI Vision for Customer Support"
+sidebarTitle: "Image Reading"
+description: "Let your AI agent read and interpret screenshots, product photos, and diagrams shared in chats and emails without asking customers to describe them."
+---
+
+When a customer is stuck, they often reach for a screenshot rather than words. My AskAI's image reading capability means your agent doesn't have to ask the customer to describe what they're seeing — it can look at the image directly, understand the context, and give a relevant, informed response. This removes a significant source of friction from support conversations and leads to faster, more accurate resolutions.
+
+## What Image Reading Enables
+
+Your AI agent can process images that are shared in:
+
+- **Chat messages** — inline images or attachments sent during a live conversation
+- **Email bodies** — images embedded directly in an email
+- **Email attachments** — image files attached to a support email
+
+Once an image is received, the agent processes it using a vision-capable language model and incorporates what it sees into its response — no manual tagging or human review required.
+
+<Note>
+  Images are not stored on My AskAI's servers. When you review conversations in **Improve → Inspect & Logs**, you will see a text description of what the image contained rather than the image itself.
+</Note>
+
+## Use Cases
+
+<Accordion title="Error screenshots and technical issues">
+  A customer shares a screenshot of an error message or a broken UI state. Rather than asking the customer to type out the error code, your agent reads the screenshot, identifies the error, and provides the relevant troubleshooting steps immediately.
+</Accordion>
+
+<Accordion title="Product photos for returns and replacements">
+  A customer uploads a photo of the item they received to request a return or exchange. The agent can identify the product, assess visible damage from the image, and guide the customer through the returns process — or escalate to a human agent with the image context already captured.
+</Accordion>
+
+<Accordion title="Photos of damaged or broken items">
+  A customer shares a photo of a damaged parcel or defective product. Your agent can confirm the damage is visible in the image and trigger the appropriate resolution workflow, such as issuing a replacement or routing to your logistics team.
+</Accordion>
+
+<Accordion title="Setup and configuration diagrams">
+  A customer shares a photo of a device, cable setup, or configuration screen. The agent uses the visual context to give more precise setup guidance rather than walking through every possible scenario.
+</Accordion>
+
+<Accordion title="Receipts and order confirmations">
+  A customer uploads a photo of a receipt or printed order confirmation. The agent can read the document, extract relevant details, and use them to answer the customer's query — for example, verifying a purchase date for a warranty claim.
+</Accordion>
+
+## How It Works
+
+My AskAI passes images shared in conversations to a **vision-capable large language model** (LLM) alongside the conversation history. The model analyzes the visual content — reading text, identifying objects, interpreting diagrams — and returns a description that is used as context when generating the agent's reply.
+
+Up to **3 images** can be read and processed within a single message or reply.
+
+## Channel Availability
+
+Image reading is available on the following helpdesks and channels:
+
+| Helpdesk / Channel | Image Reading Available |
+|---|---|
+| Intercom (chat) | ✅ Yes |
+| Intercom (email) | ✅ Yes |
+| Zendesk Messaging | ✅ Yes |
+| Zendesk Tickets / Forms | ✅ Yes |
+| Freshdesk | ✅ Yes |
+| Freshchat | 🔜 Coming soon |
+| Gorgias (chat) | 🔜 Coming soon |
+| Gorgias (email) | 🔜 Coming soon |
+| HubSpot (chat) | 🔜 Coming soon |
+| HubSpot (email) | 🔜 Coming soon |
+| Slack | ❌ Not available |
+| Microsoft Teams | ❌ Not available |
+| API | ❌ Not available |
+
+## Pricing
+
+Image reading incurs an additional usage cost of **$0.02 per reply** where the feature is used. You are only charged when an image is actually read and processed — conversations with no images attached are unaffected.
+
+## Using Images in Tasks and Guidance
+
+Image reading integrates with My AskAI's automation features:
+
+- **Tasks** — You can reference images within task definitions. For example: *"Request an image from the user of the damaged parcel before proceeding"* or *"If the user shares an image, transfer the conversation to the returns team."*
+- **Guidance** — Guidance rules can trigger on image content. For example: *"If someone shares an image of a broken box, escalate the conversation to a human agent."*
+
+<Tip>
+  Combine image reading with human escalation rules to automatically route conversations where a customer has shared evidence (such as a broken product photo) directly to the right team, pre-loaded with the image context.
+</Tip>
+
+## Limitations
+
+- A maximum of **3 images** can be processed per message or reply.
+- Very large image files may be resized before processing, which can reduce the legibility of small text.
+- Handwritten text in images is recognized on a best-effort basis and may not be reliably transcribed.
+- Images shared in **Slack**, **Microsoft Teams**, or via the **API** are not currently processed.
+- The images themselves are **not stored** on My AskAI servers; only a text description is retained in conversation logs.

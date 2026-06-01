@@ -1,0 +1,161 @@
+---
+title: "Intercom Integration Guide: AI Agent Setup"
+sidebarTitle: "Intercom"
+description: "Connect My AskAI to Intercom Messenger for conversational AI, tagging, live translation, playbooks, and human escalation workflows."
+---
+
+My AskAI connects to your Intercom workspace as a first-line AI support agent, responding to conversations inside the Intercom Messenger widget, email, and any other channels you've connected to Intercom (WhatsApp, Instagram DMs, Facebook Messenger, SMS). The integration is available on any Intercom plan and requires no code changes to your website.
+
+<Note>
+  Before connecting, make sure you have **turned off Intercom Fin** (Intercom's native AI agent) to avoid conflicts with My AskAI replies.
+</Note>
+
+## Connecting My AskAI to Intercom
+
+<Steps>
+  <Step title="Open Channels in My AskAI">
+    Log in to your Dashboard and go to **Channels**. Under "Add to helpdesk", click the **Intercom** icon.
+  </Step>
+  <Step title="Authorise the connection">
+    Click **Connect your Intercom account**. An authorisations screen will appear — click **Authorize access** to grant My AskAI the required permissions.
+  </Step>
+  <Step title="Choose a reply mode">
+    Your AI agent is now connected. By default, it creates **draft note replies** (internal notes only agents see). To enable direct customer-facing replies, go to **Channels > Intercom** and toggle **Direct replies** on.
+  </Step>
+  <Step title="Test the integration">
+    Send a test message to your Intercom Messenger. You should see either a direct AI reply or an internal note appear within seconds.
+  </Step>
+</Steps>
+
+## Reply Modes
+
+<CardGroup cols={2}>
+  <Card title="Fully Conversational Agent" icon="robot">
+    The AI replies directly to customers in real time. Enable this by toggling **Direct replies** on in **Channels > Intercom**. Best for high-volume support queues where you want maximum automation.
+  </Card>
+  <Card title="Draft Note Replies" icon="note-sticky">
+    The AI generates a suggested response as an internal note after each customer message. Agents review, edit if needed, and send. Ideal for teams that want AI assistance without full automation.
+  </Card>
+</CardGroup>
+
+<Tip>
+  You can stop draft notes for any individual conversation by posting a Note (not a Reply) containing `Stop AI replies`. This is useful for sensitive conversations that need a fully manual touch.
+</Tip>
+
+---
+
+## Intercom Features
+
+<Accordion title="AI Tagging">
+  My AskAI can automatically classify and tag every Intercom conversation using your own custom conversation attributes — eliminating hours of manual categorisation each month.
+
+  **Setup:**
+
+  1. Go to **AI Agent Setup > AI Tagging** and click **Import conversation attribute**.
+  2. Select the attribute from the dropdown (imported from Intercom) and click **Import attribute**.
+  3. Review the auto-generated description for each attribute value, then enable auto-tagging.
+
+  Attributes are applied after 5 minutes from the first user message (or immediately if tag blocking is in use).
+
+  **Cost:** $0.05 per attribute per conversation, billed as an add-on. With 3 attributes per conversation, that's $0.15 per conversation.
+
+  <Note>
+    Only **List** attribute types are supported. Auto-tagging updates conversation attributes — it does not update Intercom's native "Tags" field.
+  </Note>
+
+  **Blocking replies by tag:** Go to **AI Agent Setup > AI Tagging**, select the attribute, find the value, and click **Block**. Blocked conversations receive the attribute `ai-agent-tag-blocked` and are handed to a human automatically.
+</Accordion>
+
+<Accordion title="Live Translation">
+  Live Translation allows your AI agent to converse with customers in their native language, and lets your human agents follow along and reply — all without leaving Intercom.
+
+  **How it works:**
+  - Every incoming message not in your default language is automatically translated into your language as an internal note, in real time.
+  - Your AI agent replies in the customer's language automatically.
+  - When you (a human agent) take over, type your reply in your language and click **Translate & Send** instead of the normal send button. Your original message is saved as a note; the customer receives the translated version.
+
+  **To enable:** Contact My AskAI support via live chat and ask to speak to a person. Once enabled, install the [Chrome Extension Copilot](/features/channels/other-channels) to access the Translate & Send button.
+
+  **Cost:** $0.05 per conversation translated, billed as an add-on.
+</Accordion>
+
+<Accordion title="Intercom Playbooks">
+  Playbooks are custom workflow configurations you can set up inside Intercom to give My AskAI richer context and more powerful behaviour.
+
+  **Pass user data as context:**
+  Create an Intercom workflow that, when a conversation starts, generates an internal note on the first message containing relevant user attributes (plan type, account status, current page, etc.). My AskAI reads these notes as context for its responses.
+
+  **Page-aware responses:**
+  Two options:
+  1. Use the [User Data API](/features/user-data-api) to return information about the user's current page and account state based on their email.
+  2. Include the user's current page as a dynamic attribute in the internal note created by your Intercom workflow.
+
+  **Triage workflows:**
+  If you want the AI to only engage after a user selects a specific option in an Intercom workflow:
+  1. Connect your AI agent to Intercom.
+  2. Turn on the **Workflow/Triage** toggle in **Channels > Intercom**.
+  3. Define a trigger phrase (e.g. "Chat with AI assistant") that exactly matches a button option in your Intercom workflow.
+  4. Turn off "Let customer type" in the initial welcome message.
+
+  The AI will only begin responding once the user clicks that button.
+
+  **Collect email on escalation:**
+  Follow the [Escalation Data Collection](/features/human-escalation) guide to gather visitor email addresses when a conversation is handed off to a human.
+</Accordion>
+
+<Accordion title="Human Escalation Workflows">
+  My AskAI tags every conversation that escalates to a human with `AI human handover`. You can use this tag in an Intercom workflow to automatically route escalated conversations to the right team.
+
+  **Basic escalation routing:**
+
+  <Steps>
+    <Step title="Create a new workflow">
+      In Intercom, go to **+ New workflow > Start from scratch > Customer sends any message**. Set the trigger rule to **Leads and Users** and select the relevant channels.
+    </Step>
+    <Step title="Add a Wait action">
+      Create Path 1 with a **Wait** action of 3 minutes.
+    </Step>
+    <Step title="Add a Branches action">
+      After the Wait, add a **Branches** action with the condition: conversation tag **is** `AI human handover` AND conversation state **is not** closed. Optionally add: team assigned **is not** [your human team].
+    </Step>
+    <Step title="Assign to your team">
+      In Path 2, add an **Assign conversation** action to route to your human support team.
+    </Step>
+    <Step title="Set workflow live">
+      Save and activate the workflow. Escalated conversations will now be auto-assigned.
+    </Step>
+  </Steps>
+
+  **Assign to a team inbox on escalation:**
+  Go to **Helpdesk & Channels > Intercom**, scroll to **Assign to Team Inbox on escalation**, and select the inbox from the dropdown. All escalations will be routed there automatically from that point forward.
+</Accordion>
+
+---
+
+## Taking and Returning Control
+
+<CardGroup cols={2}>
+  <Card title="Take control from the AI" icon="hand">
+    Reply directly to any open conversation as an agent. The AI immediately stops responding to that conversation. For email threads, post a Note with `Stop AI replies` instead of replying.
+  </Card>
+  <Card title="Return control to the AI" icon="rotate-left">
+    Create a Macro in Intercom (Settings > Workspace > Macros) with the text: `"Hi there, I'll pass you back to our AI assistant for any further questions."` Use CTRL+K → Use Macro → select it whenever you want the AI to resume.
+  </Card>
+</CardGroup>
+
+---
+
+## Additional Options
+
+| Setting | Location | Notes |
+|---|---|---|
+| Prevent immediate escalation | **Channels > Intercom** | On by default. Users must describe their issue before being connected to a human on the first message. |
+| Auto-close inactive conversations | **Channels > Intercom** | Set a timer (default 60 mins) after which unescalated conversations close automatically. |
+| Email replies | **Channels > Intercom > Email replies** | Toggle on to have the AI reply to emails received in Intercom. Disable Intercom's native email auto-replies first. |
+| First email reply delay | **Channels > Intercom > First email reply delay** | Add a delay (in minutes) before the AI sends its first email reply to seem more human. |
+| Hide "Just thinking…" message | **Channels > Intercom** | Toggle off the thinking indicator if you prefer a cleaner UX. |
+| Pause AI agent | **Channels > Intercom** | Temporarily stop all AI replies without disconnecting the integration. |
+
+## Required Permissions
+
+My AskAI connects via Intercom OAuth. The only permissions requested are to read and write conversations in your Intercom workspace. No additional scopes or admin-level access are required beyond what's needed to install apps in your Intercom account.

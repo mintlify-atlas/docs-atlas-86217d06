@@ -1,0 +1,129 @@
+---
+title: "Query API: One-Shot Questions to Your AI Agent"
+sidebarTitle: "Query API"
+description: "POST a question to your agent's knowledge base and receive an instant answer, source references, and a confidence level in a single API call."
+---
+
+The Query API is the simplest way to integrate My AskAI into your own product or workflow. Send a single question, receive a single answer — along with the knowledge-base sources that were used to generate it and a confidence indicator. It is stateless: each call is independent and no conversation history is maintained between requests. If you need multi-turn conversations, see the [Chat API](/api/chat-api).
+
+<Note>
+  The `question` field is capped at **750 characters**. Requests that exceed this limit return a `400` error with the message: `"This question is too long. Please ensure questions are less than 750 characters."`
+</Note>
+
+## Endpoint
+
+```
+POST https://api.myaskai.com/v1/query
+```
+
+**Authentication:** Bearer token in the `Authorization` header. See [Introduction → Authentication](/api/introduction#authentication).
+
+## Request Parameters
+
+<ParamField body="question" type="string" required>
+  The question you want to ask your AI agent. Maximum 750 characters.
+</ParamField>
+
+<ParamField body="agent_id" type="string" required>
+  The unique identifier of the My AskAI agent to query. Find this in your dashboard under **Settings → API**.
+</ParamField>
+
+<ParamField body="user_id" type="string">
+  An optional identifier for the end user asking the question. Used for analytics and, when combined with the User Data API, enables personalised responses.
+</ParamField>
+
+<ParamField body="context" type="object">
+  An optional free-form object containing additional context to pass to the agent. For example, you might include the page the user is currently viewing or their account tier.
+
+  ```json
+  {
+    "page": "billing",
+    "plan": "pro"
+  }
+  ```
+</ParamField>
+
+## Example Request
+
+```bash
+curl -X POST https://api.myaskai.com/v1/query \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "question": "How do I download my invoice?",
+    "agent_id": "agt_abc123",
+    "user_id": "usr_987",
+    "context": {
+      "page": "billing"
+    }
+  }'
+```
+
+## Response Fields
+
+<ResponseField name="answer" type="string">
+  The AI-generated answer to the question, grounded in the content from your agent's knowledge base.
+</ResponseField>
+
+<ResponseField name="sources" type="array">
+  An array of knowledge-base sources the agent referenced when generating the answer. Each item contains:
+
+  <ResponseField name="sources[].title" type="string">
+    The title of the source document or page.
+  </ResponseField>
+
+  <ResponseField name="sources[].url" type="string">
+    The URL of the source, if available.
+  </ResponseField>
+</ResponseField>
+
+<ResponseField name="confidence" type="string">
+  A qualitative indication of the agent's confidence in the answer. One of `high`, `medium`, or `low`.
+</ResponseField>
+
+<ResponseField name="unknown_answer" type="string">
+  Present and set to `"yes"` when the agent was unable to find a relevant answer in its knowledge base. When this field appears, the `answer` field will contain the agent's "I don't know" response.
+</ResponseField>
+
+<ResponseField name="human_handover" type="boolean">
+  Present and set to `true` when a [Guidance](/features/improve) rule triggered a human-handover recommendation for this question.
+</ResponseField>
+
+## Example Response
+
+```json
+{
+  "answer": "To download your invoice, go to Account Settings → Billing, then click 'Manage subscription on Stripe'. In Stripe, navigate to Invoice history and click the arrow next to the relevant invoice to download it.",
+  "sources": [
+    {
+      "title": "Download an invoice",
+      "url": "https://help.myaskai.com/account-management/billing/download-an-invoice"
+    }
+  ],
+  "confidence": "high"
+}
+```
+
+### Example: Answer Not Found
+
+```json
+{
+  "answer": "I'm sorry, I don't have enough information to answer that question. You can speak to a member of our team if you'd like.",
+  "sources": [],
+  "confidence": "low",
+  "unknown_answer": "yes"
+}
+```
+
+## Error Codes
+
+| HTTP status | Description |
+|---|---|
+| `400 Bad Request` | The `question` or `agent_id` field is missing, or `question` exceeds 750 characters. |
+| `401 Unauthorized` | The `Authorization` header is missing or the API key is invalid. |
+| `429 Too Many Requests` | You have exceeded the rate limit for this API key. Back off and retry. |
+| `500 Internal Server Error` | An unexpected error occurred on our servers. Retry with exponential back-off. |
+
+<Tip>
+  When building internal tools or Zapier workflows, the Query API is all you need. For a fully conversational interface where follow-up questions reference earlier answers, use the [Chat API](/api/chat-api) instead.
+</Tip>

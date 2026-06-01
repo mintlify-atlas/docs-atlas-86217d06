@@ -1,0 +1,237 @@
+---
+title: "Other Channels: Gorgias, Zapier, Slack & More"
+sidebarTitle: "Other Channels"
+description: "Deploy My AskAI on Gorgias, Zapier, Zoho SalesIQ, Chrome Extension, Microsoft Teams, and Slack for e-commerce, automation, and internal support."
+---
+
+In addition to the primary helpdesk integrations, My AskAI supports a range of other channels suited to e-commerce support, internal knowledge access, and custom automation workflows. Each channel serves a distinct use case, and many can be used alongside your primary helpdesk integration.
+
+<Note>
+  Slack, Microsoft Teams, and Zapier are available as **add-ons** on paid My AskAI plans. The Chrome Extension is free for all paid plan users. Gorgias and Zoho SalesIQ are available on paid plans. See [Pricing](https://myaskai.com/pricing) for details.
+</Note>
+
+<CardGroup cols={2}>
+  <Card title="Gorgias" icon="cart-shopping" href="#gorgias">
+    E-commerce helpdesk for Shopify stores — AI replies to tickets and chat
+  </Card>
+  <Card title="Zapier" icon="bolt" href="#zapier">
+    Connect My AskAI to 5,000+ apps via triggers and actions
+  </Card>
+  <Card title="Zoho SalesIQ" icon="comments" href="#zoho-salesiq">
+    Integrate via Zoho "plugs" for live chat AI support
+  </Card>
+  <Card title="Chrome Extension" icon="chrome" href="#chrome-extension">
+    AI copilot for agents directly in the browser — no extra installs
+  </Card>
+  <Card title="Microsoft Teams" icon="microsoft" href="#microsoft-teams">
+    Deploy as a Teams bot for internal knowledge queries
+  </Card>
+  <Card title="Slack" icon="slack" href="#slack">
+    Deploy as a Slack bot for internal support or customer communities
+  </Card>
+</CardGroup>
+
+---
+
+## Gorgias
+
+<Accordion title="Overview & Setup">
+  Gorgias is an e-commerce-focused helpdesk that integrates tightly with Shopify — making it a popular choice for DTC brands. My AskAI connects to both **Gorgias email tickets** and **Gorgias chat**, allowing the AI to respond to customer queries across channels.
+
+  **Benefits:**
+  - AI responds directly to support tickets and chat messages using your product and policy knowledge base
+  - Supports Internal Notes (draft for agents) and Direct Replies (sent to customers)
+  - Ticket tagging with `ai-agent-replied` and `human-handover-requested` for automated routing
+  - Works alongside your existing Gorgias macros and automations
+  - Available on all paid My AskAI plans
+
+  **Connecting Gorgias:**
+
+  <Steps>
+    <Step title="Install from the Gorgias App Store">
+      Find and install My AskAI in the Gorgias App Store.
+    </Step>
+    <Step title="Connect in My AskAI Dashboard">
+      Go to **Channels > Add to helpdesk**, click the **Gorgias** icon, enter your Gorgias domain (e.g. `myaskai` from `myaskai.gorgias.com`), and click **Connect your Gorgias account**.
+    </Step>
+    <Step title="Choose reply modes">
+      Set your preferred reply mode (Internal Notes or Direct replies) separately for email tickets and for chat.
+    </Step>
+    <Step title="Disable auto-replies">
+      Turn off Gorgias email and chat auto-replies (including "Expected wait time" messages) to prevent duplicate responses.
+    </Step>
+  </Steps>
+
+  **Human escalation in Gorgias:**
+  - For email tickets: configure whether the AI escalates on "Cannot answer" or only on "Escalation request" in your Gorgias settings.
+  - For chat: escalation happens when a user asks to speak to a person. The AI adds a summary note, applies `human-handover-requested`, and stops responding.
+
+  Use Gorgias Automations (on ticket updates, filtering by `human-handover-requested`) to auto-reassign escalated tickets to human agents.
+
+  **Note on social channels:** To enable AI replies to social media messages (Instagram, Facebook Messenger) in Gorgias, go to **Helpdesk & Channels > Gorgias > Chat settings** and toggle on **Reply to social channels**. Story replies are not supported.
+</Accordion>
+
+---
+
+## Zapier
+
+<Accordion title="Overview & Setup">
+  My AskAI's Zapier integration lets you use your AI agent as an **action** in any Zap — connecting it to over 5,000 apps without writing any code. You provide a question as an input, and My AskAI returns an answer along with the reference sources used.
+
+  <Note>
+    Zapier is a powerful escape hatch for any use case not covered by native integrations. If your helpdesk or CRM isn't directly supported, Zapier can bridge the gap.
+  </Note>
+
+  **What you can build:**
+  - Automatically reply to support emails with AI-generated answers
+  - Respond to Jira or Linear tickets using your internal knowledge base
+  - Populate FAQs in Google Docs, Notion, or Airtable with AI answers
+  - Route AI responses into any CRM, project management tool, or communication platform
+  - Trigger AI responses from form submissions, new rows in a spreadsheet, or any Zapier-compatible event
+
+  **Connecting Zapier:**
+
+  <Steps>
+    <Step title="Create a Zapier account">
+      Sign up at [zapier.com](https://zapier.com/sign-up) if you don't already have one.
+    </Step>
+    <Step title="Get your My AskAI credentials">
+      In your Dashboard, go to **Channels > API access (incl. Zapier)**. Copy your My AskAI **ID** and **API Key**.
+    </Step>
+    <Step title="Add My AskAI as an action in Zapier">
+      In Zapier, search for **My AskAI** as an **Action** and add it to your Zap at [zapier.com/apps/my-askai/integrations](https://zapier.com/apps/my-askai/integrations).
+    </Step>
+    <Step title="Connect and configure">
+      When prompted, paste in your My AskAI ID and API Key. Set any trigger you like — the action will send that trigger's data as a question to your AI agent and return the answer.
+    </Step>
+  </Steps>
+</Accordion>
+
+---
+
+## Zoho SalesIQ
+
+<Accordion title="Overview & Setup">
+  My AskAI does not currently have a native Zoho SalesIQ integration, but the connection is possible using Zoho's **"Plugs"** feature — a developer-friendly scripting mechanism that lets you call external APIs from within SalesIQ.
+
+  Several My AskAI customers have successfully completed this integration. A community member has documented the full process:
+
+  - **Video walkthrough:** [Watch on Loom](https://www.loom.com/share/509edb3e162a41ac8f83c23f778ff958?sid=a86469aa-f515-4cfb-a2b8-f12f9ebfc2d7)
+  - **Full instructions, plug variables, and parameters:** [Google Doc](https://docs.google.com/document/d/1ifiBgrqpeJV5rBNYgMSl1V_GtJDK5-LdDZjxOl0zw44/edit?tab=t.0)
+  - **Zoho Plugs documentation:** [Zoho SalesIQ Plugs](https://www.zoho.com/salesiq/help/developer-section/plugs-in-salesiq.html)
+
+  <Note>
+    This integration requires developer resources. If you need help, contact My AskAI support via live chat — we'll do our best to assist you getting your agent live.
+  </Note>
+</Accordion>
+
+---
+
+## Chrome Extension
+
+<Accordion title="Overview & Setup">
+  The My AskAI Chrome Extension is an AI copilot for your support agents — available in any browser tab, with no helpdesk app installation required. It's free to use for all team members on a paid plan (no per-seat charges).
+
+  **Use cases:**
+  - Agents want AI assistance but you're not ready to deploy fully automated replies
+  - Your team works across multiple platforms and needs a universal AI drafting tool
+  - You want an embedded copilot directly inside Intercom, Zendesk, Gorgias, or Freshdesk ticket editors
+
+  **Installing the Chrome Extension:**
+
+  <Steps>
+    <Step title="Enable in Dashboard">
+      Go to **Channels** and scroll to **Chrome Extension Copilot**. Click **Enable Chrome Extension**.
+    </Step>
+    <Step title="Install from Chrome Web Store">
+      [Install the My AskAI extension](https://chromewebstore.google.com/detail/my-askai-ai-customer-supp/bamboiagbocaobgfbkjehlaojipfjecf) from the Chrome Web Store.
+    </Step>
+    <Step title="Connect your AI agent">
+      Open the extension from your Chrome extensions menu. Copy the code from Step 2 in the My AskAI instructions and paste it into the side panel, then click **Save**.
+    </Step>
+  </Steps>
+
+  **Three ways to use the extension:**
+
+  1. **Copilot panel** — Click the extension icon and type your question in the side panel. Copy and paste the answer wherever you need it.
+  2. **Right-click to ask** — Highlight any text on any webpage, right-click, and select **Ask AI Agent**. The AI answers in the side panel automatically.
+  3. **Embedded in your helpdesk** — A ✨ magic sparkle icon appears inside the text editor in Intercom, Zendesk, Gorgias, and Freshdesk. Click it to generate a full AI draft response based on the current conversation thread — ready to review and send.
+
+  The extension uses both your **public and private** knowledge content, so you can include internal processes and policies that improve accuracy for agents without exposing them to customers.
+</Accordion>
+
+---
+
+## Microsoft Teams
+
+<Accordion title="Overview & Setup">
+  Deploy My AskAI as a Teams bot so your internal team can query your knowledge base directly from any Teams channel or private chat. Ideal for internal helpdesks, onboarding, and policy lookups.
+
+  **Connecting Microsoft Teams:**
+
+  <Steps>
+    <Step title="Add My AskAI to Teams">
+      A Workspace Owner installs the app from [Microsoft AppSource](https://appsource.microsoft.com/en/product/office/WA200005660?tab=Overview). Add My AskAI to a **team** and then to any **channel**.
+    </Step>
+    <Step title="Get your credentials">
+      In the My AskAI Dashboard, go to **Channels > Slack & Teams** and click the Teams icon. Copy your **ID** and **API Key**.
+    </Step>
+    <Step title="Connect within Teams">
+      Type `@My AskAI Connect` in any channel. Select **Connect My AskAI** from the welcome message, paste in your ID and API Key, and click **Submit**.
+    </Step>
+    <Step title="Start asking questions">
+      Use `@My AskAI` followed by your question in any channel:
+      ```
+      @My AskAI what is our refund policy?
+      ```
+      For private questions, add the My AskAI bot to a private chat.
+    </Step>
+  </Steps>
+
+  <Note>
+    If you see a permissions error ("The tenant admin disabled this bot"), a Teams admin needs to approve the app at **Manage Apps > My AskAI > Permissions > Review permissions and consent**. The app may appear as `msbtteambtbotbtc3fe79` on the Microsoft permissions screen.
+  </Note>
+
+  The Teams bot searches your My AskAI knowledge base only — it does not search your Teams message history.
+</Accordion>
+
+---
+
+## Slack
+
+<Accordion title="Overview & Setup">
+  Deploy My AskAI as a Slack bot to give your team instant access to your knowledge base from any Slack channel. Perfect for internal support communities, team knowledge hubs, and customer Slack workspaces.
+
+  **Connecting Slack:**
+
+  <Steps>
+    <Step title="Add My AskAI to Slack">
+      As a Slack workspace **admin**, click the Add to Slack button in the Channels section of your My AskAI Dashboard and authorise the connection.
+    </Step>
+    <Step title="Get your credentials">
+      In the Dashboard, go to **Channels > Slack & Teams** and click the Slack icon. Copy your **ID** and **API Key**.
+    </Step>
+    <Step title="Connect within Slack">
+      In Slack, open the My AskAI app, select **Connect My AskAI**, paste in your ID and API Key, and click **Submit**.
+    </Step>
+    <Step title="Start asking questions">
+      Use `/askAI` followed by your question in any channel:
+      ```
+      /askAI what is our return policy?
+      ```
+      Follow-up questions can be asked in the same Slack thread, maintaining conversation context.
+    </Step>
+  </Steps>
+
+  **Private channels:** To use My AskAI in a private channel, tag `@askai` in that channel and select **Invite** to add the bot.
+
+  The Slack bot searches your My AskAI knowledge base only — it does not search your Slack message history. The bot name cannot currently be changed from "My AskAI".
+</Accordion>
+
+---
+
+## Build a Custom Integration
+
+If none of the channels above fit your needs, you can build a fully custom integration using the My AskAI API. Pass any question as an input and receive an AI answer with reference sources as an output — suitable for embedding My AskAI into any internal tool, website, or workflow.
+
+See the [API Documentation](/api/introduction) for details on the Query API and Chat API.

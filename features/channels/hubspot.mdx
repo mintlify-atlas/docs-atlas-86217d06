@@ -1,0 +1,169 @@
+---
+title: "HubSpot Integration Guide: AI Agent for Service Hub"
+sidebarTitle: "HubSpot"
+description: "Connect My AskAI to HubSpot Service Hub for conversational AI, CRM lead capture, playbooks, and escalation to your HubSpot inbox."
+---
+
+My AskAI connects directly to HubSpot's Service Hub conversations, turning your HubSpot live chat into an AI-first support experience. The AI agent can reply directly to customers, draft internal notes for your agents to send, and automatically log conversations to your CRM — all without writing a single line of code. The integration is available on all paid My AskAI plans.
+
+<Note>
+  My AskAI works with **HubSpot Service Hub** (conversations). It does not currently create tickets in the HubSpot Ticketing System. You must be a **HubSpot Super Admin** to install the app, although the app itself does not obtain Super Admin rights.
+</Note>
+
+## Required HubSpot Permissions
+
+When you connect My AskAI, it requests only two OAuth scopes:
+
+- `conversations.read`
+- `conversations.write`
+
+No other data in your HubSpot account is accessed.
+
+---
+
+## Connecting My AskAI to HubSpot
+
+<Steps>
+  <Step title="Open Channels in My AskAI">
+    Log in to your Dashboard and go to **Channels**. Under "Add to helpdesk", click the **HubSpot** icon.
+  </Step>
+  <Step title="Connect your HubSpot account">
+    Click **Connect your HubSpot account**. If you're not already logged into HubSpot, you'll be prompted to sign in.
+  </Step>
+  <Step title="Select your account">
+    Select the HubSpot account you want to connect and click **Choose Account**. Confirm the connection — you'll be redirected back to My AskAI.
+  </Step>
+  <Step title="Choose a reply mode">
+    By default, My AskAI creates **draft note replies** (internal notes only agents see). To have the AI reply directly to customers, go to **Channels > HubSpot** and toggle **Direct replies** on.
+  </Step>
+  <Step title="Disable HubSpot's native knowledge base search (recommended)">
+    In HubSpot, disable the "Knowledge base search" option within any Chatflows to prevent duplicate or conflicting answers. Navigate to your Chatflow settings to find this option.
+  </Step>
+  <Step title="Set availability to 24/7 (recommended)">
+    Update your chat availability: **Conversations > Inbox > Inbox Settings > Channels: Chat > Edit**, then set availability to 24/7 and remove "Typical reply time" messaging.
+  </Step>
+  <Step title="Test the integration">
+    Send a test message to your HubSpot live chat. You should see either a direct AI reply or a draft note appear within seconds.
+  </Step>
+</Steps>
+
+<Tip>
+  To customise the AI agent's name and profile picture in HubSpot, create a dedicated HubSpot user account for the AI agent (it must be a Super Admin account). Then disconnect and reconnect HubSpot using that account's credentials.
+</Tip>
+
+---
+
+## Reply Modes
+
+<CardGroup cols={2}>
+  <Card title="Direct Replies" icon="paper-plane">
+    The AI responds to customers in real time. When direct replies are on, the AI automatically assigns conversations to itself so your team's "Unassigned" queue stays clean and focused on conversations needing human attention.
+  </Card>
+  <Card title="Draft Note Replies" icon="note-sticky">
+    The AI creates an internal note after each customer message containing a suggested response. Agents review, edit if needed, and send. Default mode when you first connect.
+  </Card>
+</CardGroup>
+
+You can configure **different reply modes for chat and email separately**. Go to **Dashboard > Helpdesk & Channels > HubSpot > Type of Replies** to set each independently.
+
+<Tip>
+  To stop AI notes for a specific conversation, add a **comment** (not a Reply — the customer must not see it) with the text `Stop writing AI notes`. You can save this as a HubSpot Snippet for easy reuse.
+</Tip>
+
+---
+
+## Lead Capture & CRM Logging
+
+When visitors chat with your AI agent via HubSpot, their conversation is already inside your HubSpot inbox and associated with your CRM. To collect email addresses from anonymous visitors during a conversation:
+
+- Follow the [Escalation Data Collection](/features/human-escalation) guide to prompt visitors for their email when they request to speak to a human.
+- Use the **auto-close** feature to close resolved conversations and trigger HubSpot's contact-creation flow from the data captured.
+
+All conversations handled by the AI agent are visible in your HubSpot inbox and are associated with existing contacts automatically when a known email is detected.
+
+---
+
+## Human Escalation
+
+When a user says "Talk to a person" (or similar phrases), or the AI cannot answer a question, the conversation escalates automatically. On escalation:
+
+- The AI stops responding immediately and will not resume (unlike some other integrations, **conversations in HubSpot cannot be passed back to the AI** once escalated).
+- A summary note is added to the conversation for the incoming agent.
+- The AI **unassigns itself** from the conversation so it appears in the "Unassigned" inbox queue for your team.
+
+<Warning>
+  Once a conversation has been escalated or handed over in HubSpot, it **cannot be passed back to the AI agent**. Plan your escalation workflows accordingly.
+</Warning>
+
+To take control manually at any time (without waiting for a customer request), add a **note** to the conversation with `Stop AI replies`. The AI will immediately stop responding.
+
+---
+
+## HubSpot Playbooks
+
+Playbooks are pre-configured workflow and filtering scenarios to extend My AskAI's behaviour within HubSpot.
+
+<Accordion title="Restrict AI to certain topics only">
+  To ensure the AI only handles specific query types, use one of these approaches:
+
+  1. Add **Handover & Escalation Guidance** in My AskAI (**AI Agent Setup > Guidance**) to instruct the AI to hand over any question it's not supposed to answer.
+  2. Create a separate **path in your HubSpot Chatflow** where users self-select non-AI topics, routing them directly to a human inbox without ever engaging the AI agent.
+</Accordion>
+
+<Accordion title="Triage chatflow setup">
+  To have the AI only engage after a customer selects an option in a HubSpot Chatflow:
+
+  1. Connect My AskAI to HubSpot.
+  2. Turn on the **Chatflow/Triage** toggle in **Channels > HubSpot**.
+  3. Define a trigger phrase (e.g. "Chat with AI assistant") that exactly matches a button option in your HubSpot Chatflow.
+  4. Add a final **"Send to team member"** step in your Chatflow (assign to no one) with a message prompting the user for their question.
+  5. Disable "Open responses" in your initial welcome message Chatflow step.
+
+  The AI will now only respond after the user clicks the AI chat button.
+
+  <Warning>
+    The trigger phrase must **exactly** match the button text in your Chatflow — including capitalisation and punctuation.
+  </Warning>
+</Accordion>
+
+<Accordion title="Auto-close inactive conversations">
+  To automatically close conversations that go quiet after the AI responds:
+
+  1. Go to **Dashboard > Helpdesk & Channels > HubSpot > Auto-close inactive conversations**.
+  2. Toggle it on and set your desired time period (e.g. 10 minutes).
+
+  The timer resets after each AI reply. If the customer hasn't responded within the window after the last AI message, the conversation is closed.
+
+  <Warning>
+    By default, HubSpot does not allow customers to reply to a closed conversation. Set a longer auto-close timer if you want to allow customers to follow up after a delay.
+  </Warning>
+
+  Only use auto-close when **Direct replies** mode is active. It is not recommended with note replies.
+</Accordion>
+
+<Accordion title="Filter by channel (live chat, email, WhatsApp, etc.)">
+  By default the AI responds to all channels in your HubSpot inbox. To restrict it to specific channels, go to **Dashboard > Channels > HubSpot > Configure** and select only the channels you want the AI to handle:
+
+  - Live Chat
+  - Facebook Messenger
+  - Email
+  - WhatsApp
+  - SMS
+  - Customer Portal Thread
+</Accordion>
+
+<Accordion title="Multiple brands or email accounts">
+  To restrict the AI to specific email addresses (e.g. `support@company.com` but not `vip-support@company.com`), go to **AI Agent Setup** and add the specific email accounts you want the AI to respond to. For chat, use Chatflow filtering to route only certain brands or conversation types to the AI.
+</Accordion>
+
+---
+
+## Additional Settings
+
+| Setting | Location | Notes |
+|---|---|---|
+| Separate reply modes for chat / email | **Channels > HubSpot > Type of Replies** | Configure direct vs. note replies independently |
+| Prevent immediate escalation | **Channels > HubSpot** | On by default |
+| Pause AI agent | **Channels > HubSpot** | Temporarily stop all replies without disconnecting |
+| Hide "Just thinking…" message | **Channels > HubSpot** | Toggle off the thinking indicator |
+| First email reply delay | Not available natively — contact support | |
