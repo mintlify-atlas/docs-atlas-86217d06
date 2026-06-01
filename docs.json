@@ -34,19 +34,6 @@
             ]
           },
           {
-            "group": "Setup",
-            "pages": [
-              "start-here/add-your-ai-agent-to-your-website",
-              "start-here/testing",
-              "start-here/support"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "Features",
-        "groups": [
-          {
             "group": "Core Features",
             "pages": [
               "features/ai-answers-on-your-content",
@@ -81,6 +68,30 @@
             ]
           },
           {
+            "group": "FAQ",
+            "pages": [
+              "faq/general",
+              "faq/ai-and-accuracy",
+              "faq/integrations-and-setup"
+            ]
+          },
+          {
+            "group": "Troubleshooting",
+            "pages": [
+              "troubleshooting/how-to-debug-an-ai-answer",
+              "troubleshooting/common-issues",
+              "troubleshooting/login-and-billing"
+            ]
+          },
+          {
+            "group": "Setup",
+            "pages": [
+              "start-here/add-your-ai-agent-to-your-website",
+              "start-here/testing",
+              "start-here/support"
+            ]
+          },
+          {
             "group": "Content & Knowledge",
             "pages": [
               "features/adding-and-syncing-content",
@@ -89,12 +100,7 @@
               "features/file-uploads",
               "features/site-search"
             ]
-          }
-        ]
-      },
-      {
-        "tab": "Account & Billing",
-        "groups": [
+          },
           {
             "group": "Account Management",
             "pages": [
@@ -126,27 +132,6 @@
               "api/query-api",
               "api/chat-api",
               "api/user-data-api"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "Help",
-        "groups": [
-          {
-            "group": "Troubleshooting",
-            "pages": [
-              "troubleshooting/how-to-debug-an-ai-answer",
-              "troubleshooting/common-issues",
-              "troubleshooting/login-and-billing"
-            ]
-          },
-          {
-            "group": "FAQ",
-            "pages": [
-              "faq/general",
-              "faq/ai-and-accuracy",
-              "faq/integrations-and-setup"
             ]
           }
         ]
